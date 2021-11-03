@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.MyPointRepository">
+    <select id="myPointHistory" parameterType="map" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+         SELECT * FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY MP.MP_SEQ DESC) RNUM,
+                MP.MP_CODE,
+                MP.MP_OMNUM,
+                MP.MP_TITLE,
+                MP.MP_ETITLE,
+                MP.MP_SDATE,
+                MP.MP_EDATE,
+                MP.MP_AMOUNT,
+                MP.REG_DTTM,
+                MP.MP_TYPE
+                FROM TB_KFO_MBS_POINT MP
+            WHERE MP.MP_USERID = #{userId}
+            ORDER BY MP.MP_SEQ DESC
+        )
+        WHERE RNUM BETWEEN  #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+    </select>
+
+    <select id="myPointHistoryOrderTitle" parameterType="String" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        SELECT MP_TITLE, MP_ETITLE, TOTALMONEY, PAYMONEY, COUPONMONEY, OMCOUNT FROM (
+            SELECT
+            PR.PR_NAME AS MP_TITLE,
+            PR.PR_NAME1 AS MP_ETITLE,
+            OS.OS_SERIAL,
+            SUM(OS.OS_SALEMONEY * OS.OS_EA) OVER (ORDER BY OS.OS_OMNUM) AS TOTALMONEY,
+            SUM(OS.OS_CARDMONEY + OS.OS_ACCOUNTMONEY + OS.OS_KAKAOMONEY + OS.OS_PAYPALMONEY) OVER (ORDER BY OS.OS_OMNUM) AS PAYMONEY,
+            SUM(OS.OS_COUPONMONEY) OVER (ORDER BY OS.OS_OMNUM) AS COUPONMONEY,
+            (COUNT(DISTINCT OS_PRCODE) OVER (PARTITION BY OS_OMNUM)) AS OMCOUNT
+            FROM ORDERSUB OS
+                INNER JOIN PRODUCT PR ON OS.OS_PRCODE = PR.PR_CODE
+            WHERE OS.OS_OMNUM = #{omNum}
+                AND OS.OS_PRCODE IS NOT NULL
+            )A
+        WHERE A.OS_SERIAL = 1
+    </select>
+
+    <insert id="myPointInsert" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        INSERT INTO TB_KFO_MBS_POINT (
+        MP_USERID,
+        MP_CODE,
+        MP_OMNUM,
+        MP_TITLE,
+        MP_ETITLE,
+        MP_SDATE,
+        MP_EDATE,
+        MP_AMOUNT,
+        MP_REST,
+        MP_TYPE,
+        REG_DTTM,
+        MP_SEQ
+        )
+        VALUES (
+        #{ MP_USERID, jdbcType=VARCHAR},
+        #{ MP_CODE, jdbcType=VARCHAR },
+        #{ MP_OMNUM, jdbcType=VARCHAR },
+        'Gift',
+        'Gift',
+        TO_DATE(TO_CHAR(#{MP_SDATE}, 'YYYY/MM/DD HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS'),
+        TO_DATE(TO_CHAR(#{MP_EDATE}, 'YYYY/MM/DD HH24:MI:SS'), 'YYYY/MM/DD HH24:MI:SS'),
+        #{ MP_AMOUNT, jdbcType=NUMERIC },
+        #{ MP_REST, jdbcType=NUMERIC },
+        'G',
+        SYSDATE,
+        SEQ_POINT_ID.NEXTVAL
+        )
+    </insert>
+
+    <select id="getMyPointInfo" parameterType="String" resultType="map">
+        SELECT mp.*, (SELECT NVL(SUM(MP_REST), 0) AS TOTALMONEY FROM TB_KFO_MBS_POINT WHERE MP_USERID = #{userId} AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> MP_EDATE) AS RESTTOTAL
+          FROM (
+          SELECT SUM(MP_REST) AS MP_REST, TO_DATE(TO_CHAR(edate, 'YYYY.MM.DD'), 'YYYY.MM.DD') AS MP_EDATE
+            FROM (
+              SELECT MP_REST, MP_EDATE as edate
+              FROM TB_KFO_MBS_POINT
+              WHERE MP_USERID = #{userId}
+                AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> MP_EDATE
+                AND MP_REST != 0
+          )
+          GROUP BY TO_CHAR(edate, 'YYYY.MM.DD')
+          ORDER BY TO_CHAR(edate, 'YYYY.MM.DD') ASC
+        )mp
+        WHERE ROWNUM = 1
+    </select>
+
+    <select id="myPointHistoryAllCount" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM TB_KFO_MBS_POINT
+        WHERE MP_USERID = #{userId}
+    </select>
+
+    <!-- 2017.10.17 (s) -->
+    <select id="getAvailablePointByUser" parameterType="String" resultType="double">
+        select NVL(sum(mp_rest), 0)
+        from tb_kfo_mbs_point
+        where mp_userid = #{userId}
+          AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> MP_EDATE
+          AND mp_type not in ('R')
+    </select>
+
+    <select id="listAvailablePointByUser" parameterType="String" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        select mp_seq, mp_userid, mp_code, mp_title, mp_sdate, mp_edate, mp_amount, mp_type, mp_rest
+        from tb_kfo_mbs_point
+        where mp_userid = #{userId}
+        AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> MP_EDATE
+        AND mp_type not in ('R')
+        order by mp_edate asc
+    </select>
+
+    <select id="listAddablePointByUser" parameterType="String" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        select mp_seq, mp_userid, mp_code, mp_title, mp_sdate, mp_edate, mp_amount, mp_type, mp_rest
+        from tb_kfo_mbs_point
+        where mp_userid = #{userId}
+        AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> MP_EDATE
+        and mp_rest != mp_amount
+		and MP_AMOUNT > 0
+        order by mp_edate desc
+    </select>
+
+    <select id="getMaxSeqMemberPoint" resultType="int">
+        SELECT NVL(MAX(MP_SEQ), 0) + 1  FROM TB_KFO_MBS_POINT
+    </select>
+
+    <update id="modifyPointByUse" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        UPDATE TB_KFO_MBS_POINT
+        SET
+        MP_REST = #{ MP_REST },
+        UPD_DTTM = SYSDATE
+        WHERE MP_SEQ = #{ MP_SEQ }
+    </update>
+
+    <insert id="registPointByUser" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        INSERT INTO TB_KFO_MBS_POINT
+        (
+        MP_USERID,
+        MP_CODE,
+        MP_OMNUM,
+        MP_TITLE,
+        MP_ETITLE,
+        MP_SDATE,
+        MP_EDATE,
+        MP_AMOUNT,
+        MP_REST,
+        MP_TYPE,
+        MP_SEQ,
+        UPD_DTTM
+        ) VALUES (
+        #{MP_USERID, jdbcType=VARCHAR},
+        #{MP_CODE, jdbcType=VARCHAR},
+        #{MP_OMNUM, jdbcType=VARCHAR},
+        #{MP_TITLE, jdbcType=VARCHAR},
+        #{MP_ETITLE, jdbcType=VARCHAR},
+        <choose>
+            <when test='MP_TYPE == "U" ' >
+                SYSDATE,
+                SYSDATE,
+                -(abs(NVL(#{MP_AMOUNT, jdbcType=NUMERIC}, 0))),
+                0 ,
+            </when>
+            <when test='MP_TYPE == "O" or MP_TYPE == "G" ' >
+                SYSDATE,
+                #{MP_EDATE, jdbcType=DATE},
+                #{MP_AMOUNT},
+                #{MP_AMOUNT} ,
+            </when>
+            <otherwise>
+                #{MP_SDATE, jdbcType=DATE},
+                #{MP_EDATE, jdbcType=DATE},
+                #{MP_AMOUNT, jdbcType=NUMERIC},
+                #{MP_REST, jdbcType=NUMERIC},
+            </otherwise>
+        </choose>
+        #{MP_TYPE, jdbcType=VARCHAR},
+        SEQ_POINT_ID.NEXTVAL,
+        SYSDATE
+        )
+    </insert>
+
+    <!-- 2017.10.17 (e) -->
+
+    <insert id="usrPointExpirationListInsert">
+        INSERT INTO TB_KFO_MBS_POINT (
+            MP_SEQ,
+            MP_USERID,
+            MP_CODE,
+            MP_OMNUM,
+            MP_TITLE,
+            MP_ETITLE,
+            MP_SDATE,
+            MP_EDATE,
+            MP_TYPE,
+            MP_AMOUNT,
+            MP_REST,
+            REG_DTTM,
+            MP_LINK_SEQ
+        ) ( SELECT
+            SEQ_POINT_ID.NEXTVAL,
+            MP_USERID,
+            MP_CODE,
+            MP_OMNUM,
+            MP_TITLE,
+            MP_ETITLE,
+            MP_SDATE,
+            MP_EDATE,
+            'P' MP_TYPE,
+            MP_REST * (-1) MP_AMOUNT,
+            MP_REST * (-1) MP_REST,
+            SYSDATE REG_DTTM,
+            MP_SEQ
+            FROM TB_KFO_MBS_POINT
+            WHERE MP_TYPE IN ('C', 'G', 'O')
+                AND MP_REST != 0
+                AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') -1 <![CDATA[<=]]> MP_EDATE
+                AND MP_EDATE <![CDATA[<]]> TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+          )
+    </insert>
+
+    <select id="usrPointExpirationList" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        SELECT
+        MP_USERID,
+        MP_CODE,
+        MP_OMNUM,
+        MP_TITLE,
+        MP_ETITLE,
+        MP_SDATE,
+        MP_EDATE,
+        MP_TYPE,
+        MP_AMOUNT,
+        MP_REST,
+        REG_DTTM,
+        MP_SEQ
+        FROM TB_KFO_MBS_POINT
+        WHERE MP_TYPE IN ('C', 'G', 'O')
+        AND MP_REST != 0
+        AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') -1 <![CDATA[<=]]> MP_EDATE
+        AND MP_EDATE <![CDATA[<]]> TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+    </select>
+</mapper>

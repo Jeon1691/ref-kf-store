@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.order.OrderMainRepository">
+	<!-- start of select -->
+	<select id="select" resultType="com.kakaofriends.front.domain.order.OrderMainData">
+		SELECT
+			OM_SEQ AS omSeq,
+			OM_NUM AS omNum,
+			OM_PGTID AS omPgtId,
+			OM_OWNERID AS omOwnerId,
+			OM_OWNERNAME AS omOwnerName,
+			OM_COUPONMONEY AS omCouponMoney,
+			OM_POINTMONEY AS omPointMoney,
+			OM_ACCOUNTMONEY AS omAccountMoney,
+			OM_CARDMONEY AS omCardMoney,
+			OM_KAKAOMONEY AS omKakaoMoney,
+			OM_PAYPALMONEY AS omPaypalMoney,
+			OM_DELIVERYMONEY AS omDeliveryMoney,
+			OM_STATUS AS omStatus,
+			OM_DELITYPE AS omDeliType,
+			OM_DELIMOENYUSE AS omDeliMoenyUse,
+			OM_DELIMEMO AS omDeliMemo,
+			OM_ACCESSTYPE AS omAccessType,
+			OM_DELIINOUTTYPE AS omDeliInOutType,
+			OM_MOID AS omMoId,
+			OM_INID AS omInId,
+			OM_MODATE AS omMoDate,
+			OM_INDATE AS omInDate,
+			OM_PAYTYPE AS omPayType,
+			OM_EXCHANGERATE AS omExchangeRate,
+			OM_LANGUAGE AS language,
+			OM_REFERER AS referer
+		FROM
+			ORDERMAIN
+		WHERE
+			OM_NUM = #{orderNumber}
+	</select>
+
+	<!-- start of insert -->
+	<insert id="insert" parameterType="com.kakaofriends.front.domain.order.OrderMainData">
+		INSERT INTO ordermain (
+			om_seq
+			, om_num
+			, om_pgtid
+			, om_ownerid
+			, om_ownername
+			, om_couponmoney
+			, om_pointmoney
+			, om_accountmoney
+			, om_cardmoney
+			, om_kakaomoney
+			, om_paypalmoney
+			, om_deliverymoney
+			, om_status
+			, om_delitype
+			, om_delimoenyuse
+			, om_delimemo
+			, om_accesstype
+			, om_deliinouttype
+			, om_moid
+			, om_inid
+			, om_modate
+			, om_indate
+			, om_paytype
+			, om_exchangerate
+			, om_language
+			, om_referer
+		) VALUES (
+			ordermainseq.nextval
+			, #{omNum}
+			, #{omPgtId}
+			, #{omOwnerId}
+			, #{omOwnerName}
+			, #{omCouponMoney}
+			, #{omPointMoney}
+			, #{omAccountMoney}
+			, #{omCardMoney}
+			, #{omKakaoMoney}
+			, #{omPaypalMoney}
+			, #{omDeliveryMoney}
+			, #{omStatus}
+			, #{omDeliType}
+			, #{omDeliMoenyUse}
+			, #{omDeliMemo}
+			, #{omAccessType}
+			, #{omDeliInOutType}
+			, #{omMoId}
+			, #{omInId}
+			, sysdate
+			, sysdate
+			, #{omPayType}
+			, #{omExchangeRate}
+			, #{language}
+			, #{referer}
+		)
+	</insert>
+</mapper>

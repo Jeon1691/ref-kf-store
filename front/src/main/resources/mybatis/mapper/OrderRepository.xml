@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.OrderRepository">
+
+	<resultMap id="OrderSheetExpansionMap" type="OrderSheetExpansion">
+		<result property="bsSeq" column="BS_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="bsPrOption" column="BS_PROPTION" javaType="string" jdbcType="VARCHAR"/>
+		<result property="bsEa" column="BS_EA" javaType="long" jdbcType="INTEGER"/>
+		<result property="bsCtSeq" column="BS_CTSEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="bsEtc5" column="BS_ETC5" javaType="string" jdbcType="VARCHAR" />
+		<result property="displayGoodsId" column="DISPLAY_GOODS_ID" javaType="long" jdbcType="INTEGER" />
+		<result property="product.prCode" column="PR_CODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prsCpCode" column="PR_SPRCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscountsDate" column="PR_DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscounteDate" column="PR_DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prForeigndeliyn" column="PR_FOREIGNDELIYN" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prKrview" column="PR_KRVIEW" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prType" column="PR_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prWeight" column="PR_WEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prHeight" column="PR_WIDTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prWidth" column="PR_HEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prDepth" column="PR_DEPTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpSupplyprice" column="PRLP_SUPPLYPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="PRLP_SALEPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="PRLP_DISCOUNTPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="stEa" column="ST_EA" javaType="long" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<select id="getPaypalSaleIdByTid" resultType="string">
+		SELECT OM_PAYPALSALEID from ORDERMAIN where OM_PGTID = #{tid, jdbcType=VARCHAR}
+	</select>
+
+	<select id="findByOrderSheetCodeListFromBasketSeq" parameterType="map" resultMap="OrderSheetExpansionMap">
+		SELECT
+		BS.BS_SEQ,
+		BS.BS_PROPTION,
+		BS.BS_EA,
+		BS.BS_CTSEQ,
+		BS.BS_ETC5,
+		BS.DISPLAY_GOODS_ID,
+		CT.CT_NAME,
+		-- 			PRD.PRD_ETC1,
+		-- 			PRD.PRD_TYPE,
+		PR.PR_CODE,
+		PR.PR_NAME,
+		PR.PR_NAME1,
+		PR.PR_SPRCODE,
+		PR.PR_IMAGE1,
+		PR.PR_IMAGE12,
+		PR.PR_DISCOUNTSDATE,
+		PR.PR_DISCOUNTEDATE,
+		PR.PR_KRVIEW,
+		PR.PR_TYPE,
+		PR.PR_WEIGHT,
+		PR.PR_WIDTH,
+		PR.PR_HEIGHT,
+		PR.PR_DEPTH,
+		PRLP.PRLP_SUPPLYPRICE,
+		PRLP.PRLP_SALEPRICE1,
+		PRLP.PRLP_DISCOUNTPRICE1,
+		ROUND(PRLP.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE,
+		ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+		NVL( PR.PR_FOREIGNDELIYN, 'N' ) AS PR_FOREIGNDELIYN,
+		ST.AVAILABLE_STOCK AS ST_EA
+		FROM
+		BASKET BS
+		INNER JOIN PRODUCT PR ON BS.BS_PRCODE = PR.PR_CODE
+		INNER JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+		LEFT OUTER JOIN CATEGORY CT ON CT.CT_SEQ = BS.BS_CTSEQ
+		INNER JOIN TB_KFO_STOCK ST ON ST.PRODUCT_ID = BS.BS_PRCODE AND DOMESTIC = #{domestic}
+		-- 			LEFT OUTER JOIN PRODUCTDISPLAY PRD ON PRD.PRD_PRCODE = PR.PR_CODE
+		WHERE
+		BS_OWNERID = #{ownerId} AND
+		BS_USE = 'Y' AND
+		BS.BS_SEQ IN
+		<foreach collection="orderSheetBsSeqList" item="orderSheetBsSeq" open="(" separator="," close=")">
+			#{orderSheetBsSeq}
+		</foreach>
+		ORDER BY BS.BS_SEQ DESC
+	</select>
+</mapper>

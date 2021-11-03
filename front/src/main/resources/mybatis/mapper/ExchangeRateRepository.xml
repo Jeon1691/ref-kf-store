@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.ExchangeRateRepository">
+
+	<select id="getExchangeRate" resultType="float">
+		SELECT KRW FROM EXCHANGERATE WHERE CURRENCY = #{currency}
+	</select>
+
+	<select id="updateDefaultOrderMainExchangeRate" >
+		update ordermain set OM_EXCHANGERATE = 1.00 where OM_EXCHANGERATE is null
+	</select>
+
+	<select id="updateDefaultOrderSubExchangeRate" >
+		update ordersub set OS_EXCHANGERATE = 1.00 where OS_EXCHANGERATE is null
+	</select>
+
+</mapper>

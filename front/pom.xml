@@ -1,0 +1,195 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>kakaofriends</artifactId>
+        <groupId>com.kakaofriends</groupId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>front</artifactId>
+    <groupId>com.kakaofriends</groupId>
+    <packaging>war</packaging>
+    <name>front</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <log4j.version>1.2.17</log4j.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>INICrypto</groupId>
+            <artifactId>INICrypto</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/INICrypto_v3.1.7_signed.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>INIpay50</groupId>
+            <artifactId>INIpay50</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/INIpay50.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>jsr173</groupId>
+            <artifactId>jsr173</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/jsr173_1.0_api.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cnspay_lite</groupId>
+            <artifactId>cnspay_lite-0.1.2.0</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/cnspay_lite-0.1.2.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>connectMPay</groupId>
+            <artifactId>connectMPay_v2.1jar</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/connectMPay_v2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>mpay_merchant_encoder</groupId>
+            <artifactId>mpay_merchant_encoder_1.0.jar</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mpay_merchant_encoder_1.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>mpay_shopping_merchant</groupId>
+            <artifactId>mpay_shopping_merchant_v0.4.11.jar</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mpay_shopping_merchant_v0.4.11.jar</systemPath>
+        </dependency>
+
+       <!-- <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc7.jar</systemPath>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.github.noraui/ojdbc7 -->
+        <dependency>
+            <groupId>com.github.noraui</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <!-- Validation Lib-->
+        <!-- https://mvnrepository.com/artifact/org.passay/passay -->
+        <dependency>
+            <groupId>org.passay</groupId>
+            <artifactId>passay</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
+        <!-- Validation Lib-->
+
+        <!-- Spring session -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+            <version>1.3.1.RELEASE</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>biz.paluch.redis</groupId>
+            <artifactId>lettuce</artifactId>
+            <version>3.5.0.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper.extensions</groupId>
+            <artifactId>modelmapper-jackson</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.mobile/spring-mobile-device -->
+        <dependency>
+            <groupId>org.springframework.mobile</groupId>
+            <artifactId>spring-mobile-device</artifactId>
+            <version>1.1.5.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>1.5.8.RELEASE</version>
+        </dependency>
+
+
+
+
+
+
+    </dependencies>
+
+
+
+
+
+    <build>
+        <finalName>service_kakaofriends_front</finalName>
+    </build>
+</project>

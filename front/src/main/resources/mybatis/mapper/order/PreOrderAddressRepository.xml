@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.order.PreOrderAddressRepository">
+	<!-- start of select -->
+	<select id="select" resultType="com.kakaofriends.front.domain.order.PreOrderAddressData">
+		SELECT
+			ORDER_ID AS orderId,
+			USE AS use,
+			NAME AS name,
+			ADDRESS1 AS address1,
+			ADDRESS2 AS address2,
+			ADDRESS3 AS address3,
+			ZIP_CODE AS zipCode,
+			PHONE AS phone,
+			EMAIL AS email,
+			COUNTRY AS country,
+			DOMESTIC AS domestic,
+			DELIVERY_MEMO AS deliveryMemo,
+			BUYER_NAME AS buyerName,
+			BUYER_PHONE AS buyerPhone,
+			BUYER_EMAIL AS buyerEmail,
+			BUYER_COUNTRY AS buyerCountry,
+			ADDRESS_TYPE AS addressType,
+			CREATE_ID AS createId,
+			UPDATE_ID AS updateId,
+			CREATE_DATE AS createDate,
+			UPDATE_DATE AS updateDate
+		FROM
+			TB_KFO_ORDER_ADDRESS
+		WHERE
+			ORDER_ID = #{orderNumber}
+	</select>
+
+	<!-- start of insert -->
+	<insert id="insert">
+		INSERT INTO TB_KFO_ORDER_ADDRESS (
+			ORDER_ID,
+			NAME,
+			ADDRESS1,
+			ADDRESS2,
+			ADDRESS3,
+			ZIP_CODE,
+			PHONE,
+			EMAIL,
+			COUNTRY,
+			DOMESTIC,
+			DELIVERY_MEMO,
+			BUYER_NAME,
+			BUYER_PHONE,
+			BUYER_EMAIL,
+			BUYER_COUNTRY,
+			ADDRESS_TYPE,
+			CREATE_ID,
+			UPDATE_ID
+		) VALUES (
+			#{address.orderId},
+			#{address.name},
+			#{address.address1},
+			#{address.address2},
+			#{address.address3},
+			#{address.zipCode},
+			#{address.phone},
+			#{address.email},
+			#{address.country},
+			#{address.domestic},
+			#{address.deliveryMemo},
+			#{address.buyerName},
+			#{address.buyerPhone},
+			#{address.buyerEmail},
+			#{address.buyerCountry},
+			#{address.addressType},
+			#{address.createId},
+			#{address.updateId}
+		)
+	</insert>
+
+	<sql id="selectFieldClause">
+		ORDER_ID,
+		USE,
+		NAME,
+		ADDRESS1,
+		ADDRESS2,
+		ADDRESS3,
+		ZIP_CODE,
+		PHONE,
+		EMAIL,
+		COUNTRY,
+		DOMESTIC,
+		DELIVERY_MEMO,
+		BUYER_NAME,
+		BUYER_PHONE,
+		BUYER_EMAIL,
+		BUYER_COUNTRY,
+		ADDRESS_TYPE,
+		CREATE_ID,
+		UPDATE_ID,
+		CREATE_DATE,
+		UPDATE_DATE
+	</sql>
+</mapper>

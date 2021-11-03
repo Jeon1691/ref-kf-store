@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.OrderTempRepository">
+
+    <resultMap id="OrderSubMobileTempMap" type="OrderSub">
+        <result property="osSeq" column="OSMT_SEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osOmNum" column="OSMT_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osSerial" column="OSMT_SERIAL" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPgtId" column="OSMT_PGTID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osPrCode" column="OSMT_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osScpCode" column="OSMT_SCPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osBcpCode" column="OSMT_BCPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osBdpCode" column="OSMT_BDPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osOwnerId" column="OSMT_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osOwnerName" column="OSMT_OWNERNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osAccountMoney" column="OSMT_ACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osCardMoney" column="OSMT_CARDMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osCouponMoney" column="OSMT_COUPONMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osLaterMoney" column="OSMT_LATERMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osBudgetMoney" column="OSMT_BUDGETMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osSaveMoney" column="OSMT_SAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPointMoney" column="OSMT_POINTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osVirtualAccountMoney" column="OSMT_VIRTUALACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osSaveMoneyPercentage" column="OSMT_SAVEMONEYPERCENTAGE" javaType="int" jdbcType="INTEGER"/>
+        <result property="osNewSaveMoney" column="OSMT_NEWSAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osNewPrSaveMoney" column="OSMT_NEWPRSAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osOriginalMoney" column="OSMT_ORIGINALMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osSaleMoney" column="OSMT_SALEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osTotOriginalMoney" column="OSMT_TOTORIGINALMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osTotSaleMoney" column="OSMT_TOTSALEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osEa" column="OSMT_EA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osOutEa" column="OSMT_OUTEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osInEa" column="OSMT_INEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osBgiSeq" column="OSMT_BGISEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osReleaseNum" column="OSMT_RELEASENUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osOptionName" column="OSMT_OPTIONNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMemo" column="OSMT_MEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundAccount" column="OS_REFUNDACCOUNT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundAccountBank" column="OSMT_REFUNDACCOUNTBANK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundAccountName" column="OSMT_REFUNDACCOUNTNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundStatus" column="OSMT_REFUNDSTATUS" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osCpPayType" column="OSMT_CPPAYTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osVatUse" column="OSMT_VATUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEscRowUse" column="OSMT_ESCROWUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEscRowStatus" column="OSMT_ESCROWSTATUS" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osPartCancelUse" column="OSMT_PARTCANCELUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osBuyCalculate" column="OSMT_BUYCALCULATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osSupplyCalculate" column="OSMT_SUPPLYCALCULATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliType" column="OSMT_DELITYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliPayType" column="OSMT_DELIPAYTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliMoenyUse" column="OSMT_DELIMOENYUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliMemo" column="OSMT_DELIMEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliNum" column="OSMT_DELINUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliBoxEa" column="OSMT_DELIBOXEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPccSeq" column="OSMT_PCCSEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osStatus" column="OSMT_STATUS" javaType="OrderStatusType" typeHandler="OrderStatusTypeHandler"
+                jdbcType="INTEGER"/>
+        <result property="osEtc1" column="OSMT_ETC1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc2" column="OSMT_ETC2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc3" column="OSMT_ETC3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc4" column="OSMT_ETC4" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc5" column="OSMT_ETC5" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc6" column="OSMT_ETC6" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osLevel" column="OSMT_LEVEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osType" column="OSMT_TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osUse" column="OSMT_USE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMoId" column="OSMT_MOID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osInId" column="OSMT_INID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMoDate" column="OSMT_MODATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="osInDate" column="OSMT_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="osDepositAccount" column="OSMT_DEPOSITACCOUNT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountBank" column="OSMT_DEPOSITACCOUNTBANK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountName" column="OSMT_DEPOSITACCOUNTNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osAccessType" column="OSMT_ACCESSTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMinusAccountMoney" column="OSMT_MINUSACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusCardMoney" column="OSMT_MINUSCARDMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusCouponMoney" column="OSMT_MINUSCOUPONMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusLaterMoney" column="OSMT_MINUSLATERMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusBudgetMoney" column="OSMT_MINUSBUDGETMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusSaveMoney" column="OSMT_MINUSSAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusPointMoney" column="OSMT_MINUSPOINTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusVirtualAccountMoney" column="OSMT_MINUSVIRTUALACCOUNTMONEY" javaType="int"
+                jdbcType="INTEGER"/>
+        <result property="osDeliInOutType" column="OSMT_DELIINOUTTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osCardType" column="OSMT_CARDTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountInName" column="OSMT_DEPOSITACCOUNTINNAME" javaType="string"
+                jdbcType="VARCHAR"/>
+        <result property="osDepositAccountInDate" column="OSMT_DEPOSITACCOUNTINDATE" javaType="string"
+                jdbcType="VARCHAR"/>
+        <result property="osDepositAccountInTime" column="OSMT_DEPOSITACCOUNTINTIME" javaType="string"
+                jdbcType="VARCHAR"/>
+        <result property="osCreditCardNum" column="OSMT_CREDITCARDNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osParentPrCode" column="OSMT_PARENTPRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osCtSeq" column="OSMT_CTSEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osCancelReason" column="OSMT_CANCELREASON" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osActAdminId" column="OSMT_ACTADMINID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osKakaoMoney" column="OSMT_KAKAOMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPhoneMoney" column="OSMT_PHONEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osEtc7" column="OSMT_ETC7" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="OrderAddressMobileTempMap" type="OrderAddress">
+        <result property="oaOmNum" column="OAMT_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaOmOsSerial" column="OAMT_OSSERIAL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaName" column="OAMT_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaTel" column="OAMT_TEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaFax" column="OAMT_FAX" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaPhone" column="OAMT_PHONE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaEmail" column="OAMT_EMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaLevel" column="OAMT_LEVEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaZoneCode" column="OAMT_ZONECODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaZipCode" column="OAMT_ZIPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaAddr1" column="OAMT_ADDR1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaAddr2" column="OAMT_ADDR2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaAddr3" column="OAMT_ADDR3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaCountryCode" column="OAMT_COUNTRYCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaCountryName" column="OAMT_COUNTRYNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaDeliName" column="OAMT_DELINAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaDeliMemo" column="OAMT_DELIMEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaType" column="OAMT_TYPE" javaType="DeliInOutType" typeHandler="DeliInOutTypeHandler"
+                jdbcType="VARCHAR"/>
+        <result property="oaUse" column="OAMT_USE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaMoId" column="OAMT_MOID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaInId" column="OAMT_INID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaMoDate" column="OAMT_MODATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="oaInDate" column="OAMT_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="oaOrderErTel" column="OAMT_ORDERERTEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaOrderErEmail" column="OAMT_ORDEREREMAIL" javaType="string" jdbcType="VARCHAR"/>
+
+        <result property="oaBuyerName" column="OAMT_BUYERNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerEmail" column="OAMT_BUYEREMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerPhone" column="OAMT_BUYERPHONE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerCountryCode" column="OAMT_BUYERCOUNTRYCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerCountryName" column="OAMT_BUYERCOUNTRYNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaAddressType" column="OAMT_ADDRESSTYPE" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="OrderMainMobileTempMap" type="OrderMain">
+        <result property="omSeq" column="OMMT_SEQ" javaType="long" jdbcType="INTEGER"/>
+        <result property="omNum" column="OMMT_NUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omPgtId" column="OMMT_PGTID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omOwnerId" column="OMMT_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omOwnerName" column="OMMT_OWNERNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omAccountMoney" column="OMMT_ACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omCouponMoney" column="OMMT_COUPONMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omSaveMoney" column="OMMT_SAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omCardMoney" column="OMMT_CARDMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omLaterMoney" column="OMMT_LATERMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omVirtualAccountMoney" column="OMMT_VIRTUALACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omOriginalMoney" column="OMMT_ORIGINALMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omSaleMoney" column="OMMT_SALEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omNewSaveMoney" column="OMMT_NEWSAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omDeliveryMoney" column="OMMT_DELIVERYMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omStatus" column="OMMT_STATUS" javaType="OrderStatusType" typeHandler="OrderStatusTypeHandler"
+                jdbcType="INTEGER"/>
+        <result property="omActiveStatus" column="OMMT_ACTIVESTATUS" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEtc1" column="OMMT_ETC1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEtc2" column="OMMT_ETC2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEtc3" column="OMMT_ETC3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEtc4" column="OMMT_ETC4" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEtc5" column="OMMT_ETC5" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEtc6" column="OMMT_ETC6" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omLevel" column="OMMT_LEVEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omType" column="OMMT_TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omUse" column="OMMT_USE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omCpPayType" column="OMMT_CPPAYTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEscrowUse" column="OMMT_ESCROWUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omEscrowStatus" column="OMMT_ESCROWSTATUS" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDepositAccount" column="OMMT_DEPOSITACCOUNT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDepositAccountBank" column="OMMT_DEPOSITACCOUNTBANK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDepositAccountName" column="OMMT_DEPOSITACCOUNTNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omRefundAccount" column="OMMT_REFUNDACCOUNT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omRefundAccountBank" column="OMMT_REFUNDACCOUNTBANK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omRefundAccountName" column="OMMT_REFUNDACCOUNTNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliType" column="OMMT_DELITYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliPayType" column="OMMT_DELIPAYTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliMoenyUse" column="OMMT_DELIMOENYUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliMemo" column="OMMT_DELIMEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliNum" column="OMMT_DELINUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliBoxEa" column="OMMT_DELIBOXEA" javaType="short" jdbcType="NUMERIC"/>
+        <result property="omPccSeq" column="OMMT_PCCSEQ" javaType="short" jdbcType="INTEGER"/>
+        <result property="omAccessType" column="OMMT_ACCESSTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliInOutType" column="OMMT_DELIINOUTTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omCardType" column="OMMT_CARDTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omMoId" column="OMMT_MOID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omInId" column="OMMT_INID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omMoDate" column="OMMT_MODATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="omInDate" column="OMMT_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="omPointMoney" column="OMMT_POINTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="omDepositAccountInName" column="OMMT_DEPOSITACCOUNTINNAME" javaType="string"
+                jdbcType="VARCHAR"/>
+        <result property="omDepositAccountInDate" column="OMMT_DEPOSITACCOUNTINDATE" javaType="string"
+                jdbcType="VARCHAR"/>
+        <result property="omDepositAccountInTime" column="OMMT_DEPOSITACCOUNTINTIME" javaType="string"
+                jdbcType="VARCHAR"/>
+        <result property="omCreditCardNum" column="OMMT_CREDITCARDNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omCreditCardCode" column="OMMT_CREDITCARDCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omAccountBankCode" column="OMMT_ACCOUNTBANKCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omPayType" column="OMMT_PAYTYPE" javaType="PayType" typeHandler="PayTypeHandler"
+                jdbcType="VARCHAR"/>
+        <result property="omActAdminId" column="OMMT_ACTADMINID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omGiftPrCode" column="OMMT_GIFTPRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omGiftPrName" column="OMMT_GIFTPRNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omGiftPrName1" column="OMMT_GIFTPRNAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omGiftPrName2" column="OMMT_GIFTPRNAME2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omKakaoMoney" column="OMMT_KAKAOMONEY" javaType="float" jdbcType="INTEGER"/>
+        <result property="omPhoneMoney" column="OMMT_PHONEMONEY" javaType="float" jdbcType="INTEGER"/>
+        <result property="omCoupon" column="OMMT_COUPON" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omPhoneNum" column="OMMT_PHONENUM" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="orderMainMobileTempInsert" parameterType="com.kakaofriends.core.domain.OrderMain">
+        INSERT INTO ORDERMAINMOBILETEMP (
+        OMMT_SEQ,
+        OMMT_NUM,
+        OMMT_PGTID,
+        OMMT_OWNERID,
+        OMMT_OWNERNAME,
+        OMMT_ACCOUNTMONEY,
+        OMMT_COUPONMONEY,
+        OMMT_SAVEMONEY,
+        OMMT_CARDMONEY,
+        OMMT_LATERMONEY,
+        OMMT_VIRTUALACCOUNTMONEY,
+        OMMT_ORIGINALMONEY,
+        OMMT_SALEMONEY,
+        OMMT_NEWSAVEMONEY,
+        OMMT_DELIVERYMONEY,
+        OMMT_STATUS,
+        OMMT_ACTIVESTATUS,
+        OMMT_ETC1,
+        OMMT_ETC2,
+        OMMT_ETC3,
+        OMMT_ETC4,
+        OMMT_ETC5,
+        OMMT_ETC6,
+        OMMT_LEVEL,
+        OMMT_TYPE,
+        OMMT_USE,
+        OMMT_CPPAYTYPE,
+        OMMT_ESCROWUSE,
+        OMMT_ESCROWSTATUS,
+        OMMT_DEPOSITACCOUNT,
+        OMMT_DEPOSITACCOUNTBANK,
+        OMMT_DEPOSITACCOUNTNAME,
+        OMMT_REFUNDACCOUNT,
+        OMMT_REFUNDACCOUNTBANK,
+        OMMT_REFUNDACCOUNTNAME,
+        OMMT_DELITYPE,
+        OMMT_DELIPAYTYPE,
+        OMMT_DELIMOENYUSE,
+        OMMT_DELIMEMO,
+        OMMT_DELINUM,
+        OMMT_DELIBOXEA,
+        OMMT_PCCSEQ,
+        OMMT_ACCESSTYPE,
+        OMMT_DELIINOUTTYPE,
+        OMMT_CARDTYPE,
+        OMMT_MOID,
+        OMMT_INID,
+        OMMT_MODATE,
+        OMMT_INDATE,
+        OMMT_POINTMONEY,
+        OMMT_DEPOSITACCOUNTINNAME,
+        OMMT_DEPOSITACCOUNTINDATE,
+        OMMT_DEPOSITACCOUNTINTIME,
+        OMMT_CREDITCARDNUM,
+        OMMT_CREDITCARDCODE,
+        OMMT_ACCOUNTBANKCODE,
+        OMMT_PAYTYPE,
+        OMMT_ACTADMINID,
+        OMMT_GIFTPRCODE,
+        OMMT_GIFTPRNAME,
+        OMMT_GIFTPRNAME1,
+        OMMT_GIFTPRNAME2,
+        OMMT_KAKAOMONEY,
+        OMMT_PHONEMONEY,
+        OMMT_COUPON,
+        OMMT_PHONENUM
+        ) VALUES (
+        ordermainseq.nextval,
+        #{omNum, jdbcType=VARCHAR},
+        #{omPgtId, jdbcType=VARCHAR},
+        #{omOwnerId, jdbcType=VARCHAR},
+        TRIM(#{omOwnerName, jdbcType=VARCHAR }),
+        #{omAccountMoney, jdbcType=NUMERIC },
+        #{omCouponMoney, jdbcType=NUMERIC },
+        #{omSaveMoney, jdbcType=NUMERIC },
+        #{omCardMoney, jdbcType=NUMERIC },
+        #{omLaterMoney, jdbcType=NUMERIC },
+        #{omVirtualAccountMoney, jdbcType=NUMERIC },
+        #{omOriginalMoney, jdbcType=NUMERIC },
+        #{omSaleMoney, jdbcType=NUMERIC },
+        #{omNewSaveMoney, jdbcType=NUMERIC },
+        #{omDeliveryMoney, jdbcType=NUMERIC },
+        #{omStatus, jdbcType=NUMERIC },
+        #{omActiveStatus, jdbcType=VARCHAR },
+        #{omEtc1, jdbcType=VARCHAR },
+        #{omEtc2, jdbcType=VARCHAR },
+        #{omEtc3, jdbcType=VARCHAR },
+        #{omEtc4, jdbcType=VARCHAR },
+        #{omEtc5, jdbcType=VARCHAR },
+        #{omEtc6, jdbcType=VARCHAR },
+        #{omLevel, jdbcType=VARCHAR },
+        #{omType, jdbcType=VARCHAR },
+        #{omUse, jdbcType=VARCHAR },
+        #{omCpPayType, jdbcType=VARCHAR },
+        #{omEscrowUse, jdbcType=VARCHAR },
+        #{omEscrowStatus, jdbcType=VARCHAR },
+        #{omDepositAccount, jdbcType=VARCHAR },
+        #{omDepositAccountBank, jdbcType=VARCHAR },
+        #{omDepositAccountName, jdbcType=VARCHAR },
+        #{omRefundAccount, jdbcType=VARCHAR },
+        #{omRefundAccountBank, jdbcType=VARCHAR },
+        #{omRefundAccountName, jdbcType=VARCHAR },
+        #{omDeliType, jdbcType=VARCHAR },
+        #{omDeliPayType, jdbcType=VARCHAR },
+        #{omDeliMoenyUse, jdbcType=VARCHAR },
+        #{omDeliMemo, jdbcType=VARCHAR },
+        #{omDeliNum, jdbcType=VARCHAR },
+        #{omDeliBoxEa, jdbcType=NUMERIC },
+        #{omPccSeq, jdbcType=NUMERIC },
+        #{omAccessType, jdbcType=VARCHAR },
+        #{omDeliInOutType, jdbcType=VARCHAR },
+        #{omCardType, jdbcType=VARCHAR},
+        #{omMoId, jdbcType=VARCHAR},
+        #{omInId, jdbcType=VARCHAR},
+        SYSDATE,
+        SYSDATE,
+        #{omPointMoney, jdbcType=NUMERIC },
+        #{omDepositAccountInName, jdbcType=VARCHAR },
+        #{omDepositAccountInDate, jdbcType=VARCHAR },
+        #{omDepositAccountInTime, jdbcType=VARCHAR },
+        <if test="omCreditCardNum != null and omCreditCardNum != '' ">RPAD( #{omCreditCardNum, jdbcType=VARCHAR},16,'*'
+            ),
+        </if>
+        <if test="omCreditCardNum == null or omCreditCardNum == '' ">#{omCreditCardNum, jdbcType=VARCHAR},</if>
+        #{omCreditCardCode, jdbcType=VARCHAR },
+        #{omAccountBankCode, jdbcType=VARCHAR },
+        #{omPayType, jdbcType=VARCHAR},
+        #{omActAdminId, jdbcType=VARCHAR},
+        #{omGiftPrCode, jdbcType=VARCHAR},
+        #{omGiftPrName, jdbcType=VARCHAR},
+        #{omGiftPrName1, jdbcType=VARCHAR},
+        #{omGiftPrName2, jdbcType=VARCHAR},
+        #{omKakaoMoney, jdbcType=NUMERIC },
+        #{omPhoneMoney, jdbcType=NUMERIC },
+        #{omCoupon, jdbcType=VARCHAR},
+        #{omPhoneNum, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <insert id="orderAddressMobileTempInsert" parameterType="com.kakaofriends.core.domain.OrderAddress">
+		INSERT INTO ORDERADDRESSMOBILETEMP (
+			OAMT_SEQ,
+			OAMT_OMNUM,
+			OAMT_OSSERIAL,
+			OAMT_NAME,
+			OAMT_ADDR1,
+			OAMT_ADDR2,
+			OAMT_ADDR3,
+			OAMT_COUNTRYCODE,
+			OAMT_COUNTRYNAME,
+			OAMT_ZIPCODE,
+			OAMT_TEL,
+			OAMT_FAX,
+			OAMT_PHONE,
+			OAMT_EMAIL,
+			OAMT_LEVEL,
+			OAMT_TYPE,
+			OAMT_USE,
+			OAMT_MOID,
+			OAMT_INID,
+			OAMT_MODATE,
+			OAMT_INDATE,
+			OAMT_DELINAME,
+			OAMT_DELIMEMO,
+			OAMT_ORDERERTEL,
+			OAMT_ORDEREREMAIL,
+			OAMT_ZONECODE,
+			OAMT_BUYERNAME,
+            OAMT_BUYERPHONE,
+            OAMT_BUYEREMAIL,
+            OAMT_BUYERCOUNTRYCODE,
+            OAMT_BUYERCOUNTRYNAME
+		) VALUES (
+            orderaddress_seq.nextval,
+			#{oaOmNum, jdbcType=VARCHAR},
+			#{oaOsSerial, jdbcType=NUMERIC},
+			TRIM(#{oaName, jdbcType=VARCHAR}),
+			#{oaAddr1, jdbcType=VARCHAR},
+			#{oaAddr2, jdbcType=VARCHAR},
+			#{oaAddr3, jdbcType=VARCHAR},
+			#{oaCountryCode, jdbcType=VARCHAR},
+			#{oaCountryName, jdbcType=VARCHAR},
+			#{oaZipCode, jdbcType=VARCHAR},
+			#{oaTel, jdbcType=VARCHAR},
+			#{oaFax, jdbcType=VARCHAR},
+			TRIM(#{oaPhone, jdbcType=VARCHAR}),
+			TRIM(#{oaEmail, jdbcType=VARCHAR}),
+			#{oaLevel, jdbcType=VARCHAR},
+			#{oaType, jdbcType=VARCHAR},
+			#{oaUse, jdbcType=VARCHAR},
+			#{oaMoId, jdbcType=VARCHAR},
+			#{oaInId, jdbcType=VARCHAR},
+			SYSDATE,
+			SYSDATE,
+			#{oaDeliName, jdbcType=VARCHAR},
+			#{oaDeliMemo, jdbcType=VARCHAR},
+			TRIM(#{oaOrderErTel, jdbcType=VARCHAR}),
+			TRIM(#{oaOrderErEmail, jdbcType=VARCHAR}),
+			#{oaZoneCode, jdbcType=VARCHAR},
+			TRIM(#{oaBuyerName, jdbcType=VARCHAR}),
+            TRIM(#{oaBuyerPhone, jdbcType=VARCHAR}),
+            TRIM(#{oaBuyerEmail, jdbcType=VARCHAR}),
+            #{oaBuyerCountryCode, jdbcType=VARCHAR},
+            #{oaBuyerCountryName, jdbcType=VARCHAR}
+		)
+	</insert>
+
+    <insert id="orderMemberAddressTempInsert" parameterType="com.kakaofriends.front.domain.MemberAddress">
+        INSERT INTO KFO_MEMBER_ADDRESS_TEMP
+        (ID, OMNUM, USERID, NAME, ADDR1, ADDR2, ADDR3, ZONECODE, PHONE, EMAIL, DEFAULTADDRESSTYPE, COUNTRYCODE, UPD_USER, REG_USER, UPD_DTTM, REG_DTTM)
+        VALUES (
+            SEQ_MEMBERADDRESS_ID.nextval,
+            #{omNum, jdbcType=VARCHAR},
+            #{userId, jdbcType=NUMERIC},
+            #{name, jdbcType=VARCHAR},
+            #{addr1, jdbcType=VARCHAR},
+            #{addr2, jdbcType=VARCHAR},
+            #{addr3, jdbcType=VARCHAR},
+            #{zoneCode, jdbcType=VARCHAR},
+            #{phone, jdbcType=VARCHAR},
+            #{email, jdbcType=VARCHAR},
+            #{defaultAddressType, jdbcType=VARCHAR},
+            #{countryCode, jdbcType=VARCHAR},
+            #{updUser, jdbcType=VARCHAR},
+            #{regUser, jdbcType=VARCHAR},
+            SYSDATE,
+            SYSDATE
+        )
+    </insert>
+
+    <insert id="orderSubMobileTempInsert" parameterType="map">
+        <selectKey keyColumn="OSMT_SEQ" keyProperty="orderSub.osSeq" resultType="integer" order="BEFORE">
+            SELECT ORDERSUBSEQ.nextval FROM dual
+        </selectKey>
+
+        INSERT INTO ORDERSUBMOBILETEMP (
+        OSMT_SEQ,
+        OSMT_OMNUM,
+        OSMT_SERIAL,
+        OSMT_PGTID,
+        OSMT_PRCODE,
+        OSMT_SCPCODE,
+        OSMT_BCPCODE,
+        OSMT_BDPCODE,
+        OSMT_OWNERID,
+        OSMT_OWNERNAME,
+        OSMT_ACCOUNTMONEY,
+        OSMT_CARDMONEY,
+        OSMT_COUPONMONEY,
+        OSMT_LATERMONEY,
+        OSMT_BUDGETMONEY,
+        OSMT_SAVEMONEY,
+        OSMT_POINTMONEY,
+        OSMT_VIRTUALACCOUNTMONEY,
+        OSMT_SAVEMONEYPERCENTAGE,
+        OSMT_NEWSAVEMONEY,
+        OSMT_NEWPRSAVEMONEY,
+        OSMT_ORIGINALMONEY,
+        OSMT_SALEMONEY,
+        OSMT_TOTORIGINALMONEY,
+        OSMT_TOTSALEMONEY,
+        OSMT_EA,
+        OSMT_OUTEA,
+        OSMT_INEA,
+        OSMT_BGISEQ,
+        OSMT_RELEASENUM,
+        OSMT_OPTIONNAME,
+        OSMT_MEMO,
+        OSMT_REFUNDACCOUNT,
+        OSMT_REFUNDACCOUNTBANK,
+        OSMT_REFUNDACCOUNTNAME,
+        OSMT_REFUNDSTATUS,
+        OSMT_CPPAYTYPE,
+        OSMT_VATUSE,
+        OSMT_ESCROWUSE,
+        OSMT_PARTCANCELUSE,
+        OSMT_BUYCALCULATE,
+        OSMT_SUPPLYCALCULATE,
+        OSMT_DELITYPE,
+        OSMT_DELIPAYTYPE,
+        OSMT_DELIMOENYUSE,
+        OSMT_DELIMEMO,
+        OSMT_DELINUM,
+        OSMT_DELIBOXEA,
+        OSMT_PCCSEQ,
+        OSMT_STATUS,
+        OSMT_ETC1,
+        OSMT_ETC2,
+        OSMT_ETC3,
+        OSMT_ETC4,
+        OSMT_ETC5,
+        OSMT_ETC6,
+        OSMT_LEVEL,
+        OSMT_TYPE,
+        OSMT_USE,
+        OSMT_MOID,
+        OSMT_INID,
+        OSMT_MODATE,
+        OSMT_INDATE,
+        OSMT_DEPOSITACCOUNT,
+        OSMT_DEPOSITACCOUNTBANK,
+        OSMT_DEPOSITACCOUNTNAME,
+        OSMT_ACCESSTYPE,
+        OSMT_MINUSACCOUNTMONEY,
+        OSMT_MINUSCARDMONEY,
+        OSMT_MINUSCOUPONMONEY,
+        OSMT_MINUSLATERMONEY,
+        OSMT_MINUSBUDGETMONEY,
+        OSMT_MINUSSAVEMONEY,
+        OSMT_MINUSPOINTMONEY,
+        OSMT_MINUSVIRTUALACCOUNTMONEY,
+        OSMT_DELIINOUTTYPE,
+        OSMT_CARDTYPE,
+        OSMT_DEPOSITACCOUNTINNAME,
+        OSMT_DEPOSITACCOUNTINDATE,
+        OSMT_DEPOSITACCOUNTINTIME,
+        OSMT_PARENTPRCODE,
+        OSMT_CTSEQ,
+        OSMT_CANCELREASON,
+        OSMT_ACTADMINID,
+        OSMT_KAKAOMONEY,
+        OSMT_PHONEMONEY,
+        OSMT_ETC7
+        ) VALUES (
+        #{orderSub.osSeq, jdbcType=NUMERIC },
+        #{orderSub.osOmNum, jdbcType=VARCHAR },
+        #{orderSub.osSerial, jdbcType=NUMERIC },
+        #{orderSub.osPgtId, jdbcType=VARCHAR },
+        #{orderSub.osPrCode, jdbcType=VARCHAR },
+        #{orderSub.osScpCode, jdbcType=VARCHAR },
+        #{orderSub.osBcpCode, jdbcType=VARCHAR },
+        #{orderSub.osBdpCode, jdbcType=VARCHAR },
+        #{orderSub.osOwnerId, jdbcType=VARCHAR },
+        TRIM(#{orderSub.osOwnerName, jdbcType=VARCHAR }),
+        #{orderSub.osAccountMoney, jdbcType=NUMERIC },
+        #{orderSub.osCardMoney, jdbcType=NUMERIC },
+        #{orderSub.osCouponMoney, jdbcType=NUMERIC },
+        #{orderSub.osLaterMoney, jdbcType=NUMERIC },
+        #{orderSub.osBudgetMoney, jdbcType=NUMERIC },
+        #{orderSub.osSaveMoney, jdbcType=NUMERIC },
+        #{orderSub.osPointMoney, jdbcType=NUMERIC },
+        #{orderSub.osVirtualAccountMoney, jdbcType=NUMERIC },
+        #{orderSub.osSaveMoneyPercentage, jdbcType=NUMERIC },
+        #{orderSub.osNewSaveMoney, jdbcType=NUMERIC },
+        #{orderSub.osNewPrSaveMoney, jdbcType=NUMERIC },
+        #{orderSub.osOriginalMoney, jdbcType=NUMERIC },
+        #{orderSub.osSaleMoney, jdbcType=NUMERIC },
+        #{orderSub.osTotOriginalMoney, jdbcType=NUMERIC },
+        #{orderSub.osTotSaleMoney, jdbcType=NUMERIC },
+        #{orderSub.osEa, jdbcType=NUMERIC },
+        #{orderSub.osOutEa, jdbcType=NUMERIC },
+        #{orderSub.osInEa, jdbcType=NUMERIC },
+        #{orderSub.osBgiSeq, jdbcType=NUMERIC },
+        #{orderSub.osReleaseNum, jdbcType=VARCHAR },
+        #{orderSub.osOptionName, jdbcType=VARCHAR },
+        #{orderSub.osMemo, jdbcType=VARCHAR },
+        #{orderSub.osRefundAccount, jdbcType=VARCHAR },
+        #{orderSub.osRefundAccountBank, jdbcType=VARCHAR },
+        #{orderSub.osRefundAccountName, jdbcType=VARCHAR },
+        #{orderSub.osRefundStatus, jdbcType=VARCHAR },
+        #{orderSub.osCpPayType, jdbcType=VARCHAR },
+        #{orderSub.osVatUse, jdbcType=VARCHAR },
+        #{orderSub.osEscRowUse, jdbcType=VARCHAR },
+        #{orderSub.osPartCancelUse, jdbcType=VARCHAR },
+        #{orderSub.osBuyCalculate, jdbcType=VARCHAR },
+        #{orderSub.osSupplyCalculate, jdbcType=VARCHAR },
+        #{orderSub.osDeliType, jdbcType=VARCHAR },
+        #{orderSub.osDeliPayType, jdbcType=VARCHAR },
+        #{orderSub.osDeliMoenyUse, jdbcType=VARCHAR },
+        #{orderSub.osDeliMemo, jdbcType=VARCHAR },
+        #{orderSub.osDeliNum, jdbcType=VARCHAR },
+        #{orderSub.osDeliBoxEa, jdbcType=VARCHAR },
+        #{orderSub.osPccSeq, jdbcType=VARCHAR },
+        #{orderSub.osStatus, jdbcType=NUMERIC },
+        #{orderSub.osEtc1, jdbcType=VARCHAR },
+        #{orderSub.osEtc2, jdbcType=VARCHAR },
+        #{orderSub.osEtc3, jdbcType=VARCHAR },
+        #{orderSub.osEtc4, jdbcType=VARCHAR },
+        #{orderSub.osEtc5, jdbcType=VARCHAR },
+        #{orderSub.osEtc6, jdbcType=VARCHAR },
+        #{orderSub.osLevel, jdbcType=VARCHAR },
+        #{orderSub.osType, jdbcType=VARCHAR },
+        #{orderSub.osUse, jdbcType=VARCHAR },
+        #{orderSub.osMoId, jdbcType=VARCHAR },
+        #{orderSub.osInId, jdbcType=VARCHAR },
+        SYSDATE,
+        SYSDATE,
+        #{orderSub.osDepositAccount, jdbcType=VARCHAR },
+        #{orderSub.osDepositAccountBank, jdbcType=VARCHAR },
+        #{orderSub.osDepositAccountName, jdbcType=VARCHAR },
+        #{orderSub.osAccessType, jdbcType=VARCHAR },
+        #{orderSub.osMinusAccountMoney, jdbcType=NUMERIC },
+        #{orderSub.osMinusCardMoney, jdbcType=NUMERIC },
+        #{orderSub.osMinusCouponMoney, jdbcType=NUMERIC },
+        #{orderSub.osMinusLaterMoney, jdbcType=NUMERIC },
+        #{orderSub.osMinusBudgetMoney, jdbcType=NUMERIC },
+        #{orderSub.osMinusSaveMoney, jdbcType=NUMERIC },
+        #{orderSub.osMinusPointMoney, jdbcType=NUMERIC },
+        #{orderSub.osMinusVirtualAccountMoney, jdbcType=NUMERIC },
+        #{orderSub.osDeliInOutType, jdbcType=VARCHAR },
+        #{orderSub.osCardType, jdbcType=VARCHAR },
+        #{orderSub.osDepositAccountInName, jdbcType=VARCHAR },
+        #{orderSub.osDepositAccountInDate, jdbcType=VARCHAR },
+        #{orderSub.osDepositAccountInTime, jdbcType=VARCHAR },
+        #{orderSub.osParentPrCode, jdbcType=VARCHAR },
+        #{orderSub.osCtSeq, jdbcType=NUMERIC },
+        #{orderSub.osCancelReason, jdbcType=VARCHAR },
+        #{orderSub.osActAdminId, jdbcType=VARCHAR },
+        #{orderSub.osKakaoMoney, jdbcType=NUMERIC },
+        #{orderSub.osPhoneMoney, jdbcType=NUMERIC },
+        #{orderSub.osEtc7, jdbcType=VARCHAR }
+        )
+    </insert>
+
+    <select id="orderMainMobileTempSelect" parameterType="com.kakaofriends.front.domain.payment.PayResultData"
+            resultMap="OrderMainMobileTempMap">
+		SELECT
+			OMMT_SEQ,
+			OMMT_NUM,
+			OMMT_PGTID,
+			OMMT_OWNERID,
+			OMMT_OWNERNAME,
+			OMMT_ACCOUNTMONEY,
+			OMMT_COUPONMONEY,
+			OMMT_SAVEMONEY,
+			OMMT_CARDMONEY,
+			OMMT_LATERMONEY,
+			OMMT_VIRTUALACCOUNTMONEY,
+			OMMT_ORIGINALMONEY,
+			OMMT_SALEMONEY,
+			OMMT_NEWSAVEMONEY,
+			OMMT_DELIVERYMONEY,
+			OMMT_STATUS,
+			OMMT_ACTIVESTATUS,
+			OMMT_ETC1,
+			OMMT_ETC2,
+			OMMT_ETC3,
+			OMMT_ETC4,
+			OMMT_ETC5,
+			OMMT_ETC6,
+			OMMT_LEVEL,
+			OMMT_TYPE,
+			OMMT_USE,
+			OMMT_CPPAYTYPE,
+			OMMT_ESCROWUSE,
+			OMMT_ESCROWSTATUS,
+			OMMT_DEPOSITACCOUNT,
+			OMMT_DEPOSITACCOUNTBANK,
+			OMMT_DEPOSITACCOUNTNAME,
+			OMMT_REFUNDACCOUNT,
+			OMMT_REFUNDACCOUNTBANK,
+			OMMT_REFUNDACCOUNTNAME,
+			OMMT_DELITYPE,
+			OMMT_DELIPAYTYPE,
+			OMMT_DELIMOENYUSE,
+			OMMT_DELIMEMO,
+			OMMT_DELINUM,
+			OMMT_DELIBOXEA,
+			OMMT_PCCSEQ,
+			OMMT_ACCESSTYPE,
+			OMMT_DELIINOUTTYPE,
+			OMMT_CARDTYPE,
+			OMMT_MOID,
+			OMMT_INID,
+			OMMT_MODATE,
+			OMMT_INDATE,
+			OMMT_POINTMONEY,
+			OMMT_DEPOSITACCOUNTINNAME,
+			OMMT_DEPOSITACCOUNTINDATE,
+			OMMT_DEPOSITACCOUNTINTIME,
+			OMMT_CREDITCARDNUM,
+			OMMT_CREDITCARDCODE,
+			OMMT_ACCOUNTBANKCODE,
+			OMMT_PAYTYPE,
+			OMMT_ACTADMINID,
+			OMMT_GIFTPRCODE,
+			OMMT_GIFTPRNAME,
+			OMMT_GIFTPRNAME1,
+			OMMT_GIFTPRNAME2,
+			OMMT_KAKAOMONEY,
+			OMMT_PHONEMONEY,
+			OMMT_COUPON,
+			OMMT_PHONENUM
+		FROM ORDERMAINMOBILETEMP
+		WHERE OMMT_NUM = #{oId}
+	</select>
+
+    <select id="orderAddressMobileTempSelect" parameterType="com.kakaofriends.front.domain.payment.PayResultData"
+            resultMap="OrderAddressMobileTempMap">
+		SELECT
+			OAMT_SEQ,
+			OAMT_OMNUM,
+			OAMT_OSSERIAL,
+			OAMT_NAME,
+			OAMT_ADDR1,
+			OAMT_ADDR2,
+			OAMT_ADDR3,
+			OAMT_ZIPCODE,
+			OAMT_TEL,
+			OAMT_FAX,
+			OAMT_PHONE,
+			OAMT_EMAIL,
+			OAMT_LEVEL,
+			OAMT_TYPE,
+			OAMT_USE,
+			OAMT_MOID,
+			OAMT_INID,
+			OAMT_MODATE,
+			OAMT_INDATE,
+			OAMT_DELINAME,
+			OAMT_DELIMEMO,
+			OAMT_ORDERERTEL,
+			OAMT_ORDEREREMAIL,
+			OAMT_ZONECODE,
+			OAMT_COUNTRYCODE,
+			OAMT_COUNTRYNAME,
+			OAMT_BUYERNAME,
+			OAMT_BUYEREMAIL,
+			OAMT_BUYERPHONE,
+			OAMT_BUYERCOUNTRYCODE,
+			OAMT_BUYERCOUNTRYNAME,
+			OAMT_ADDRESSTYPE
+		FROM ORDERADDRESSMOBILETEMP
+		WHERE OAMT_OMNUM = #{oId}
+	</select>
+
+    <select id="orderSubMobileTempSelect" parameterType="com.kakaofriends.front.domain.payment.PayResultData"
+            resultMap="OrderSubMobileTempMap">
+		SELECT
+			OSMT_SEQ,
+			OSMT_OMNUM,
+			OSMT_SERIAL,
+			OSMT_PGTID,
+			OSMT_PRCODE,
+			OSMT_SCPCODE,
+			OSMT_BCPCODE,
+			OSMT_BDPCODE,
+			OSMT_OWNERID,
+			OSMT_OWNERNAME,
+			OSMT_ACCOUNTMONEY,
+			OSMT_CARDMONEY,
+			OSMT_COUPONMONEY,
+			OSMT_LATERMONEY,
+			OSMT_BUDGETMONEY,
+			OSMT_SAVEMONEY,
+			OSMT_POINTMONEY,
+			OSMT_VIRTUALACCOUNTMONEY,
+			OSMT_SAVEMONEYPERCENTAGE,
+			OSMT_NEWSAVEMONEY,
+			OSMT_NEWPRSAVEMONEY,
+			OSMT_ORIGINALMONEY,
+			OSMT_SALEMONEY,
+			OSMT_TOTORIGINALMONEY,
+			OSMT_TOTSALEMONEY,
+			OSMT_EA,
+			OSMT_OUTEA,
+			OSMT_INEA,
+			OSMT_BGISEQ,
+			OSMT_RELEASENUM,
+			OSMT_OPTIONNAME,
+			OSMT_MEMO,
+			OSMT_REFUNDACCOUNT,
+			OSMT_REFUNDACCOUNTBANK,
+			OSMT_REFUNDACCOUNTNAME,
+			OSMT_REFUNDSTATUS,
+			OSMT_CPPAYTYPE,
+			OSMT_VATUSE,
+			OSMT_ESCROWUSE,
+			OSMT_PARTCANCELUSE,
+			OSMT_BUYCALCULATE,
+			OSMT_SUPPLYCALCULATE,
+			OSMT_DELITYPE,
+			OSMT_DELIPAYTYPE,
+			OSMT_DELIMOENYUSE,
+			OSMT_DELIMEMO,
+			OSMT_DELINUM,
+			OSMT_DELIBOXEA,
+			OSMT_PCCSEQ,
+			OSMT_STATUS,
+			OSMT_ETC1,
+			OSMT_ETC2,
+			OSMT_ETC3,
+			OSMT_ETC4,
+			OSMT_ETC5,
+			OSMT_ETC6,
+			OSMT_LEVEL,
+			OSMT_TYPE,
+			OSMT_USE,
+			OSMT_MOID,
+			OSMT_INID,
+			OSMT_MODATE,
+			OSMT_INDATE,
+			OSMT_DEPOSITACCOUNT,
+			OSMT_DEPOSITACCOUNTBANK,
+			OSMT_DEPOSITACCOUNTNAME,
+			OSMT_ACCESSTYPE,
+			OSMT_MINUSACCOUNTMONEY,
+			OSMT_MINUSCARDMONEY,
+			OSMT_MINUSCOUPONMONEY,
+			OSMT_MINUSLATERMONEY,
+			OSMT_MINUSBUDGETMONEY,
+			OSMT_MINUSSAVEMONEY,
+			OSMT_MINUSPOINTMONEY,
+			OSMT_MINUSVIRTUALACCOUNTMONEY,
+			OSMT_DELIINOUTTYPE,
+			OSMT_CARDTYPE,
+			OSMT_DEPOSITACCOUNTINNAME,
+			OSMT_DEPOSITACCOUNTINDATE,
+			OSMT_DEPOSITACCOUNTINTIME,
+			OSMT_PARENTPRCODE,
+			OSMT_CTSEQ,
+			OSMT_CANCELREASON,
+			OSMT_ACTADMINID,
+			OSMT_KAKAOMONEY,
+			OSMT_PHONEMONEY,
+			OSMT_ETC7
+		FROM ORDERSUBMOBILETEMP
+		WHERE OSMT_OMNUM = #{oId}
+	</select>
+
+    <select id="orderMemberAddressTempSelect" parameterType="com.kakaofriends.front.domain.payment.PayResultData" resultType="com.kakaofriends.front.domain.MemberAddress">
+        SELECT USERID, NAME, ADDR1, ADDR2, ADDR3, ZONECODE, PHONE, EMAIL, UPD_USER, REG_USER, DEFAULTADDRESSTYPE, COUNTRYCODE
+		FROM KFO_MEMBER_ADDRESS_TEMP
+		WHERE OMNUM = #{oId}
+    </select>
+
+    <update id="orderMainMobileTempTIdUpdate" parameterType="map">
+		UPDATE ORDERMAINMOBILETEMP SET OMMT_PGTID = #{tId} WHERE OMMT_NUM = #{oId} AND OMMT_OWNERID = #{ownerId}
+	</update>
+
+    <update id="orderSubMobileTempTIdUpdate" parameterType="map">
+		UPDATE ORDERSUBMOBILETEMP SET OSMT_PGTID = #{tId} WHERE OSMT_OMNUM = #{oId} AND OSMT_OWNERID = #{ownerId}
+	</update>
+
+    <update id="updateOrderMobileTemp" parameterType="map">
+        UPDATE ORDERMAINMOBILETEMP
+        SET
+        OMMT_ETC2 = #{orderMainMobileTemp.ommtEtc2},
+        OMMT_ETC3 = #{orderMainMobileTemp.ommtEtc3},
+        <if test="orderMainMobileTemp.ommtCreditcardnum != null and orderMainMobileTemp.ommtCreditcardnum != '' ">
+            OMMT_CREDITCARDNUM = #{orderMainMobileTemp.ommtCreditcardnum},
+        </if>
+        <if test="orderMainMobileTemp.ommtCreditcardcode != null and orderMainMobileTemp.ommtCreditcardcode != '' ">
+            OMMT_CREDITCARDCODE = #{orderMainMobileTemp.ommtCreditcardcode},
+        </if>
+        <if test="orderMainMobileTemp.ommtAccountbankcode != null and orderMainMobileTemp.ommtAccountbankcode != '' ">
+            OMMT_ACCOUNTBANKCODE = #{orderMainMobileTemp.ommtAccountbankcode},
+        </if>
+        OMMT_MODATE = SYSDATE
+        WHERE
+        OMMT_NUM = #{orderMainMobileTemp.ommtNum}
+        AND OMMT_OWNERID = #{orderMainMobileTemp.ommtOwnerid}
+    </update>
+</mapper>

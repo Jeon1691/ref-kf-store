@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.CategoryRepository">
+
+    <resultMap id="CategoryMenuMap" type="com.kakaofriends.front.domain.CategoryMenu">
+        <id column="CT_SEQ" jdbcType="NUMERIC" property="ctSeq"/>
+        <result column="CT_ROOT" jdbcType="NUMERIC" property="ctRoot"/>
+        <result column="CT_CODE" jdbcType="NUMERIC" property="ctCode"/>
+        <result column="CT_NAME" jdbcType="VARCHAR" property="ctName"/>
+        <result column="CT_PCODE" jdbcType="NUMERIC" property="ctPcode"/>
+        <result column="CT_GROUPNUM1" jdbcType="NUMERIC" property="ctGroupnum1"/>
+        <result column="CT_GROUPNUM2" jdbcType="NUMERIC" property="ctGroupnum2"/>
+        <result column="CT_GROUPNUM3" jdbcType="NUMERIC" property="ctGroupnum3"/>
+        <result column="CT_STEP" jdbcType="DECIMAL" property="ctStep"/>
+        <result column="CT_TITLEIMAGE" jdbcType="VARCHAR" property="ctTitleimage"/>
+        <result column="CT_BRSEQ" jdbcType="VARCHAR" property="ctBrseq"/>
+        <result column="CT_SORT" jdbcType="DECIMAL" property="ctSort"/>
+        <result column="CT_IMAGE1" jdbcType="VARCHAR" property="ctImage1"/>
+        <result column="CT_IMAGE2" jdbcType="VARCHAR" property="ctImage2"/>
+        <result column="CT_IMAGE3" jdbcType="VARCHAR" property="ctImage3"/>
+        <result column="CT_IMAGE4" jdbcType="VARCHAR" property="ctImage4"/>
+        <result column="CT_IMAGE5" jdbcType="VARCHAR" property="ctImage5"/>
+        <result column="CT_IMAGE6" jdbcType="VARCHAR" property="ctImage6"/>
+        <result column="CT_ETC6" jdbcType="VARCHAR" property="ctEtc6"/>
+        <result column="CT_LEVEL" jdbcType="DECIMAL" property="ctLevel"/>
+        <result column="CT_TYPE" jdbcType="VARCHAR" property="ctType"/>
+        <result column="CT_USE" jdbcType="CHAR" property="ctUse"/>
+        <result column="CT_MOID" jdbcType="VARCHAR" property="ctMoid"/>
+        <result column="CT_INID" jdbcType="VARCHAR" property="ctInid"/>
+        <result column="CT_MODATE" jdbcType="TIMESTAMP" property="ctModate"/>
+        <result column="CT_INDATE" jdbcType="TIMESTAMP" property="ctIndate"/>
+        <result column="CT_ENAME" jdbcType="VARCHAR" property="ctEname"/>
+        <result column="CT_COLOR" jdbcType="VARCHAR" property="ctColor"/>
+        <result column="CT_NODE" jdbcType="NUMERIC" property="ctNode"/>
+        <result column="CT_PARENT" jdbcType="VARCHAR" property="ctParent"/>
+        <result column="CT_CHILDREN" jdbcType="VARCHAR" property="ctChildren"/>
+		<result column="CT_IMAGE3_LINK" jdbcType="VARCHAR" property="ctImage3Link"/>
+		<result column="CT_IMAGE3_ALT" jdbcType="VARCHAR" property="ctImage3Alt"/>
+		<result column="CT_IMAGE4_LINK" jdbcType="VARCHAR" property="ctImage4Link"/>
+		<result column="CT_IMAGE4_ALT" jdbcType="VARCHAR" property="ctImage4Alt"/>
+    </resultMap>
+
+    <select id="findMenuCategory" parameterType="map" resultMap="CategoryMenuMap">
+		SELECT
+		  CT_SEQ,
+		  CONNECT_BY_ROOT CT_SEQ "CT_ROOT",
+		  CT_CODE,
+		  CT_NAME,
+		  CT_PCODE,
+		  CT_GROUPNUM1,
+		  CT_GROUPNUM2,
+		  CT_GROUPNUM3,
+		  CT_STEP,
+		  CT_TITLEIMAGE,
+		  CT_IMAGE1,
+		  CT_BRSEQ,
+		  CT_SORT,
+		  CT_IMAGE2,
+		  CT_IMAGE3,
+		  CT_IMAGE4,
+		  CT_IMAGE5,
+		  CT_IMAGE6,
+		  CT_ETC6,
+		  CT_LEVEL,
+		  CT_TYPE,
+		  CT_USE,
+		  CT_MOID,
+		  CT_INID,
+		  CT_MODATE,
+		  CT_INDATE,
+		  CT_ENAME,
+		  CT_COLOR,
+		  LEVEL AS CT_NODE,
+		  (SELECT WM_CONCAT(CT_PCODE) FROM CATEGORY START WITH CT_CODE = CT.CT_SEQ CONNECT BY PRIOR CT_PCODE = CT_CODE) CT_PARENT,
+      	  (SELECT WM_CONCAT(CT_CODE) FROM CATEGORY START WITH CT_PCODE = CT.CT_SEQ CONNECT BY PRIOR CT_CODE = CT_PCODE) CT_CHILDREN,
+      	  CT_IMAGE3_LINK,
+      	  CT_IMAGE3_ALT,
+      	  CT_IMAGE4_LINK,
+      	  CT_IMAGE4_ALT
+		FROM CATEGORY CT
+		START WITH CT.CT_CODE IN ('3','4')
+		CONNECT BY PRIOR CT.CT_CODE = CT.CT_PCODE AND CT_USE = 'Y'
+		ORDER SIBLINGS BY CT_STEP
+	</select>
+
+</mapper>

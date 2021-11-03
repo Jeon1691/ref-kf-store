@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.WishlistRepository">
+
+	<resultMap id="WishlistMap" type="WishlistExpansion">
+		<id property="wishlist.wsSeq" column="WS_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="wishlist.wsOwnerId" column="WS_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlist.wsPrCode" column="WS_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+		<!--<result property="wishlist.wsEa" column="WS_EA" javaType="long" jdbcType="INTEGER"/>-->
+		<!--<result property="wishlist.wsType" column="WS_TYPE" javaType="string" jdbcType="VARCHAR"/>-->
+		<result property="wishlist.wsCtseq" column="WS_CTSEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="wishlist.displayGoodsId" column="DISPLAY_GOODS_ID" javaType="long" jdbcType="INTEGER"/>
+		<result property="wishlistInProduct.prName" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlistInProduct.prName1" column="NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlistInProduct.prImage1" column="IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlistInProduct.prImage12" column="IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlistInProduct.prDiscountsDate" column="DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlistInProduct.prDiscounteDate" column="DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlistInProduct.prKrview" column="KRVIEW" javaType="string" jdbcType="VARCHAR"/>
+		<result property="wishlistInProduct.prType" column="TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<!--<result property="productLevelPrice.prlpSupplyprice" column="PRLP_SUPPLYPRICE" javaType="integer" jdbcType="INTEGER"/>-->
+		<result property="productLevelPrice.prlpSaleprice1" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="DISCOUNTPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="DG_EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.exchangeDiscountPrice" column="DG_EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="stZeroCheck" column="ST_CHECK" javaType="long" jdbcType="INTEGER"/>
+		<result property="prGiftBagCount" column="GIFTBAG_COUNT" javaType="long" jdbcType="INTEGER"/>
+		<!--<collection property="suggestedProducts" column="BS_PRCODE" javaType="java.util.ArrayList" ofType="com.kakaofriends.front.domain.product.ProductDto$SuggestedProduct" select="findSuggestedProductByPrCode"/>-->
+	</resultMap>
+
+	<insert id="insertProduct" parameterType="Wishlist">
+		/*
+		   변경이력 : 2018.08.23 layla
+			   - 전시상품코드 추가
+   		*/
+		INSERT INTO WISHLIST (
+			WS_SEQ,
+			WS_OWNERID,
+			WS_PRCODE,
+			WS_PROPTION,
+			WS_EA,
+			WS_ETC1,
+			WS_ETC2,
+			WS_ETC3,
+			WS_ETC4,
+			WS_ETC5,
+			WS_CTSEQ,
+			WS_LEVEL,
+			WS_TYPE,
+			WS_USE,
+			WS_MOID,
+			WS_INID,
+			WS_MODATE,
+			WS_INDATE,
+			DISPLAY_GOODS_ID
+		) VALUES (
+			(SELECT NVL( MAX(WS_SEQ), 0)+1 FROM WISHLIST),
+			#{ wsOwnerId, jdbcType=VARCHAR },
+			#{ wsPrCode, jdbcType=VARCHAR },
+			#{ wsProption, jdbcType=VARCHAR },
+			#{ wsEa, jdbcType=NUMERIC },
+			#{ wsEtc1, jdbcType=VARCHAR },
+			#{ wsEtc2, jdbcType=VARCHAR },
+			#{ wsEtc3, jdbcType=VARCHAR },
+			#{ wsEtc4, jdbcType=VARCHAR },
+			#{ wsEtc5, jdbcType=VARCHAR },
+			#{ wsCtseq, jdbcType=NUMERIC },
+			#{ wsLevel, jdbcType=VARCHAR },
+			#{ wsType, jdbcType=VARCHAR },
+			#{ wsUse, jdbcType=VARCHAR },
+			#{ wsMoid, jdbcType=VARCHAR },
+			#{ wsInid, jdbcType=VARCHAR },
+			SYSDATE,
+			SYSDATE,
+			#{ displayGoodsId, jdbcType=NUMERIC }
+		)
+	</insert>
+
+	<select id="findByOwnerId" parameterType="map" resultMap="WishlistMap" statementType="CALLABLE">
+		SELECT *
+		FROM (
+			SELECT
+				XX.*,
+				ROWNUM AS RNUM
+			FROM (
+				SELECT
+                    Z.*,
+                    Y.NAME,
+                    Y.NAME1,
+                    Y.IMAGE1,
+                    Y.IMAGE12,
+                    Y.KRVIEW,
+                    Y.TYPE,
+                    Y.DISCOUNTSDATE,
+                    Y.DISCOUNTEDATE,
+                    Y.SALEPRICE,
+                    Y.DISCOUNTPRICE,
+                    /*Y.DEFAUTL_PRCODE,*/
+                    ROUND(Y.SALEPRICE / #{exchangeRate}, 2) as DG_EXCHANGEPRICE,
+                    ROUND(Y.DISCOUNTPRICE / #{exchangeRate}, 2) as DG_EXCHANGEDISCOUNTPRICE
+                FROM (
+                    SELECT
+                        A.ID,
+                        WS.WS_PRCODE,
+                        WS.WS_CTSEQ,
+                        WS.DISPLAY_GOODS_ID,
+                        SUM(G.AVAILABLE_STOCK) AS ST_CHECK,
+                        SUM(DECODE(F.PR_TYPE, '8', 1, 0)) AS GIFTBAG_COUNT
+                    FROM WISHLIST WS
+                    INNER JOIN DISPLAY_GOODS A ON WS.DISPLAY_GOODS_ID = TO_CHAR(A.ID)
+                    INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+                    INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+                    INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+                    INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+                    INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+                    INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+                    WHERE
+                        G.DOMESTIC = 1
+                        /*AND A.STATUS = 1 AND A.USE = 'Y' AND A.KRVIEW = 'Y' AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y' */
+                        AND WS_OWNERID = #{ownerId}
+                    GROUP BY A.ID, WS.WS_PRCODE, WS.WS_CTSEQ, WS.DISPLAY_GOODS_ID
+                ) Z
+                INNER JOIN DISPLAY_GOODS Y ON Z.ID = Y.ID
+				) XX
+		) XXX
+		WHERE XXX.RNUM BETWEEN  #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+	</select>
+
+	<select id="findCountByOwnerId" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM WISHLIST WS
+        	INNER JOIN DISPLAY_GOODS DG ON WS.DISPLAY_GOODS_ID = DG.ID
+        WHERE WS_OWNERID = #{ownerId}
+	</select>
+
+	<select id="findByOwnerIdPrCode" parameterType="com.kakaofriends.front.domain.WishlistDto$Request" resultType="Wishlist">
+		/*
+		   변경이력 : 2018.08.23 layla
+			   - WHERE 조건에 전시상품코드 추가
+   		*/
+		SELECT WS_SEQ as wsSeq, WS_OWNERID as wsOwnerId, WS_PRCODE as wsPrCode, DISPLAY_GOODS_ID as displayGoodsId
+		FROM WISHLIST
+		WHERE WS_OWNERID = #{ownerId} AND DISPLAY_GOODS_ID = #{displayGoodsId}
+	</select>
+
+	<delete id="deleteProduct" parameterType="com.kakaofriends.front.domain.WishlistDto$Request">
+		/*
+		   변경이력 : 2018.08.23 layla
+			   - WHERE 조건에 전시상품코드 추가
+   		*/
+		DELETE FROM WISHLIST
+		WHERE WS_OWNERID = #{ownerId} AND DISPLAY_GOODS_ID = #{displayGoodsId}
+	</delete>
+</mapper>

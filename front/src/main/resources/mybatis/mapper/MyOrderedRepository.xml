@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.MyOrderedRepository">
+    <resultMap id="OrderSubShippingMap" type="com.kakaofriends.front.domain.order.OrderSubDto$OrderSubShipping">
+        <result property="prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prType" column="PR_TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="ctName" column="CT_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osSeq" column="OS_SEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osOmNum" column="OS_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osSerial" column="OS_SERIAL" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osPrCode" column="OS_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osAccessType" column="OS_ACCESSTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osAccountMoney" column="OS_ACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osCardMoney" column="OS_CARDMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osKakaoMoney" column="OS_KAKAOMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osPhoneMoney" column="OS_PHONEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osCouponMoney" column="OS_COUPONMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osOriginalMoney" column="OS_ORIGINALMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osSaleMoney" column="OS_SALEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.exchangeSaleMoney" column="EXCHANGESALEMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderSub.exchangeCouponMoney" column="EXCHANGECOUPONMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderSub.exchangePointMoney" column="EXCHANGEPOINTMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderSub.osTotOriginalMoney" column="OS_TOTORIGINALMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osTotSaleMoney" column="OS_TOTSALEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osEa" column="OS_EA" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osOutEa" column="OS_OUTEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osInEa" column="OS_INEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osDeliNum" column="OS_DELINUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osInDate" column="OS_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="orderSub.osOptionName" column="OS_OPTIONNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osStatus" column="OS_STATUS" javaType="OrderStatusType" typeHandler="OrderStatusTypeHandler" jdbcType="INTEGER"/>
+        <result property="orderSub.osType" column="OS_TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osMoId" column="OS_MOID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osCancelReason" column="OS_CANCELREASON" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osScpCode" column="OS_SCPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osBcpCode" column="OS_BCPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osBdpCode" column="OS_BDPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osCtSeq" column="OS_CTSEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="orderSub.osRefundAccount" column="OS_REFUNDACCOUNT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osRefundAccountBank" column="OS_REFUNDACCOUNTBANK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osRefundAccountName" column="OS_REFUNDACCOUNTNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osEtc7" column="OS_ETC7" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osPccSeq" column="OS_PCCSEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="pccUrl" column="PCC_URL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSub.osPointMoney" column="OS_POINTMONEY" javaType="int" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="OrderSubMap" type="OrderSub">
+        <result property="osSeq" column="OS_SEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osOmNum" column="OS_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osSerial" column="OS_SERIAL" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPgtId" column="OS_PGTID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osPrCode" column="OS_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osScpCode" column="OS_SCPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osBcpCode" column="OS_BCPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osBdpCode" column="OS_BDPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osOwnerId" column="OS_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osOwnerName" column="OS_OWNERNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osAccountMoney" column="OS_ACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osCardMoney" column="OS_CARDMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osCouponMoney" column="OS_COUPONMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osLaterMoney" column="OS_LATERMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osBudgetMoney" column="OS_BUDGETMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osSaveMoney" column="OS_SAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPointMoney" column="OS_POINTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osVirtualAccountMoney" column="OS_VIRTUALACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osSaveMoneyPercentage" column="OS_SAVEMONEYPERCENTAGE" javaType="int" jdbcType="INTEGER"/>
+        <result property="osNewSaveMoney" column="OS_NEWSAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osNewPrSaveMoney" column="OS_NEWPRSAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osOriginalMoney" column="OS_ORIGINALMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osSaleMoney" column="OS_SALEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osTotOriginalMoney" column="OS_TOTORIGINALMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osTotSaleMoney" column="OS_TOTSALEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osEa" column="OS_EA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osOutEa" column="OS_OUTEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osInEa" column="OS_INEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osBgiSeq" column="OS_BGISEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osReleaseNum" column="OS_RELEASENUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osOptionName" column="OS_OPTIONNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMemo" column="OS_MEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundAccount" column="OS_REFUNDACCOUNT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundAccountBank" column="OS_REFUNDACCOUNTBANK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundAccountName" column="OS_REFUNDACCOUNTNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osRefundStatus" column="OS_REFUNDSTATUS" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osCpPayType" column="OS_CPPAYTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osVatUse" column="OS_VATUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEscRowUse" column="OS_ESCROWUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEscRowStatus" column="OS_ESCROWSTATUS" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osPartCancelUse" column="OS_PARTCANCELUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osBuyCalculate" column="OS_BUYCALCULATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osSupplyCalculate" column="OS_SUPPLYCALCULATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliType" column="OS_DELITYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliPayType" column="OS_DELIPAYTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliMoenyUse" column="OS_DELIMOENYUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliMemo" column="OS_DELIMEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliNum" column="OS_DELINUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDeliBoxEa" column="OS_DELIBOXEA" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPccSeq" column="OS_PCCSEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osStatus" column="OS_STATUS" javaType="OrderStatusType" typeHandler="OrderStatusTypeHandler" jdbcType="INTEGER"/>
+        <result property="osEtc1" column="OS_ETC1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc2" column="OS_ETC2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc3" column="OS_ETC3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc4" column="OS_ETC4" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc5" column="OS_ETC5" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osEtc6" column="OS_ETC6" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osLevel" column="OS_LEVEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osType" column="OS_TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osUse" column="OS_USE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMoId" column="OS_MOID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osInId" column="OS_INID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMoDate" column="OS_MODATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="osInDate" column="OS_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="osDepositAccount" column="OS_DEPOSITACCOUNT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountBank" column="OS_DEPOSITACCOUNTBANK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountName" column="OS_DEPOSITACCOUNTNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osAccessType" column="OS_ACCESSTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osMinusAccountMoney" column="OS_MINUSACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusCardMoney" column="OS_MINUSCARDMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusCouponMoney" column="OS_MINUSCOUPONMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusLaterMoney" column="OS_MINUSLATERMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusBudgetMoney" column="OS_MINUSBUDGETMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusSaveMoney" column="OS_MINUSSAVEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusPointMoney" column="OS_MINUSPOINTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osMinusVirtualAccountMoney" column="OS_MINUSVIRTUALACCOUNTMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osDeliInOutType" column="OS_DELIINOUTTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osCardType" column="OS_CARDTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountInName" column="OS_DEPOSITACCOUNTINNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountInDate" column="OS_DEPOSITACCOUNTINDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osDepositAccountInTime" column="OS_DEPOSITACCOUNTINTIME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osCreditCardNum" column="OS_CREDITCARDNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osParentPrCode" column="OS_PARENTPRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osCtSeq" column="OS_CTSEQ" javaType="int" jdbcType="INTEGER"/>
+        <result property="osCancelReason" column="OS_CANCELREASON" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osActAdminId" column="OS_ACTADMINID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osKakaoMoney" column="OS_KAKAOMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPhoneMoney" column="OS_PHONEMONEY" javaType="int" jdbcType="INTEGER"/>
+        <result property="osPrTotCnt" column="ORDERSUBPRTOTCNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="osPrName" column="PRNAME" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="OrderProductMap" type="ProductExpansion">
+        <result property="product.prCode" column="PR_CODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prDiscountsDate" column="PR_DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prDiscounteDate" column="PR_DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="productLevelPrice.prlpSupplyprice" column="PRLP_SUPPLYPRICE" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="productLevelPrice.prlpSaleprice1" column="PRLP_SALEPRICE1" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="productLevelPrice.prlpDiscountprice1" column="PRLP_DISCOUNTPRICE1" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="OrderInfoMap" type="com.kakaofriends.front.domain.order.OrderInfo">
+        <id property="omNum" column="OM_NUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omPgtId" column="OM_PGTID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omOwnerId" column="OM_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omInDate" column="OM_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="omPayType" column="OM_PAYTYPE" javaType="PayType" typeHandler="PayTypeHandler" jdbcType="VARCHAR"/>
+        <result property="omAccessType" column="OM_ACCESSTYPE" javaType="OrderAccessType" typeHandler="OrderAccessTypeHandler" jdbcType="VARCHAR"/>
+        <result property="omCardMoney" column="OM_CARDMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="omAccountMoney" column="OM_ACCOUNTMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="omKakaoMoney" column="OM_KAKAOMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="omPaypalMoney" column="OM_PAYPALMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="totalMoney" column="TOTALMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="omCouponMoney" column="OM_COUPONMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="omDeliveryMoney" column="OM_DELIVERYMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="omDeliMoneyUse" column="OM_DELIMOENYUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omDeliNum" column="OM_DELINUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderSubPrTotCnt" column="ORDERSUBPRTOTCNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="exchangeItemsMoney" column="EXCHANGEITEMSMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="exchangeCouponMoney" column="EXCHANGECOUPONMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="exchangeDeliveryMoney" column="EXCHANGEDELIVERYMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="omPointMoney" column="OM_POINTMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="exchangePointMoney" column="EXCHANGEPOINTMONEY" javaType="double" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <resultMap id="CancelInfoMap" type="com.kakaofriends.front.domain.order.OrderCancelInfo">
+        <result property="orderInfo.omNum" column="OM_NUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omPgtId" column="OM_PGTID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omOwnerId" column="OM_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omInDate" column="OM_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="orderInfo.omPayType" column="OM_PAYTYPE" javaType="PayType" typeHandler="PayTypeHandler" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omAccessType" column="OM_ACCESSTYPE" javaType="OrderAccessType" typeHandler="OrderAccessTypeHandler" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omCardMoney" column="OM_CARDMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omAccountMoney" column="OM_ACCOUNTMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omKakaoMoney" column="OM_KAKAOMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omPaypalMoney" column="OM_PAYPALMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.totalMoney" column="TOTALMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omCouponMoney" column="OM_COUPONMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omDeliveryMoney" column="OM_DELIVERYMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omDeliMoneyUse" column="OM_DELIMOENYUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omDeliNum" column="OM_DELINUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.orderSubPrTotCnt" column="ORDERSUBPRTOTCNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.exchangeItemsMoney" column="EXCHANGEITEMSMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderInfo.exchangeCouponMoney" column="EXCHANGECOUPONMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderInfo.exchangePointMoney" column="EXCHANGEPOINTMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderInfo.exchangeDeliveryMoney" column="EXCHANGEDELIVERYMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="cancelSubmitCnt" column="CANCELSUBMITCNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="returnSubmitCnt" column="RETURNSUBMITCNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="exchangeSubmitCnt" column="EXCHANGESUBMITCNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="cancelCompleteCnt" column="CANCELCOMPLETECNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="returnCompleteCnt" column="RETURNCOMPLETECNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="exchangeCompleteCnt" column="EXCHANGECOMPLETECNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omPointMoney" column="OM_POINTMONEY" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="OrderShippingInfoMap" type="com.kakaofriends.front.domain.order.OrderShippingInfo">
+        <id property="orderInfo.omNum" column="OM_NUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omPgtId" column="OM_PGTID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omOwnerId" column="OM_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omInDate" column="OM_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="orderInfo.omPayType" column="OM_PAYTYPE" javaType="PayType" typeHandler="PayTypeHandler" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omAccessType" column="OM_ACCESSTYPE" javaType="OrderAccessType" typeHandler="OrderAccessTypeHandler" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omCardMoney" column="OM_CARDMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omAccountMoney" column="OM_ACCOUNTMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omKakaoMoney" column="OM_KAKAOMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omPaypalMoney" column="OM_PAYPALMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.totalMoney" column="TOTALMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omCouponMoney" column="OM_COUPONMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omDeliveryMoney" column="OM_DELIVERYMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.omDeliMoneyUse" column="OM_DELIMOENYUSE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omDeliNum" column="OM_DELINUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.orderSubPrTotCnt" column="ORDERSUBPRTOTCNT" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.exchangeItemsMoney" column="EXCHANGEITEMSMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderInfo.exchangeCouponMoney" column="EXCHANGECOUPONMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderInfo.exchangeDeliveryMoney" column="EXCHANGEDELIVERYMONEY" javaType="double" jdbcType="DOUBLE"/>
+        <result property="orderInfo.omDeliinoutType" column="OM_DELIINOUTTYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaName" column="OA_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaAddr1" column="OA_ADDR1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaAddr2" column="OA_ADDR2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaAddr3" column="OA_ADDR3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaCountryName" column="OA_COUNTRYNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaCountryCode" column="OA_COUNTRYCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaZipCode" column="OA_ZIPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaPhone" column="OA_PHONE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaEmail" column="OA_EMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaType" column="OA_TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaInDate" column="OA_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="orderAddressRequest.oaDeliMemo" column="OA_DELIMEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaOrderErTel" column="OA_ORDERERTEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaOrderErEmail" column="OA_ORDEREREMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaZoneCode" column="OA_ZONECODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderInfo.omPointMoney" column="OM_POINTMONEY" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="orderInfo.exchangePointMoney" column="EXCHANGEPOINTMONEY" javaType="DOUBLE" jdbcType="DOUBLE"/>
+        <result property="orderAddressRequest.oaBuyerName" column="OA_BUYERNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaBuyerPhone" column="OA_BUYERPHONE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaBuyerEmail" column="OA_BUYEREMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaBuyerCountryName" column="OA_BUYERCOUNTRYNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="orderAddressRequest.oaBuyerCountryCode" column="OA_BUYERCOUNTRYCODE" javaType="string" jdbcType="VARCHAR"/>
+        <collection property="orderSubList" column="orderNumber=OM_NUM" javaType="java.util.ArrayList" ofType="OrderSubShippingMap" select="findOrderSubWithPrImageByOrderNumber"/>
+    </resultMap>
+
+    <resultMap id="OrderAddressMap" type="com.kakaofriends.front.domain.order.OrderAddressDto$request">
+        <result property="userId" column="OM_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaOmNum" column="OA_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaName" column="OA_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaPhone" column="OA_PHONE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaEmail" column="OA_EMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaZoneCode" column="OA_ZONECODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaZipCode" column="OA_ZIPCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaAddr1" column="OA_ADDR1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaAddr2" column="OA_ADDR2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaAddr3" column="OA_ADDR3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaCountryName" column="OA_COUNTRYNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaCountryCode" column="OA_COUNTRYCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaDeliMemo" column="OA_DELIMEMO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaType" column="OA_TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaInDate" column="OA_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+        <result property="oaOrderErTel" column="OA_ORDERERTEL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaOrderErEmail" column="OA_ORDEREREMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerName" column="OA_BUYERNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerPhone" column="OA_BUYERPHONE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerEmail" column="OA_BUYEREMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerCountryName" column="OA_BUYERCOUNTRYNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerCountryCode" column="OA_BUYERCOUNTRYCODE" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="selectOrderMain">
+        om.OM_NUM,
+        om.OM_PGTID,
+        om.OM_OWNERID,
+		om.OM_INDATE,
+        om.OM_PAYTYPE,
+        om.OM_ACCESSTYPE,
+		om.OM_CARDMONEY,
+        om.OM_ACCOUNTMONEY,
+        om.OM_KAKAOMONEY,
+        om.OM_PAYPALMONEY,
+		(
+			om.OM_CARDMONEY +
+			om.OM_ACCOUNTMONEY +
+			om.OM_KAKAOMONEY +
+			om.OM_PAYPALMONEY
+		) TOTALMONEY,
+		om.OM_COUPONMONEY,
+		om.OM_DELIVERYMONEY,
+		om.OM_DELIMOENYUSE,
+		om.OM_DELINUM,
+		om.OM_POINTMONEY,
+		om.OM_DELIINOUTTYPE,
+		(SELECT SUM(ROUND(os_salemoney / NVL(OS_EXCHANGERATE, 1), 2) * os_ea) FROM ORDERSUB WHERE os_omnum = om.om_num and os_prcode is not null) as EXCHANGEITEMSMONEY,
+		ROUND(om.OM_COUPONMONEY / NVL(om.OM_EXCHANGERATE, 1), 2) as EXCHANGECOUPONMONEY,
+		ROUND(om.OM_POINTMONEY / NVL(om.OM_EXCHANGERATE, 1), 2) as EXCHANGEPOINTMONEY,
+		ROUND(om.OM_DELIVERYMONEY / NVL(om.OM_EXCHANGERATE, 1), 2) as EXCHANGEDELIVERYMONEY,
+    </sql>
+    <sql id="selectOrderSubWithPrImage">
+		os.OS_SEQ,
+		os.OS_OMNUM,
+		os.OS_SERIAL,
+		os.OS_PRCODE,
+		pr.PR_NAME,
+		pr.PR_NAME1,
+		pr.PR_IMAGE1,
+		pr.PR_IMAGE12,
+		pr.PR_TYPE,
+		os.OS_OWNERNAME,
+		os.OS_ACCESSTYPE,
+		os.OS_ACCOUNTMONEY,
+		os.OS_CARDMONEY,
+		os.OS_KAKAOMONEY,
+		os.OS_PHONEMONEY,
+		os.OS_COUPONMONEY,
+		os.OS_ORIGINALMONEY,
+		os.OS_SALEMONEY,
+		ROUND(os.OS_SALEMONEY / NVL(os.OS_EXCHANGERATE, 1), 2) as EXCHANGESALEMONEY,
+		ROUND(os.OS_COUPONMONEY / NVL(os.OS_EXCHANGERATE, 1), 2) as EXCHANGECOUPONMONEY,
+		ROUND(os.OS_POINTMONEY / NVL(os.OS_EXCHANGERATE, 1), 2) as EXCHANGEPOINTMONEY,
+		os.OS_TOTORIGINALMONEY,
+		os.OS_TOTSALEMONEY,
+		os.OS_DELINUM,
+		os.OS_EA,
+		os.OS_OUTEA,
+		os.OS_INEA,
+		os.OS_OPTIONNAME,
+		os.OS_STATUS,
+		os.OS_TYPE,
+		os.OS_MOID,
+		os.OS_INDATE,
+		os.OS_CANCELREASON,
+		os.OS_SCPCODE,
+		os.OS_BCPCODE,
+		os.OS_BDPCODE,
+		os.OS_POINTMONEY,
+		NVL(os.OS_CTSEQ, prc.PRC_CTSEQ) OS_CTSEQ,
+		NVL2(os.OS_CTSEQ,
+		    (SELECT ct.CT_NAME FROM CATEGORY ct WHERE ct.CT_SEQ = os.OS_CTSEQ),
+		    (SELECT ct.CT_NAME FROM CATEGORY ct WHERE ct.CT_SEQ = prc.PRC_CTSEQ)) CT_NAME,
+		os.OS_REFUNDACCOUNT,
+		os.OS_REFUNDACCOUNTBANK,
+		os.OS_REFUNDACCOUNTNAME,
+		os.OS_ETC7,
+        os.OS_PCCSEQ,
+        parcel.PCC_URL
+		FROM ORDERSUB os
+		INNER JOIN PRODUCT pr
+		ON os.OS_PRCODE = pr.PR_CODE
+		LEFT JOIN (SELECT DISTINCT PRC_PRCODE, MAX(PRC_CTSEQ)OVER(PARTITION BY PRC_PRCODE) PRC_CTSEQ FROM PRODUCTCATEGORY) prc
+		ON os.OS_PRCODE = prc.PRC_PRCODE
+		LEFT JOIN PARCELCOMPANY parcel
+        ON os.OS_PCCSEQ = parcel.PCC_SEQ
+	</sql>
+    <select id="findOrderSubWithPrImageByOrderNumber" parameterType="map" resultMap="OrderSubShippingMap" statementType="CALLABLE">
+        SELECT
+        <include refid="selectOrderSubWithPrImage"/>
+        WHERE OS_OMNUM = #{orderNumber}
+        ORDER BY OS_SERIAL
+    </select>
+
+    <select id="findOrderSubWithPrImageByOrderSubSequence" parameterType="map" resultMap="OrderSubShippingMap" statementType="CALLABLE">
+        SELECT
+        <include refid="selectOrderSubWithPrImage"/>
+        WHERE OS_SEQ = #{orderSubSequence}
+    </select>
+
+    <sql id="selectOrderSub">
+		OS_SEQ,
+		OS_OMNUM,
+		OS_SERIAL,
+		OS_PGTID,
+		OS_PRCODE,
+		OS_SCPCODE,
+		OS_BCPCODE,
+		OS_BDPCODE,
+		OS_OWNERID,
+		OS_OWNERNAME,
+		OS_ACCOUNTMONEY,
+		OS_CARDMONEY,
+		OS_COUPONMONEY,
+		OS_LATERMONEY,
+		OS_BUDGETMONEY,
+		OS_SAVEMONEY,
+		OS_POINTMONEY,
+		OS_VIRTUALACCOUNTMONEY,
+		OS_SAVEMONEYPERCENTAGE,
+		OS_NEWSAVEMONEY,
+		OS_NEWPRSAVEMONEY,
+		OS_ORIGINALMONEY,
+		OS_SALEMONEY,
+		OS_TOTORIGINALMONEY,
+		OS_TOTSALEMONEY,
+		OS_EA,
+		OS_OUTEA,
+		OS_INEA,
+		OS_BGISEQ,
+		OS_RELEASENUM,
+		OS_OPTIONNAME,
+		OS_MEMO,
+		OS_REFUNDACCOUNT,
+		OS_REFUNDACCOUNTBANK,
+		OS_REFUNDACCOUNTNAME,
+		OS_REFUNDSTATUS,
+		OS_CPPAYTYPE,
+		OS_VATUSE,
+		OS_ESCROWUSE,
+		OS_ESCROWSTATUS,
+		OS_PARTCANCELUSE,
+		OS_BUYCALCULATE,
+		OS_SUPPLYCALCULATE,
+		OS_DELITYPE,
+		OS_DELIPAYTYPE,
+		OS_DELIMOENYUSE,
+		OS_DELIMEMO,
+		OS_DELINUM,
+		OS_DELIBOXEA,
+		OS_PCCSEQ,
+		OS_STATUS,
+		OS_ETC1,
+		OS_ETC2,
+		OS_ETC3,
+		OS_ETC4,
+		OS_ETC5,
+		OS_ETC6,
+		OS_LEVEL,
+		OS_TYPE,
+		OS_USE,
+		OS_MOID,
+		OS_INID,
+		OS_MODATE,
+		OS_INDATE,
+		OS_DEPOSITACCOUNT,
+		OS_DEPOSITACCOUNTBANK,
+		OS_DEPOSITACCOUNTINNAME,
+		OS_ACCESSTYPE,
+		OS_MINUSACCOUNTMONEY,
+		OS_MINUSCARDMONEY,
+		OS_MINUSCOUPONMONEY,
+		OS_MINUSLATERMONEY,
+		OS_MINUSBUDGETMONEY,
+		OS_MINUSSAVEMONEY,
+		OS_MINUSPOINTMONEY,
+		OS_MINUSVIRTUALACCOUNTMONEY,
+		OS_DELIINOUTTYPE,
+		OS_CARDTYPE,
+		OS_DEPOSITACCOUNTNAME,
+		OS_DEPOSITACCOUNTINDATE,
+		OS_DEPOSITACCOUNTINTIME,
+		OS_CREDITCARDNUM,
+		OS_PARENTPRCODE,
+		OS_CTSEQ,
+		OS_CANCELREASON,
+		OS_ACTADMINID,
+		OS_KAKAOMONEY,
+		OS_PHONEMONEY
+	</sql>
+    <select id="findOrderSubListByUserIdAndOrderNumber" parameterType="map" resultMap="OrderSubMap" statementType="CALLABLE">
+        SELECT
+        <include refid="selectOrderSub"/>
+        FROM ORDERSUB
+        WHERE OS_OWNERID = #{userId} AND OS_OMNUM = #{orderNumber}
+        ORDER BY OS_SERIAL
+    </select>
+
+    <select id="findOrderSubByUserIdAndOrderSubSequence" parameterType="map" resultMap="OrderSubMap" statementType="CALLABLE">
+        SELECT
+            (
+            SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+            FROM ORDERSUB os2
+            WHERE os2.OS_OMNUM = ordersub.OS_OMNUM AND os2.OS_TYPE = '1'
+            ) ORDERSUBPRTOTCNT,
+            pr.PR_NAME PRNAME,
+        <include refid="selectOrderSub"/>
+        FROM ORDERSUB
+        LEFT JOIN PRODUCT pr ON ORDERSUB.OS_PRCODE = pr.PR_CODE
+        WHERE OS_OWNERID=#{userId} AND OS_SEQ = #{orderSubSequence}
+    </select>
+
+    <select id="findOrderSubByOwnerNameAndOrderSubSequence" parameterType="map" resultMap="OrderSubMap" statementType="CALLABLE">
+        SELECT
+            (
+            SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+            FROM ORDERSUB os2
+            WHERE os2.OS_OMNUM = ordersub.OS_OMNUM AND os2.OS_TYPE = '1'
+            ) ORDERSUBPRTOTCNT,
+          pr.PR_NAME PRNAME,
+        <include refid="selectOrderSub"/>
+        FROM ORDERSUB
+        LEFT JOIN PRODUCT pr ON ORDERSUB.OS_PRCODE = pr.PR_CODE
+        WHERE OS_SEQ = #{orderSubSequence} AND OS_OWNERNAME=#{ownerName}
+    </select>
+
+    <select id="findByOrderProductCode" parameterType="String" resultMap="OrderProductMap" statementType="CALLABLE">
+      SELECT
+          pr.*,
+          prlp.PRLP_SUPPLYPRICE,
+          prlp.PRLP_SALEPRICE1,
+          prlp.PRLP_DISCOUNTPRICE1
+      FROM(
+        SELECT
+            PR_NAME,
+            PR_CODE,
+            PR_IMAGE1
+        FROM PRODUCT
+        WHERE PR_CODE=#{productCode}) pr
+      LEFT JOIN PRODUCTLEVELPRICE prlp
+      ON pr.PR_CODE = prlp.PRLP_PRCODE
+    </select>
+
+    <select id="findByMyOrderListAllCount" parameterType="String" resultType="int" statementType="CALLABLE">
+        SELECT COUNT(*)
+            FROM ORDERMAIN
+        WHERE OM_OWNERID = #{userId}
+    </select>
+
+    <select id="findByMyOrderListAll" parameterType="map" resultMap="OrderInfoMap" statementType="CALLABLE">
+    SELECT * FROM
+	(
+		SELECT
+			ROW_NUMBER()
+		OVER (ORDER BY om.OM_INDATE DESC) RNUM,
+        <include refid="selectOrderMain"/>
+		pr.PR_NAME,
+        pr.PR_NAME1,
+		pr.PR_IMAGE1,
+        pr.PR_IMAGE12,
+		(
+			SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+			FROM ORDERSUB os2
+			WHERE os2.OS_OMNUM = om.OM_NUM AND os2.OS_TYPE = '1'
+		) ORDERSUBPRTOTCNT
+		FROM ORDERMAIN om
+			LEFT JOIN ORDERSUB os
+				ON om.OM_NUM = os.OS_OMNUM AND os.OS_SERIAL = 1
+			LEFT JOIN PRODUCT pr
+				ON os.OS_PRCODE = pr.PR_CODE
+		WHERE OM_OWNERID = #{userId} ORDER BY OM_INDATE DESC, OS_SERIAL ASC
+	)
+    WHERE RNUM BETWEEN  #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+    </select>
+
+    <select id="findByMyCancelListAllCount" parameterType="map" resultType="int" statementType="CALLABLE">
+        SELECT
+        COUNT(DISTINCT OS_OMNUM)
+        FROM ORDERSUB
+        WHERE OS_OWNERID = #{userId}
+        AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+    </select>
+
+    <select id="findByMyCancelListAll" parameterType="map" resultMap="CancelInfoMap" statementType="CALLABLE">
+        SELECT * FROM
+        (
+        SELECT
+        ROW_NUMBER()
+        OVER (ORDER BY om.OM_INDATE DESC) RNUM,
+        <include refid="selectOrderMain"/>
+        pr.PR_NAME,
+        pr.PR_NAME1,
+        pr.PR_IMAGE1,
+        pr.PR_IMAGE12,
+        (
+        SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+        FROM ORDERSUB os2
+        WHERE os2.OS_OMNUM = om.OM_NUM AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionMap.cancelListViewConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('300', '3000', '30000', '300000', '400', '4000', '40000', '400000', '500', '5000', '50000', '500000')
+        ) ORDERSUBPRTOTCNT,
+        (
+        SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+        FROM ORDERSUB os2
+        WHERE os2.OS_OMNUM = om.OM_NUM AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionMap.cancelApplicationConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('300', '3000')
+        ) CANCELSUBMITCNT,
+        (
+        SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+        FROM ORDERSUB os2
+        WHERE os2.OS_OMNUM = om.OM_NUM AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionMap.returnApplicationConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('400', '4000')
+        ) RETURNSUBMITCNT,
+        (
+        SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+        FROM ORDERSUB os2
+        WHERE os2.OS_OMNUM = om.OM_NUM AND OS_STATUS IN
+        <foreach collection=" cancelListViewConditionMap.exchangeApplicationConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('500', '5000')
+        ) EXCHANGESUBMITCNT,
+        (
+        SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+        FROM ORDERSUB os2
+        WHERE os2.OS_OMNUM = om.OM_NUM AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionMap.cancelCompleteConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('30000', '300000')
+        ) CANCELCOMPLETECNT,
+        (
+        SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+        FROM ORDERSUB os2
+        WHERE os2.OS_OMNUM = om.OM_NUM AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionMap.returnCompleteConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('40000', '400000')
+        ) RETURNCOMPLETECNT,
+        (
+        SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+        FROM ORDERSUB os2
+        WHERE os2.OS_OMNUM = om.OM_NUM AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionMap.exchangeCompleteConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('50000', '500000')
+        ) EXCHANGECOMPLETECNT,
+        OS_STATUS,
+        os.OS_SERIAL
+        FROM
+        (
+        SELECT
+        *
+        FROM ORDERMAIN om1
+        INNER JOIN
+        (
+        SELECT DISTINCT OS_OMNUM
+        FROM ORDERSUB
+        WHERE OS_OWNERID = #{userId}
+        AND OS_STATUS IN
+        <foreach collection="cancelListViewConditionMap.cancelListViewConditionArr" item="orderStatusType" open="(" separator="," close=")">
+            #{orderStatusType.code}
+        </foreach>
+        -- ('300', '3000', '30000', '300000', '400', '4000', '40000', '400000', '500', '5000', '50000', '500000')
+        ) os1
+        ON om1.OM_NUM = os1.OS_OMNUM) om
+        INNER JOIN ORDERSUB os
+        ON om.OM_NUM = os.OS_OMNUM AND os.OS_SERIAL=(SELECT MIN(OS_SERIAL) FROM ORDERSUB WHERE OS_OMNUM = om.OM_NUM)
+        LEFT JOIN PRODUCT pr
+        ON os.OS_PRCODE = pr.PR_CODE
+        WHERE OM_ACCESSTYPE IN ('1', '5')
+        )
+        WHERE RNUM BETWEEN #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} *
+        #{pagination.currentPageNo}
+    </select>
+
+    <sql id="findOrderShippingInfo">
+		SELECT
+        <include refid="selectOrderMain"/>
+            pr.PR_NAME,
+            pr.PR_NAME1,
+            pr.PR_IMAGE1,
+            pr.PR_IMAGE12,
+            (
+                SELECT COUNT(DISTINCT (os2.OS_PRCODE))
+                FROM ORDERSUB os2
+                WHERE os2.OS_OMNUM = om.OM_NUM AND os2.OS_TYPE = '1'
+            ) ORDERSUBPRTOTCNT,
+            oa.OA_NAME,
+            oa.OA_ADDR1,
+            oa.OA_ADDR2,
+            oa.OA_ADDR3,
+            oa.OA_COUNTRYNAME,
+            oa.OA_COUNTRYCODE,
+            oa.OA_ZIPCODE,
+            oa.OA_PHONE,
+            oa.OA_EMAIL,
+            oa.OA_TYPE,
+            oa.OA_INDATE,
+            oa.OA_DELIMEMO,
+            oa.OA_ORDERERTEL,
+            oa.OA_ORDEREREMAIL,
+            oa.OA_ZONECODE,
+            oa.OA_BUYERNAME,
+            oa.OA_BUYERPHONE,
+            oa.OA_BUYEREMAIL,
+            oa.OA_BUYERCOUNTRYCODE,
+            oa.OA_BUYERCOUNTRYNAME
+		FROM ORDERMAIN om
+		    LEFT JOIN ORDERSUB os
+		        ON om.OM_NUM = os.OS_OMNUM AND os.OS_SERIAL = 1
+		    LEFT JOIN PRODUCT pr
+		        ON os.OS_PRCODE = pr.PR_CODE
+		    LEFT JOIN ORDERADDRESS oa
+		        ON om.OM_NUM = oa.OA_OMNUM
+	</sql>
+    <select id="findOrderShippingInfoByUserIdAndOrderNumber" parameterType="map" resultMap="OrderShippingInfoMap" statementType="CALLABLE">
+        <include refid="findOrderShippingInfo"/>
+        WHERE OM_OWNERID=#{userId} AND OM_NUM = #{orderNumber}
+    </select>
+
+    <select id="findOrderShippingInfoByNonmemberNameAndOrderNumber" parameterType="map" resultMap="OrderShippingInfoMap" statementType="CALLABLE">
+        <include refid="findOrderShippingInfo"/>
+        WHERE OA_BUYERNAME=#{nonmemberName} AND OM_NUM = #{orderNumber} AND OA_BUYEREMAIL = #{orderMail, jdbcType=VARCHAR} AND OM_INID = 'nonmember'
+    </select>
+
+    <select id="findOrderShippingInfoByOwnerNameAndOrderNumberForComplete" parameterType="map" resultMap="OrderShippingInfoMap" statementType="CALLABLE">
+        <include refid="findOrderShippingInfo"/>
+        WHERE OA_BUYERNAME=#{ownerName} AND OM_NUM = #{orderNumber}
+    </select>
+
+    <select id="findRecentOrderAddress" parameterType="String" resultMap="OrderAddressMap" statementType="CALLABLE">
+		SELECT
+			oa.OA_NAME,
+			oa.OA_PHONE,
+			oa.OA_EMAIL,
+			oa.OA_ZONECODE,
+			oa.OA_ZIPCODE,
+			oa.OA_ADDR1,
+			oa.OA_ADDR2,
+            oa.OA_ADDR3,
+            oa.OA_COUNTRYNAME,
+            oa.OA_COUNTRYCODE,
+            oa.OA_BUYERNAME,
+            oa.OA_BUYERPHONE,
+            oa.OA_BUYEREMAIL,
+            oa.OA_BUYERCOUNTRYCODE,
+            oa.OA_BUYERCOUNTRYNAME
+		FROM ORDERADDRESS oa, ORDERMAIN om
+		WHERE oa.OA_OMNUM = om.OM_NUM
+		AND om.OM_OWNERID = #{userId}
+		ORDER BY oa.OA_INDATE DESC
+	</select>
+</mapper>

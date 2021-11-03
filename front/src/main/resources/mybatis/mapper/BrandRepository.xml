@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.BrandRepository">
+
+	<resultMap id="BrdRecommdationMap" type="com.kakaofriends.front.domain.product.ProductDto$SuggestedProduct">
+		<result property="product.prCode" column="ID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName1" column="NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage1" column="IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+	</resultMap>
+
+	<select id="findProductBrdRecommdation" parameterType="map" resultMap="BrdRecommdationMap">
+		 SELECT
+            BR.DISPLAY_GOODS_ID AS ID,
+            DG.NAME,
+            DG.NAME1,
+            DG.IMAGE1,
+            DG.SALEPRICE,
+            ROUND(DG.SALEPRICE / #{exchangeRate}, 2) as EXCHANGEPRICE
+		FROM TB_KFO_BRAND_RECOMMENDATION BR
+        INNER JOIN DISPLAY_GOODS DG ON BR.DISPLAY_GOODS_ID = DG.ID
+        WHERE BR.BR_CODE = #{brandCode} AND STATUS != 2 AND KRVIEW = 'Y'
+		ORDER BY BR.BR_ORDERNUM
+	</select>
+</mapper>

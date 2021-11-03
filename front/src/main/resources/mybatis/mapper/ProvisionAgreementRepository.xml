@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.ProvisionAgreementRepository">
+    <select id="getNeedAgreementProvision" parameterType="com.kakaofriends.front.domain.ProvisionAgreement" resultType="com.kakaofriends.front.domain.Provision" >
+        SELECT C.country, C.code, C.version, C.necessary, C.readMore, c.title, c.contents
+        FROM
+            (SELECT B.country, B.code, B.version, B.necessary, B.read_more as readMore, B.title, B.contents, B.order_seq
+            FROM
+                (SELECT country, code, MAX(version) as version
+                FROM kfo_provision
+                WHERE use = '1'
+                  AND country = #{provisionCountry}
+                    <if test="necessary != null">
+                        AND necessary = #{necessary}
+                    </if>
+                    AND application_date <![CDATA[ < ]]> SYSDATE
+                GROUP BY country, code) A
+                INNER JOIN kfo_provision B ON A.country = B.country AND A.code = B.code AND A.version = B.version) C
+        LEFT JOIN (SELECT member_id, provision_country, provision_code, provision_version, agreement FROM kfo_provision_agreement WHERE member_id = #{memberId}) D
+          ON C.country = D.provision_country
+          AND C.code = D.provision_code
+          AND C.version = D.provision_version
+        WHERE member_id is null or agreement = 0
+        ORDER BY C.order_seq
+    </select>
+
+    <select id="getMemberProvisionInfo" parameterType="com.kakaofriends.front.domain.ProvisionAgreement" resultType="com.kakaofriends.front.domain.Provision" >
+        SELECT C.country, C.code, C.version, C.necessary, C.readMore, C.title, C.contents, D.agreement
+        FROM
+            (SELECT B.country, B.code, B.version, B.necessary, B.read_more as readMore, B.title, B.contents, B.order_seq
+            FROM
+                (SELECT country, code, MAX(version) as version
+                FROM kfo_provision
+                WHERE use = '1'
+                  AND country = #{provisionCountry}
+                  <if test="necessary != null">
+                  AND necessary = #{necessary}
+                  </if>
+                  AND application_date <![CDATA[ < ]]> SYSDATE
+                GROUP BY country, code) A
+            INNER JOIN kfo_provision B ON A.country = B.country AND A.code = B.code AND A.version = B.version) C
+        LEFT JOIN (SELECT member_id, provision_country, provision_code, provision_version, agreement FROM kfo_provision_agreement WHERE member_id = #{memberId}) D
+            ON C.country = D.provision_country
+            AND C.code = D.provision_code
+            AND C.version = D.provision_version
+        ORDER BY C.order_seq
+    </select>
+
+    <insert id="agreeProvision" parameterType="com.kakaofriends.front.domain.ProvisionAgreement" >
+        MERGE INTO kfo_provision_agreement
+        USING dual
+        ON (member_id = #{memberId} AND provision_country = #{provisionCountry} AND provision_code = #{provisionCode} AND provision_version = #{provisionVersion})
+            WHEN MATCHED THEN
+                UPDATE SET
+                    agreement = #{agreement},
+                    update_date = SYSDATE
+            WHEN NOT MATCHED THEN
+                INSERT (member_id, provision_country, provision_code, provision_version, agreement)
+                VALUES (#{memberId}, #{provisionCountry}, #{provisionCode}, #{provisionVersion}, #{agreement})
+    </insert>
+
+    <update id="disagree" parameterType="long">
+        UPDATE (
+          SELECT a.agreement, a.update_date
+          FROM kfo_provision_agreement a INNER JOIN kfo_provision b ON a.provision_country = b.country AND a.provision_code = b.code AND a.provision_version = b.version
+          WHERE a.member_id = #{id} AND b.necessary = '0'
+        ) SET agreement = '0', update_date = SYSDATE
+    </update>
+</mapper>

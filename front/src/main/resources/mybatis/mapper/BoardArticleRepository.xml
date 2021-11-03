@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.BoardArticleRepository">
+	<resultMap id="BoardArticleMap" type="BoardArticle">
+		<result column="RNUM" jdbcType="INTEGER" property="rNum"/>
+		<result column="BDA_SEQ" jdbcType="INTEGER" property="bdaSeq"/>
+		<result column="BDA_BDID" jdbcType="VARCHAR" property="bdaBdid"/>
+		<result column="BDA_BDCSEQ" jdbcType="INTEGER" property="bdaBdcseq"/>
+		<result column="BDA_NAME" jdbcType="VARCHAR" property="bdaName"/>
+		<result column="BDA_PSWD" jdbcType="VARCHAR" property="bdaPswd"/>
+		<result column="BDA_FILE1" jdbcType="VARCHAR" property="bdaFile1"/>
+		<result column="BDA_FILE2" jdbcType="VARCHAR" property="bdaFile2"/>
+		<result column="BDA_OWNERID" jdbcType="VARCHAR" property="bdaOwnerid"/>
+		<result column="BDA_OWNERNAME" jdbcType="VARCHAR" property="bdaOwnername"/>
+		<result column="BDA_CPCODE" jdbcType="VARCHAR" property="bdaCpcode"/>
+		<result column="BDA_PHONE" jdbcType="VARCHAR" property="bdaPhone"/>
+		<result column="BDA_EMAIL" jdbcType="VARCHAR" property="bdaEmail"/>
+		<result column="BDA_REPLYYN" jdbcType="CHAR" property="bdaReplyyn"/>
+		<result column="BDA_GROUPNUM" jdbcType="INTEGER" property="bdaGroupnum"/>
+		<result column="BDA_LEVELNUM" jdbcType="INTEGER" property="bdaLevelnum"/>
+		<result column="BDA_STEPNUM" jdbcType="INTEGER" property="bdaStepnum"/>
+		<result column="BDA_CMCOUNT" jdbcType="INTEGER" property="bdaCmcount"/>
+		<result column="BDA_STATUS" jdbcType="INTEGER" property="bdaStatus"/>
+		<result column="BDA_PRCODE" jdbcType="VARCHAR" property="bdaPrcode"/>
+		<result column="BDA_LANGUAGE" jdbcType="VARCHAR" property="bdaLanguage"/>
+		<result column="BDA_ETC3" jdbcType="VARCHAR" property="bdaEtc3" javaType="BoardReplyType" typeHandler="BoardReplyTypeHandler"/>
+		<result column="BDA_ETC4" jdbcType="VARCHAR" property="bdaEtc4"/>
+		<result column="BDA_ETC5" jdbcType="VARCHAR" property="bdaEtc5"/>
+		<result column="BDA_ETC6" jdbcType="VARCHAR" property="bdaEtc6"/>
+		<result column="BDA_LEVEL" jdbcType="VARCHAR" property="bdaLevel"/>
+		<result column="BDA_TYPE" jdbcType="VARCHAR" property="bdaType"/>
+		<result column="BDA_USE" jdbcType="CHAR" property="bdaUse"/>
+		<result column="BDA_MOID" jdbcType="VARCHAR" property="bdaMoid"/>
+		<result column="BDA_INID" jdbcType="VARCHAR" property="bdaInid"/>
+		<result column="BDA_MODATE" jdbcType="TIMESTAMP" property="bdaModate"/>
+		<result column="BDA_INDATE" jdbcType="TIMESTAMP" property="bdaIndate"/>
+		<result column="BDA_CONTENT" jdbcType="CLOB" property="bdaContent"/>
+	</resultMap>
+
+	<resultMap id="BoardArticleExpansionMap" type="BoardArticleExpansion">
+		<result column="RNUM" jdbcType="INTEGER" property="boardArticle.rNum"/>
+		<result column="BDA_SEQ" jdbcType="INTEGER" property="boardArticle.bdaSeq"/>
+		<result column="BDA_BDID" jdbcType="VARCHAR" property="boardArticle.bdaBdid"/>
+		<result column="BDA_BDCSEQ" jdbcType="INTEGER" property="boardArticle.bdaBdcseq"/>
+		<result column="BDA_NAME" jdbcType="VARCHAR" property="boardArticle.bdaName"/>
+		<result column="BDA_PSWD" jdbcType="VARCHAR" property="boardArticle.bdaPswd"/>
+		<result column="BDA_FILE1" jdbcType="VARCHAR" property="boardArticle.bdaFile1"/>
+		<result column="BDA_FILE2" jdbcType="VARCHAR" property="boardArticle.bdaFile2"/>
+		<result column="BDA_OWNERID" jdbcType="VARCHAR" property="boardArticle.bdaOwnerid"/>
+		<result column="BDA_OWNERNAME" jdbcType="VARCHAR" property="boardArticle.bdaOwnername"/>
+		<result column="BDA_CPCODE" jdbcType="VARCHAR" property="boardArticle.bdaCpcode"/>
+		<result column="BDA_PHONE" jdbcType="VARCHAR" property="boardArticle.bdaPhone"/>
+		<result column="BDA_EMAIL" jdbcType="VARCHAR" property="boardArticle.bdaEmail"/>
+		<result column="BDA_REPLYYN" jdbcType="CHAR" property="boardArticle.bdaReplyyn"/>
+		<result column="BDA_GROUPNUM" jdbcType="INTEGER" property="boardArticle.bdaGroupnum"/>
+		<result column="BDA_LEVELNUM" jdbcType="INTEGER" property="boardArticle.bdaLevelnum"/>
+		<result column="BDA_STEPNUM" jdbcType="INTEGER" property="boardArticle.bdaStepnum"/>
+		<result column="BDA_CMCOUNT" jdbcType="INTEGER" property="boardArticle.bdaCmcount"/>
+		<result column="BDA_STATUS" jdbcType="INTEGER" property="boardArticle.bdaStatus"/>
+		<result column="BDA_PRCODE" jdbcType="VARCHAR" property="boardArticle.bdaPrcode"/>
+		<result column="BDA_LANGUAGE" jdbcType="VARCHAR" property="boardArticle.bdaLanguage"/>
+		<result column="BDA_ETC3" jdbcType="VARCHAR" property="boardArticle.bdaEtc3" javaType="BoardReplyType" typeHandler="BoardReplyTypeHandler"/>
+		<result column="BDA_ETC4" jdbcType="VARCHAR" property="boardArticle.bdaEtc4"/>
+		<result column="BDA_ETC5" jdbcType="VARCHAR" property="boardArticle.bdaEtc5"/>
+		<result column="BDA_ETC6" jdbcType="VARCHAR" property="boardArticle.bdaEtc6"/>
+		<result column="BDA_LEVEL" jdbcType="VARCHAR" property="boardArticle.bdaLevel"/>
+		<result column="BDA_TYPE" jdbcType="VARCHAR" property="boardArticle.bdaType"/>
+		<result column="BDA_USE" jdbcType="CHAR" property="boardArticle.bdaUse"/>
+		<result column="BDA_MOID" jdbcType="VARCHAR" property="boardArticle.bdaMoid"/>
+		<result column="BDA_INID" jdbcType="VARCHAR" property="boardArticle.bdaInid"/>
+		<result column="BDA_MODATE" jdbcType="TIMESTAMP" property="boardArticle.bdaModate"/>
+		<result column="BDA_INDATE" jdbcType="TIMESTAMP" property="boardArticle.bdaIndate"/>
+		<result column="BDA_CONTENT" jdbcType="CLOB" property="boardArticle.bdaContent"/>
+
+		<result column="BDC_SEQ" jdbcType="INTEGER" property="boardCategory.bdcSeq"/>
+		<result column="BDC_BDSEQ" jdbcType="INTEGER" property="boardCategory.bdcBdseq"/>
+		<result column="BDC_NAME" jdbcType="VARCHAR" property="boardCategory.bdcName"/>
+		<result column="BDC_ENAME" jdbcType="VARCHAR" property="boardCategory.bdcEname"/>
+		<result column="BDC_CNAME" jdbcType="VARCHAR" property="boardCategory.bdcCname"/>
+		<result column="BDC_ETC3" jdbcType="VARCHAR" property="boardCategory.bdcEtc3"/>
+		<result column="BDC_ETC4" jdbcType="VARCHAR" property="boardCategory.bdcEtc4"/>
+		<result column="BDC_ETC5" jdbcType="VARCHAR" property="boardCategory.bdcEtc5"/>
+		<result column="BDC_ETC6" jdbcType="VARCHAR" property="boardCategory.bdcEtc6"/>
+		<result column="BDC_LEVEL" jdbcType="VARCHAR" property="boardCategory.bdcLevel"/>
+		<result column="BDC_TYPE" jdbcType="VARCHAR" property="boardCategory.bdcType"/>
+		<result column="BDC_USE" jdbcType="CHAR" property="boardCategory.bdcUse"/>
+		<result column="BDC_MOID" jdbcType="VARCHAR" property="boardCategory.bdcMoid"/>
+		<result column="BDC_INID" jdbcType="VARCHAR" property="boardCategory.bdcInid"/>
+		<result column="BDC_MODATE" jdbcType="TIMESTAMP" property="boardCategory.bdcModate"/>
+		<result column="BDC_INDATE" jdbcType="TIMESTAMP" property="boardCategory.bdcIndate"/>
+	</resultMap>
+
+	<select id="getBoardArticlesCountByArticleName" parameterType="String" resultType="int"
+			statementType="CALLABLE">
+        SELECT
+          COUNT(*)
+        FROM BOARDARTICLE
+        WHERE BDA_BDID = #{articleName}
+    </select>
+
+	<select id="getBoardArticlesByArticleName" parameterType="map" resultMap="BoardArticleMap" statementType="CALLABLE">
+    SELECT * FROM
+    (
+        SELECT
+          ROW_NUMBER()
+          OVER (ORDER BY BDA_SEQ DESC) RNUM,
+          BOARDARTICLE.*
+        FROM BOARDARTICLE
+        WHERE BDA_BDID = #{articleName}
+    )
+    WHERE RNUM BETWEEN #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+    </select>
+
+	<select id="getBoardArticlesCountByArticleCategory" parameterType="map" resultType="int" statementType="CALLABLE">
+		SELECT
+		COUNT(*)
+		FROM BOARDARTICLE
+		WHERE BDA_BDID = #{articleName}
+		<if test="category neq null">
+			AND BDA_BDCSEQ = #{category}
+		</if>
+	</select>
+
+	<select id="getBoardArticlesByArticleCategory" parameterType="map" resultMap="BoardArticleExpansionMap" statementType="CALLABLE">
+		SELECT
+		*
+		FROM(
+		SELECT
+		ROW_NUMBER()
+		OVER (ORDER BY BDA_SEQ DESC) RNUM,
+		BOARDARTICLE.*
+		FROM BOARDARTICLE
+		WHERE BDA_BDID = #{articleName}
+		<if test="category neq null">
+			AND BDA_BDCSEQ = #{category}
+		</if>
+		) bda
+		LEFT JOIN BOARDCATEGORY bdc
+		ON bda.BDA_BDCSEQ = bdc.BDC_SEQ
+		WHERE bda.RNUM BETWEEN #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+	</select>
+
+	<insert id="insertOneToOneArticle" parameterType="com.kakaofriends.front.domain.BoardArticleDto$BoardArticleOneToOneRequest">
+        INSERT INTO BOARDARTICLE
+        (
+        BDA_SEQ,
+        BDA_BDID,
+        BDA_BDCSEQ,
+        BDA_NAME,
+        BDA_CONTENT,
+        BDA_FILE1,
+        BDA_OWNERID,
+        BDA_OWNERNAME,
+        BDA_CPCODE,
+        BDA_PHONE,
+        BDA_EMAIL,
+        BDA_REPLYYN,
+        BDA_GROUPNUM,
+        BDA_LEVELNUM,
+        BDA_STEPNUM,
+        BDA_CMCOUNT,
+        BDA_STATUS,
+        BDA_LANGUAGE,
+        BDA_ETC3,
+        BDA_USE,
+        BDA_MOID,
+        BDA_INID,
+        BDA_MODATE,
+        BDA_INDATE
+        )values(
+        (SELECT NVL( MAX(BDA_SEQ), 0 )+1 FROM BOARDARTICLE),
+        #{bdaBdid},
+        #{bdaBdcseq},
+        #{bdaName},
+        #{bdaContent},
+        #{originalFileName},
+        #{bdaOwnerid},
+        #{bdaOwnername},
+        #{bdaCpCode},
+        #{bdaPhone},
+        #{bdaEmail},
+        #{bdaReplyyn},
+        (SELECT NVL( MAX(BDA_SEQ), 0 )+1 FROM BOARDARTICLE),
+        #{bdaLevelnum},
+        #{bdaStepnum},
+        #{bdaCmcount},
+        #{bdaStatus},
+        #{bdaLanguage},
+        #{bdaEtc3.code},
+        #{bdaUse},
+        #{bdaOwnerid},
+        #{bdaOwnerid},
+        (SELECT SYSDATE FROM DUAL),
+        (SELECT SYSDATE FROM DUAL)
+        )
+    </insert>
+
+	<select id="getOneToOneArticlesCountByUserId" parameterType="String" resultType="int" statementType="CALLABLE">
+        SELECT
+        COUNT(*)
+        FROM BOARDARTICLE
+        WHERE BDA_BDID='oneone' AND BDA_OWNERID=#{userId} AND BDA_LEVELNUM = 1 ORDER BY BDA_GROUPNUM
+    </select>
+
+	<select id="getOneToOneArticlesByUserId" parameterType="map" resultMap="BoardArticleExpansionMap" statementType="CALLABLE">
+        SELECT * FROM
+        (
+        SELECT
+        ROW_NUMBER()
+        OVER (ORDER BY BDA_SEQ DESC) RNUM,
+        BOARDARTICLE.*
+        FROM BOARDARTICLE
+        WHERE BDA_BDID='oneone' AND BDA_OWNERID=#{userId} AND BDA_LEVELNUM = 1 ORDER BY BDA_GROUPNUM DESC
+        ) bda
+        LEFT JOIN BOARDCATEGORY bdc
+        ON bda.BDA_BDCSEQ = bdc.BDC_SEQ
+        WHERE RNUM BETWEEN #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+    </select>
+
+	<select id="getOneToOneAnswersByUserId" parameterType="map" resultMap="BoardArticleMap" statementType="CALLABLE">
+        SELECT * FROM BOARDARTICLE WHERE BDA_GROUPNUM IN (
+        SELECT BDA_GROUPNUM FROM
+        (
+        SELECT
+        ROW_NUMBER()
+        OVER (ORDER BY BDA_SEQ DESC) RNUM,
+        BOARDARTICLE.BDA_GROUPNUM
+        FROM BOARDARTICLE
+        WHERE BDA_BDID='oneone' AND BDA_OWNERID=#{userId} AND BDA_LEVELNUM = 1 ORDER BY BDA_GROUPNUM DESC
+        )
+        WHERE RNUM BETWEEN #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+        ) AND BOARDARTICLE.BDA_LEVELNUM = 2
+    </select>
+
+	<select id="findByCategoryNameFirstArticle" parameterType="string" resultMap="BoardArticleMap" statementType="CALLABLE">
+        SELECT A.BDA_SEQ, A.BDA_BDID, BDA_NAME FROM BOARDARTICLE A INNER JOIN (SELECT MAX(BDA_SEQ) BDA_SEQ FROM BOARDARTICLE B WHERE B.BDA_BDID=#{category}) B ON A.BDA_SEQ = B.BDA_SEQ
+    </select>
+
+</mapper>

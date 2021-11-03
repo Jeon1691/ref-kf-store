@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.EmsRepository">
+
+	<select id="getEmsPrice" resultType="long">
+		SELECT ems.*
+		FROM
+		(
+			SELECT
+			EMSPRICE.PRICE
+			FROM EMSPRICE LEFT JOIN EMSDELIVERYCOUNTRY on EMSPRICE.AREACODE = EMSDELIVERYCOUNTRY.EC_AREACODE
+			WHERE  EMSDELIVERYCOUNTRY.EC_CODE = #{countryCode} and EMSPRICE.WEIGHT <![CDATA[ >= ]]> #{weight}  ORDER BY PRICE ASC
+		) ems
+		WHERE ROWNUM =1
+	</select>
+
+	<select id="getCountryList" resultType="map">
+		SELECT
+		 *
+		 FROM EMSDELIVERYCOUNTRY
+		 WHERE EC_CODE != 'IT'
+		<if test="language == 'kr' || language == 'KR'">
+		 	 ORDER BY EC_COUNTRY
+		</if>
+		<if test="language == 'en' || language == 'EN'">
+			ORDER BY EC_COUNTRYENG
+		</if>
+	</select>
+
+	<select id="getEmsState" resultType="hashmap">
+		SELECT state_en, code FROM EMSSTATE ORDER BY STATE_EN
+	</select>
+
+	<select id="getCountryNumber" parameterType="long" resultType="String">
+		SELECT b.ec_phonecode
+		FROM (SELECT UPPER(country) AS country FROM kfo_member WHERE id = #{id}) a
+		INNER JOIN EMSDELIVERYCOUNTRY b ON a.country = b.ec_code
+	</select>
+</mapper>

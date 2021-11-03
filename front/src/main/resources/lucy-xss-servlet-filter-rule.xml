@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns="http://www.navercorp.com/lucy-xss-servlet">
+	<defenders>
+		<!-- XssPreventer 등록 -->
+		<defender>
+			<name>xssPreventerDefender</name>
+			<class>com.navercorp.lucy.security.xss.servletfilter.defender.XssPreventerDefender</class>
+		</defender>
+
+		<!-- XssSaxFilter 등록 -->
+		<defender>
+			<name>xssSaxFilterDefender</name>
+			<class>com.navercorp.lucy.security.xss.servletfilter.defender.XssSaxFilterDefender</class>
+			<init-param>
+				<param-value>lucy-xss-sax.xml</param-value>   <!-- lucy-xss-filter의 sax용 설정파일 -->
+				<param-value>false</param-value>        <!-- 필터링된 코멘트를 남길지 여부, 성능 효율상 false 추천 -->
+			</init-param>
+		</defender>
+
+		<!-- XssFilter 등록 -->
+		<defender>
+			<name>xssFilterDefender</name>
+			<class>com.navercorp.lucy.security.xss.servletfilter.defender.XssFilterDefender</class>
+			<init-param>
+				<param-value>lucy-xss.xml</param-value>    <!-- lucy-xss-filter의 dom용 설정파일 -->
+				<param-value>false</param-value>         <!-- 필터링된 코멘트를 남길지 여부, 성능 효율상 false 추천 -->
+			</init-param>
+		</defender>
+	</defenders>
+
+    <!-- default defender 선언, 필터링 시 지정한 defender가 없으면 여기 정의된 default defender를 사용해 필터링 한다. -->
+    <default>
+        <defender>xssPreventerDefender</defender>
+    </default>
+
+	<!-- global 필터링 룰 선언 -->
+	<global>
+		<!-- 모든 url에서 들어오는 globalParameter 파라메터는 필터링 되지 않으며
+				또한 globalPrefixParameter1로 시작하는 파라메터도 필터링 되지 않는다.
+				globalPrefixParameter2는 필터링 되며 globalPrefixParameter3은 필터링 되지 않지만
+				더 정확한 표현이 가능하므로 globalPrefixParameter2, globalPrefixParameter3과 같은 불분명한 표현은 사용하지 않는 것이 좋다. -->
+		<params>
+			<param name="globalParameter" useDefender="false"/>
+			<param name="globalPrefixParameter1" usePrefix="true" useDefender="false"/>
+			<param name="globalPrefixParameter2" usePrefix="true"/>
+			<param name="globalPrefixParameter3" usePrefix="false" useDefender="false"/>
+		</params>
+	</global>
+
+	<!-- url 별 필터링 룰 선언 -->
+	<url-rule-set>
+		<url-rule>
+			<url disable="true">/kr/order/checkout</url>
+			<params>
+				<param name="encrypted" useDefender="false">
+					<defender>xssPreventerDefender</defender>
+				</param>
+			</params>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/order/inicis</url>
+		</url-rule>
+		<url-rule>
+			<url disable="true">/order/inicis/mobile</url>
+		</url-rule>
+
+		<!-- 추가 회수비 v2 (s) -->
+		<url-rule>
+			<url disable="true">/orderadddeli/inicis</url>
+		</url-rule>
+		<url-rule>
+			<url disable="true">/orderadddeli/inicis/mobile</url>
+		</url-rule>
+		<!-- 추가 회수비 v2 (e) -->
+
+		<url-rule>
+			<url disable="true">/kr/order/inipay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/cnspay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/inimobilecard</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/inimobiledbank</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/inimobile/pnexturl</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/inimobile/pnotiurl</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+
+		<!-- 결제 : English Start -->
+		<url-rule>
+			<url disable="true">/en/order/checkout</url>
+			<params>
+				<param name="encrypted" useDefender="false">
+					<defender>xssPreventerDefender</defender>
+				</param>
+			</params>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/inipay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/cnspay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/inimobilecard</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/inimobiledbank</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/inimobile/pnexturl</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/inimobile/pnotiurl</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+		<!-- 결제 : English End -->
+
+		<!-- 추가 회수비 -->
+		<url-rule>
+			<url disable="true">/kr/order/adddeli/checkout</url>
+			<params>
+				<param name="encrypted" useDefender="false">
+					<defender>xssPreventerDefender</defender>
+				</param>
+			</params>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/adddeli/inipay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/adddeli/cnspay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/adddeli/inimobilecardAdd</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/order/adddeli/inimobiledbankAdd</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/mypage/inimobile/pnexturladd</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/kr/mypage/inimobile/pnotiurladd</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+
+		<!-- 추가 회수비 : English Start -->
+		<url-rule>
+			<url disable="true">/en/order/adddeli/checkout</url>
+			<params>
+				<param name="encrypted" useDefender="false">
+					<defender>xssPreventerDefender</defender>
+				</param>
+			</params>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/adddeli/inipay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/adddeli/cnspay</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/adddeli/inimobilecardAdd</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/order/adddeli/inimobiledbankAdd</url>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/mypage/inimobile/pnexturladd</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+
+		<url-rule>
+			<url disable="true">/en/mypage/inimobile/pnotiurladd</url>
+			<param name="P_NOTI" useDefender="false">
+				<defender>xssPreventerDefender</defender>
+			</param>
+		</url-rule>
+		<!-- 추가회수비 : English End -->
+
+        <!-- 결재 API START -->
+        <url-rule>
+            <url disable="true">/api/payment/cns/post/process</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/cns/pre/process</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/cns/cancel/process</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/inicis/post/process</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/inicis/pre/process</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/inicis/cancel/process</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/paypal/create</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/paypal/execute</url>
+        </url-rule>
+
+        <url-rule>
+            <url disable="true">/api/payment/paypal/cancel</url>
+        </url-rule>
+        <!-- 결재 API END -->
+	</url-rule-set>
+</config>

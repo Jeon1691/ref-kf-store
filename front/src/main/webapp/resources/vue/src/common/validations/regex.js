@@ -1,0 +1,10 @@
+export const RE_ID = /^[가-힣a-zA-Z\s]{2,30}$/ // 이름, 주문자명 검사식
+export const RE_EID = /^[a-zA-Z\s]{2,30}$/ // 이름, 주문자명 검사식 영문 // 2017-03-07 추가
+export const RE_EN = /[^a-zA-Z0-9(),-.?\s]+/ // 영어만 포함되어 있는지 검사 // 2017-07-03 수정
+export const RE_TEL = /^[0-9]{1,3}-[0-9]{6,15}$/ // 모든전화번호 검사식
+export const RE_TEL_ZERO = /^[0-9]{1,3}-[0-9]{8,16}$/ // 모든전화번호 검사식
+export const RE_TEL_GLOBAL = /^[0-9]{1,6}-[0-9]{9,15}$/ // 해외용전화번호 검사식
+export const RE_POSTAL = /^[a-zA-Z0-9]{2,10}$/ // 우편번호 검사식
+export const RE_MEMO = /[;<>&]/ // 일부 특수문자 제외 검사식
+export const RE_COUNTRY = /^[0-9]{1,3}$/ // 국가번호 3자리검사 // 2017-12-26 수정
+export const RE_ADDRESS = /[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9(),&-.?\s]+/

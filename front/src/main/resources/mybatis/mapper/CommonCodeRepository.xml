@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.CommonCodeRepository">
+
+
+    <select id="findAllByCodeType" parameterType="map" resultType="com.kakaofriends.front.domain.common.CommonCode">
+        SELECT
+        CODE_TYPE as codeType,
+        CODE_ID as codeId,
+        CODE_NM as codeNm,
+        PARENT_ID as parentId,
+        OPTION_FIRST AS optionFirst,
+        OPTION_SECOND AS optionSecond,
+        OPTION_THIRD AS optionThird,
+        IS_ACTIVE as avtive,
+        CRT_DT as crtDt,
+        UPD_DT as updDt
+        FROM CRM_COMN_CODE
+        <where>
+            <if test="codeType != null">
+                AND CODE_TYPE = #{codeType}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

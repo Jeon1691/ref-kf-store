@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.KakaoPayConfirmRepository">
+
+	<insert id="kakaoPayConfirmInsert" parameterType="KakaopayConfirm">
+		INSERT INTO KAKAOPAYCONFIRM (
+			KPC_SEQ,
+			KPC_NUM,
+			KPC_TYPE,
+			KPC_SPU1,
+			KPC_SPU2,
+			KPC_SPUSIGNTOKEN1,
+			KPC_SPUSIGNTOKEN2,
+			KPC_MPAYPUB1,
+			KPC_MPAYPUB2,
+			KPC_NONREPTOKEN1,
+			KPC_NONREPTOKEN2,
+			KPC_ETC1,
+			KPC_ETC2,
+			KPC_ETC3,
+			KPC_INID,
+			KPC_INDATE
+		) VALUES (
+			(SELECT NVL(MAX(KPC_SEQ), 0)+1 FROM KAKAOPAYCONFIRM),
+			#{kpcNum, jdbcType=VARCHAR },
+			#{kpcType, jdbcType=VARCHAR },
+			SUBSTR(#{kpcSpu1, jdbcType=VARCHAR }, 0, 3900 ),
+			SUBSTR(#{kpcSpu2, jdbcType=VARCHAR }, 3900, 5000 ),
+			SUBSTR(#{kpcSpuSignToken1, jdbcType=VARCHAR }, 0, 3900 ),
+			SUBSTR(#{kpcSpuSignToken2, jdbcType=VARCHAR }, 3900, 5000 ),
+			SUBSTR(#{kpcMpayPub1, jdbcType=VARCHAR }, 0, 3900 ),
+			SUBSTR(#{kpcMpayPub2, jdbcType=VARCHAR }, 3900, 5000 ),
+			SUBSTR(#{kpcNonrepToken1, jdbcType=VARCHAR }, 0, 3900 ),
+			SUBSTR(#{kpcNonrepToken2, jdbcType=VARCHAR }, 3900, 5000 ),
+			#{kpcEtc1, jdbcType=VARCHAR },
+			#{kpcEtc2, jdbcType=VARCHAR },
+			#{kpcEtc3, jdbcType=VARCHAR },
+			#{kpcInId, jdbcType=VARCHAR },
+			SYSDATE
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.BannerRepository">
+	<resultMap id="BannerMap" type="com.kakaofriends.core.domain.Banner">
+		<result column="BN_SEQ" jdbcType="DECIMAL" property="bnSeq"/>
+		<result column="BN_LANGUAGE" jdbcType="CHAR" property="bnLanguage"/>
+		<result column="BN_OWNERID" jdbcType="VARCHAR" property="bnOwnerid"/>
+		<result column="BN_IMAGE" jdbcType="VARCHAR" property="bnImage"/>
+		<result column="BN_AREA" jdbcType="VARCHAR" property="bnArea"/>
+		<result column="BN_AREA" jdbcType="VARCHAR" property="bnAreaType" typeHandler="BannerTypeHandler" javaType="BannerType"/>
+		<result column="BN_ORDER" jdbcType="VARCHAR" property="bnOrder"/>
+		<result column="BN_AREA2ORDER" jdbcType="VARCHAR" property="bnArea2order"/>
+		<result column="BN_LINK" jdbcType="VARCHAR" property="bnLink"/>
+		<result column="BN_LINKUSE" jdbcType="CHAR" property="bnLinkUse"/>
+		<result column="BN_ALT" jdbcType="VARCHAR" property="bnAlt"/>
+		<result column="BN_TARGET" jdbcType="VARCHAR" property="bnTarget"/>
+		<result column="BN_TYPE" jdbcType="VARCHAR" property="bnType"/>
+		<result column="BN_USE" jdbcType="CHAR" property="bnUse"/>
+		<result column="BN_MOID" jdbcType="VARCHAR" property="bnMoid"/>
+		<result column="BN_INID" jdbcType="VARCHAR" property="bnInid"/>
+		<result column="BN_MODATE" jdbcType="TIMESTAMP" property="bnModate"/>
+		<result column="BN_INDATE" jdbcType="TIMESTAMP" property="bnIndate"/>
+		<result column="BN_TITLE" jdbcType="VARCHAR" property="bnTitle"/>
+        <result column="BN_SUBTITLE" jdbcType="VARCHAR" property="bnSubTitle"/>
+		<result column="BN_INFO" jdbcType="VARCHAR" property="bnInfo"/>
+		<result column="BN_COLOR" jdbcType="VARCHAR" property="bnColor"/>
+	</resultMap>
+
+
+
+	<select id="findByBannerAreas" parameterType="map" resultMap="BannerMap">
+		SELECT
+			BN_SEQ, BN_IMAGE, BN_AREA, BN_ORDER, BN_LINK, BN_LINKUSE, BN_ALT, BN_TARGET, BN_TITLE, BN_INFO, BN_COLOR, BN_SUBTITLE
+		FROM
+			BANNER
+		WHERE
+			BN_USE = 'Y'
+			AND BN_AREA IN <foreach collection="bannerTypes" item="bannerType" separator="," open="(" close=")"> ${bannerType.getCode} </foreach>
+		ORDER BY LPAD(BN_AREA, 2) ASC, LPAD(BN_ORDER, 2) ASC
+	</select>
+
+
+	<select id="findByBannerArea" parameterType="string" resultMap="BannerMap">
+		SELECT
+			BN_SEQ, BN_IMAGE, BN_AREA, BN_ORDER, BN_LINK, BN_LINKUSE, BN_ALT, BN_TARGET, BN_TITLE, BN_INFO, BN_COLOR, BN_SUBTITLE
+		FROM
+			BANNER
+		WHERE BN_USE = 'Y' AND BN_AREA = #{bannerArea}
+		ORDER BY LPAD(BN_AREA, 2) ASC, LPAD(BN_ORDER, 2) ASC
+	</select>
+</mapper>

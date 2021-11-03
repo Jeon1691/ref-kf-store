@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.giftcard.CouponHistoryRepository">
+
+	<!-- start of insert -->
+	<insert id="insert">
+		INSERT INTO TB_KFO_MBS_COUPON_HISTORY (
+			CPH_SEQ,
+			CPH_USERID,
+			CPH_GCMCODE,
+			CPH_CODE,
+			CPH_PRICE,
+			CPH_SDATE,
+			CPH_EDATE,
+			CPH_USE,
+			CPH_USEDATE,
+			CPH_OMNUM,
+			CPH_TYPE,
+			CPH_LEVEL,
+			CPH_OPTION_TYPE,
+			CPH_OPTION_VALUE,
+			CPH_NAME,
+			CPH_ENAME,
+			CPH_OPTION_CATEGORY,
+			CPH_TITLE,
+			CPH_DUPLICATION,
+			REG_DTTM,
+			UPD_DTTM,
+			REG_USER,
+			UPD_USER
+		) VALUES (
+			SEQ_COUPON_HISTORY_ID.NEXTVAL,
+			#{history.cphUserId},
+			#{history.cphGcmCode},
+			#{history.cphCode},
+			#{history.cphPrice},
+			#{history.cphSDate},
+			#{history.cphEDate},
+			#{history.cphUse},
+			#{history.cphUseDate},
+			#{history.cphOmNum},
+			#{history.cphType},
+			#{history.cphLevel},
+			#{history.cphOptionType},
+			#{history.cphOptionValue},
+			#{history.cphName},
+			#{history.cphEName},
+			#{history.cphOptionCategory},
+			#{history.cphTitle},
+			#{history.cphDuplication},
+			SYSDATE,
+			SYSDATE,
+			#{history.regUser},
+			#{history.updUser}
+		)
+	</insert>
+</mapper>

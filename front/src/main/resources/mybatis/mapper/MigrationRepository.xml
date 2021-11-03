@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.MigrationRepository">
+
+	<select id="isMigration" parameterType="com.kakaofriends.front.domain.Migration" resultType="int">
+		SELECT COUNT(mb_id)
+		FROM member
+		WHERE mb_id = #{targetId}
+			AND mb_etc6 IS NULL
+	</select>
+
+	<update id="beforeMigration" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE member SET MB_ETC6 = 'MIGRATION'
+		WHERE mb_id = #{targetId}
+	</update>
+
+	<update id="migrationAddress" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE address SET ad_ownerid = #{id}
+		WHERE ad_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationBasket" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE basket SET bs_ownerid = #{id}
+		WHERE bs_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationWishList" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE wishlist SET ws_ownerid = #{id}
+		WHERE ws_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationWishListMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE wishlist SET ws_moid = #{id}
+		WHERE ws_moid = #{targetId}
+	</update>
+
+	<update id="migrationWishListInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE wishlist SET ws_inid = #{id}
+		WHERE ws_inid = #{targetId}
+	</update>
+
+	<update id="migrationBoardArticle" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE boardarticle SET bda_ownerid = #{id}
+		WHERE bda_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationMemberLogin" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE memberlogin SET mbl_mbid = #{id}
+		WHERE mbl_mbid = #{targetId}
+	</update>
+
+	<update id="migrationOrderAddDeli" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE orderadddeli SET od_ownerid = #{id}
+		WHERE od_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationOrderAddDeliMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE orderadddeli SET od_moid = #{id}
+		WHERE od_moid = #{targetId}
+	</update>
+
+	<update id="migrationOrderAddDeliInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE orderadddeli SET od_inid = #{id}
+		WHERE od_inid = #{targetId}
+	</update>
+
+	<update id="migrationOrderAddressMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE orderaddress SET oa_moid = #{id}
+		WHERE oa_moid = #{targetId}
+	</update>
+
+	<update id="migrationOrderAddressInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE orderaddress SET oa_inid = #{id}
+		WHERE oa_inid = #{targetId}
+	</update>
+
+	<update id="migrationAddressMobileTempMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE orderaddressmobiletemp SET oamt_moid = #{id}
+		WHERE oamt_moid = #{targetId}
+	</update>
+
+	<update id="migrationAddressMobileTempInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE orderaddressmobiletemp SET oamt_inid = #{id}
+		WHERE oamt_inid = #{targetId}
+	</update>
+
+	<update id="migrationOrderMain" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordermain SET om_ownerid = #{id}
+		WHERE om_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationOrderMainMobileTemp" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordermainmobiletemp SET ommt_ownerid = #{id}
+		WHERE ommt_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationOrderMainMobileTempMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordermainmobiletemp SET ommt_moid = #{id}
+		WHERE ommt_moid = #{targetId}
+	</update>
+
+	<update id="migrationOrderMainMobileTempInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordermainmobiletemp SET ommt_inid = #{id}
+		WHERE ommt_inid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSub" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersub SET os_ownerid = #{id}
+		WHERE os_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSubMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersub SET os_moid = #{id}
+		WHERE os_moid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSubInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersub SET os_inid = #{id}
+		WHERE os_inid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSub2" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersub2 SET os_ownerid = #{id}
+		WHERE os_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSub2MoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersub2 SET os_moid = #{id}
+		WHERE os_moid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSub2InId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersub2 SET os_inid = #{id}
+		WHERE os_inid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSubHistoryMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersubhistory SET osh_moid = #{id}
+		WHERE osh_moid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSubHistoryInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersubhistory SET osh_inid = #{id}
+		WHERE osh_inid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSubMobileTemp" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersubmobiletemp SET osmt_ownerid = #{id}
+		WHERE osmt_ownerid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSubMobileTempMoId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersubmobiletemp SET osmt_moid = #{id}
+		WHERE osmt_moid = #{targetId}
+	</update>
+
+	<update id="migrationOrderSubMobileTempInid" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE ordersubmobiletemp SET osmt_inid = #{id}
+		WHERE osmt_inid = #{targetId}
+	</update>
+
+	<update id="migrationSales" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE sales SET ss_mbid = #{id}
+		WHERE ss_mbid = #{targetId}
+	</update>
+
+	<update id="migrationKakaoPayConfirmInId" parameterType="com.kakaofriends.front.domain.Migration">
+		UPDATE kakaopayconfirm SET kpc_inid = #{id}
+		WHERE kpc_inid = #{targetId}
+	</update>
+
+	<insert id="complete" parameterType="com.kakaofriends.front.domain.Migration">
+		INSERT INTO migration_history (table_name, column_name, target_id, id, count)
+		VALUES(#{tableName}, #{columnName}, #{targetId}, #{id}, #{count})
+	</insert>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.order.PreOrderSubRepository">
+	<!-- start of select -->
+    <select id="selectList" resultType="com.kakaofriends.front.domain.order.PreOrderSubData">
+		SELECT
+			<include refid="selectFieldClause"/>
+		FROM
+			TB_KFO_ORDER_SUB
+		WHERE
+			USE = 1
+			AND ORDER_ID = #{orderNumber}
+	</select>
+
+	<!-- start of insert -->
+	<insert id="insert">
+		INSERT INTO TB_KFO_ORDER_SUB (
+			ORDER_ID,
+			SERIAL,
+			PARENTS_SERIAL,
+			PG_TID,
+			PRODUCT_ID,
+			ORDER_TYPE,
+			MEMBER_ID,
+			MEMBER_NAME,
+			PAYMENT_TYPE,
+			PAYMENT_STATUS,
+			PAYMENT_AMOUNT,
+			COUPON_AMOUNT,
+			POINT_AMOUNT,
+			PRODUCT_AMOUNT,
+			SALES_AMOUNT,
+			QUANTITY,
+			TOTAL_PRODUCT_AMOUNT,
+			TOTAL_SALES_AMOUNT,
+			DOMESTIC,
+			DELIVERY_NUMBER,
+			MEMO,
+			CATEGORY_ID,
+			CANCEL_REASON,
+			CUSTOM_MESSAGE,
+			EXCHANGE_RATE,
+			CJ_FLAG,
+			CREATE_ID,
+			UPDATE_ID
+		) VALUES (
+			#{orderSub.orderId},
+			#{orderSub.serial},
+			#{orderSub.parentSerial},
+			#{orderSub.pgTid},
+			#{orderSub.productId},
+			#{orderSub.orderType},
+			#{orderSub.memberId},
+			#{orderSub.memberName},
+			#{orderSub.paymentType},
+			#{orderSub.paymentStatus},
+			#{orderSub.paymentAmount},
+			#{orderSub.couponAmount},
+			#{orderSub.pointAmount},
+			#{orderSub.productAmount},
+			#{orderSub.salesAmount},
+			#{orderSub.quantity},
+			#{orderSub.totalProductAmount},
+			#{orderSub.totalSalesAmount},
+			#{orderSub.domestic},
+			#{orderSub.deliveryNumber},
+			#{orderSub.memo},
+			#{orderSub.categoryId},
+			#{orderSub.cancelReason},
+			#{orderSub.customMessage},
+			#{orderSub.exchangeRate},
+			#{orderSub.cjFlag},
+			#{orderSub.createId},
+			#{orderSub.updatedId}
+		)
+	</insert>
+
+	<!-- start of update -->
+	<update id="update">
+		UPDATE
+			TB_KFO_ORDER_SUB
+		SET
+			UPDATE_DATE = SYSDATE
+		<if test='orderSub.pgTid != null and orderSub.pgTid != "" '>
+			, PG_TID = #{orderSub.pgTid}
+		</if>
+		<if test='orderSub.paymentStatus != null and orderSub.paymentStatus != "" '>
+			, PAYMENT_STATUS = #{orderSub.paymentStatus}
+		</if>
+		WHERE
+			ORDER_ID = #{orderSub.orderId}
+			AND SERIAL = #{orderSub.serial}
+	</update>
+
+	<sql id="selectFieldClause">
+		ORDER_ID AS orderId,
+		SERIAL AS serial,
+		USE AS use,
+		PARENTS_SERIAL AS parentSerial,
+		PG_TID AS pgTid,
+		PRODUCT_ID AS productId,
+		ORDER_TYPE AS orderType,
+		MEMBER_ID AS memberId,
+		MEMBER_NAME AS memberName,
+		PAYMENT_TYPE AS paymentType,
+		PAYMENT_STATUS AS paymentStatus,
+		PAYMENT_AMOUNT AS paymentAmount,
+		COUPON_AMOUNT AS couponAmount,
+		POINT_AMOUNT AS pointAmount,
+		PRODUCT_AMOUNT AS productAmount,
+		SALES_AMOUNT AS salesAmount,
+		QUANTITY AS quantity,
+		TOTAL_PRODUCT_AMOUNT AS totalProductAmount,
+		TOTAL_SALES_AMOUNT AS totalSalesAmount,
+		DOMESTIC AS domestic,
+		DELIVERY_NUMBER AS deliveryNumber,
+		MEMO AS memo,
+		CATEGORY_ID AS categoryId,
+		CANCEL_REASON AS cancelReason,
+		CUSTOM_MESSAGE AS customMessage,
+		EXCHANGE_RATE AS exchangeRate,
+		CJ_FLAG AS cjFlag,
+		CREATE_ID AS createId,
+		UPDATE_ID AS updatedId,
+		CREATE_DATE AS createDate,
+		UPDATE_DATE AS updateDate
+	</sql>
+
+</mapper>

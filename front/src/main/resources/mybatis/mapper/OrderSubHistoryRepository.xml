@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.OrderSubHistoryRepository">
+
+    <!-- start of select -->
+    <select id="selectMaxDate" resultType="com.kakaofriends.front.domain.order.OrderSubHistoryData">
+        SELECT
+            *
+        FROM
+        (
+            SELECT
+                OSH_SEQ AS oshSeq,
+                OSH_OMNUM AS oshOmNum,
+                OSH_OSSERIAL AS oshOsSerial,
+                OSH_MEMO AS oshMemo,
+                OSH_OSSTATUS AS oshOsStatus,
+                OSH_LEVEL AS oshLevel,
+                OSH_TYPE AS oshType,
+                OSH_USE AS oshUse,
+                OSH_MOID AS oshMoId,
+                OSH_INID AS oshInId,
+                OSH_MODATE AS oshMoDate,
+                OSH_INDATE AS oshInDate
+            FROM
+                ordersubhistory
+            WHERE
+                osh_omnum = #{orderId}
+                AND osh_osserial = #{serial}
+            ORDER BY osh_indate DESC
+        )
+         WHERE
+             rownum = 1
+    </select>
+
+    <!-- start of update -->
+    <update id="update">
+        UPDATE
+            ORDERSUBHISTORY
+        <set>
+            OSH_MODATE = #{history.oshMoDate}
+        </set>
+        WHERE
+            osh_omnum = #{history.oshOmNum}
+            AND osh_osstatus = ${history.oshOsStatus}
+        <if test="history.oshOsSerial != null and oshOsSerial > 0">
+            AND osh_osserial = ${history.oshOsSerial}
+        </if>
+    </update>
+
+    <!-- start of insert -->
+    <insert id="insert">
+        INSERT INTO ordersubhistory (
+            OSH_SEQ
+            , OSH_OMNUM
+            , OSH_OSSERIAL
+            , OSH_MEMO
+            , OSH_OSSTATUS
+            , OSH_MOID
+            , OSH_INID
+            , OSH_MODATE
+            , OSH_INDATE
+        ) VALUES (
+            ORDERSUB_HISTORY_SEQ.NEXTVAL
+            , #{history.oshOmNum}
+            , #{history.oshOsSerial}
+            , #{history.oshMemo}
+            , #{history.oshOsStatus}
+            , #{history.oshMoId}
+            , #{history.oshInId}
+            , SYSDATE
+            , SYSDATE
+        )
+
+    </insert>
+</mapper>

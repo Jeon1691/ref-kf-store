@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.order.PreOrderMainRepository">
+	<!-- start of select -->
+	<select id="select" resultType="com.kakaofriends.front.domain.order.PreOrderMainData">
+		SELECT
+		    ORDER_ID AS orderId,
+			USE AS use,
+			PG_TID AS pgTid,
+			MEMBER_ID AS memberId,
+			MEMBER_NAME AS memberName,
+			PAYMENT_TYPE AS paymentType,
+			PAYMENT_STATUS AS paymentStatus,
+			PAYMENT_AMOUNT AS paymentAmount,
+			COUPON_AMOUNT AS couponAmount,
+			POINT_AMOUNT AS pointAmount,
+			DELIVERY_AMOUNT AS deliveryAmount,
+			CURRENCY AS currency,
+			EXCHANGE_RATE AS exchangeRate,
+			DOMESTIC AS domestic,
+			COUPON_CODES AS couponCodes,
+			DELIVERY_MEMO AS deliveryMemo,
+			DELIVERY_TYPE AS deliveryType,
+			ACCESS_TYPE AS accessType,
+			LANGUAGE AS language,
+			CREATE_ID AS createId,
+			UPDATE_ID  AS updateId,
+			CREATE_DATE  AS createDate,
+			UPDATE_DATE  AS updateDate
+		FROM
+			TB_KFO_ORDER_MAIN
+		WHERE
+			USE = 1
+			AND ORDER_ID = #{orderNumber}
+	</select>
+
+	<!-- start of insert -->
+	<insert id="insert" parameterType="com.kakaofriends.front.domain.order.PreOrderMainData">
+		INSERT INTO TB_KFO_ORDER_MAIN (
+			ORDER_ID,
+			PG_TID,
+			MEMBER_ID,
+			MEMBER_NAME,
+			PAYMENT_TYPE,
+			PAYMENT_STATUS,
+			PAYMENT_AMOUNT,
+			COUPON_AMOUNT,
+			POINT_AMOUNT,
+			DELIVERY_AMOUNT,
+			CURRENCY,
+			EXCHANGE_RATE,
+			DOMESTIC,
+			COUPON_CODES,
+			DELIVERY_MEMO,
+			DELIVERY_TYPE,
+			ACCESS_TYPE,
+			LANGUAGE,
+			CREATE_ID,
+			UPDATE_ID
+		) VALUES (
+			#{orderMain.orderId},
+			#{orderMain.pgTid},
+			#{orderMain.memberId},
+			#{orderMain.memberName},
+			#{orderMain.paymentType},
+			#{orderMain.paymentStatus},
+			#{orderMain.paymentAmount},
+			#{orderMain.couponAmount},
+			#{orderMain.pointAmount},
+			#{orderMain.deliveryAmount},
+			#{orderMain.currency},
+			#{orderMain.exchangeRate},
+			#{orderMain.domestic},
+			#{orderMain.couponCodes},
+			#{orderMain.deliveryMemo},
+			#{orderMain.deliveryType},
+			#{orderMain.accessType},
+			#{orderMain.language},
+			#{orderMain.createId},
+			#{orderMain.updateId}
+		)
+	</insert>
+
+	<!-- start of update -->
+	<update id="update">
+		UPDATE
+			TB_KFO_ORDER_MAIN
+		SET
+			UPDATE_DATE = SYSDATE
+		<if test='orderMain.pgTid != null and orderMain.pgTid != "" '>
+			, PG_TID = #{orderMain.pgTid}
+		</if>
+		<if test='orderMain.paymentStatus != null and orderMain.paymentStatus != "" '>
+			, PAYMENT_STATUS = #{orderMain.paymentStatus}
+		</if>
+		WHERE
+			ORDER_ID = #{orderMain.orderId}
+	</update>
+</mapper>

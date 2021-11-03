@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.OrderAddDeliRepository">
+	<resultMap id="OrderAddDeliMap" type="com.kakaofriends.core.domain.OrderAddDeli">
+		<result property="odOsSeq" column="OD_OSSEQ" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odOmNum" column="OD_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odOsSerial" column="OD_OSSERIAL" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odPgTid" column="OD_PGTID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odType" column="OD_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odReqMoney" column="OD_REQMONEY" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odReqMoneyUnit" column="OD_REQMONEYUNIT" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odAccountMoney" column="OD_ACCOUNTMONEY" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odCardMoney" column="OD_CARDMONEY" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odLaterMoney" column="OD_LATERMONEY" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odStatus" column="OD_STATUS" javaType="OrderStatusType" typeHandler="OrderStatusTypeHandler" jdbcType="INTEGER"/>
+		<result property="odEtc1" column="OD_ETC1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odEtc2" column="OD_ETC2" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odEtc3" column="OD_ETC3" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odEtc4" column="OD_ETC4" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odEtc5" column="OD_ETC5" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odEtc6" column="OD_ETC6" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odMoId" column="OD_MOID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odInId" column="OD_INID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odMoDate" column="OD_MODATE" javaType="date" jdbcType="TIMESTAMP"/>
+		<result property="odInDate" column="OD_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+		<result property="odOdNum" column="OD_ODNUM" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odOdPgTid" column="OD_ODPGTID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odCreditCardNum" column="OD_CREDITCARDNUM" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odCreditCardCode" column="OD_CREDITCARDCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odAccountBankCode" column="OD_ACCOUNTBANKCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odPayType" column="OD_PAYTYPE" javaType="PayType" typeHandler="PayTypeHandler" jdbcType="VARCHAR"/>
+		<result property="odPayInDate" column="OD_PAYINDATE" javaType="date" jdbcType="TIMESTAMP"/>
+		<result property="odCardType" column="OD_CARDTYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odOdType" column="OD_ODTYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odPrName" column="OD_PRNAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odPrCode" column="OD_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odOwnerId" column="OD_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odPrName1" column="OD_PRNAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odPrName2" column="OD_PRNAME2" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odKakaoMoney" column="OD_KAKAOMONEY" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odPhoneMoney" column="OD_PHONEMONEY" javaType="integer" jdbcType="INTEGER"/>
+		<result property="odDuzonDate" column="OD_DUZONEDATE" javaType="date" jdbcType="TIMESTAMP"/>
+		<result property="odDuzonFlag" column="OD_DUZONFLAG" javaType="string" jdbcType="VARCHAR"/>
+		<result property="odExchangeDeliNum" column="OD_EXCHANGEDELINUM" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="findOrderAddDeliListByOrderNumberAndOrderStatus" parameterType="map" resultMap="OrderAddDeliMap">
+		SELECT * FROM ORDERADDDELI WHERE OD_OMNUM = #{orderNumber} AND OD_STATUS = #{orderStatus} AND OD_REQMONEY <![CDATA[ > ]]> '0' AND OD_ODPGTID IS NULL
+	</select>
+
+	<select id="findOrderAddDeliListByPaymentEndOrderNumberAndOrderStatus" parameterType="map" resultMap="OrderAddDeliMap">
+		SELECT * FROM ORDERADDDELI WHERE OD_OMNUM = #{orderNumber} AND OD_STATUS = #{orderStatus} AND OD_REQMONEY <![CDATA[ > ]]> '0' AND OD_ODPGTID IS NOT NULL
+	</select>
+
+	<select id="findOrderAddDeliByOrderNumberAndOrderSubSeq" parameterType="map" resultMap="OrderAddDeliMap">
+		SELECT * FROM ORDERADDDELI WHERE OD_OMNUM = #{orderNumber} AND OD_OSSEQ = #{orderSubSeq} AND OD_OSSERIAL = #{orderSubSerial}
+	</select>
+
+	<update id="updateOrderAddDeliByPayment" parameterType="com.kakaofriends.core.domain.OrderAddDeli" statementType="CALLABLE">
+	UPDATE ORDERADDDELI
+	SET
+		OD_ACCOUNTMONEY = #{odAccountMoney, jdbcType=NUMERIC},
+		OD_CARDMONEY = #{odCardMoney, jdbcType=NUMERIC},
+		OD_MOID = #{odMoId, jdbcType=NUMERIC},
+		OD_MODATE = SYSDATE,
+		OD_ODNUM = #{odOdNum, jdbcType=VARCHAR},
+		OD_ODPGTID = #{odOdPgTid, jdbcType=VARCHAR},
+		OD_CREDITCARDNUM = #{odCreditCardNum, jdbcType=VARCHAR},
+		OD_PAYTYPE = #{odPayType},
+		OD_PAYINDATE = SYSDATE,
+		OD_KAKAOMONEY = #{odKakaoMoney, jdbcType=NUMERIC}
+	WHERE
+		OD_OMNUM = #{odOmNum, jdbcType=VARCHAR} AND OD_OSSEQ = #{odOsSeq, jdbcType=NUMERIC}
+	</update>
+
+	<update id="updateOrderAddDeliByError" parameterType="com.kakaofriends.core.domain.OrderAddDeli" statementType="CALLABLE">
+		UPDATE ORDERADDDELI
+		SET
+		OD_ETC5 = #{odEtc5, jdbcType=VARCHAR},
+		OD_ETC6 = #{odEtc6, jdbcType=VARCHAR}
+		WHERE
+		OD_OMNUM = #{odOmNum, jdbcType=VARCHAR} AND OD_OSSEQ = #{odOsSeq, jdbcType=NUMERIC}
+	</update>
+
+	<!--회수비 결제된 상품과 같은 주문번호를 가진 상품들 회수비 단위 업데이트 -->
+	<update id="updateLeftProduct" parameterType="com.kakaofriends.core.domain.OrderAddDeli" statementType="CALLABLE">
+		UPDATE ORDERADDDELI SET
+		OD_REQMONEYUNIT = (SELECT DISTINCT OD_REQMONEYUNIT FROM ORDERADDDELI WHERE OD_OMNUM = #{odOmNum, jdbcType=VARCHAR} AND OD_REQMONEYUNIT IS NOT NULL)
+		WHERE OD_OMNUM = #{odOmNum, jdbcType=VARCHAR} AND OD_REQMONEYUNIT IS NULL
+	</update>
+</mapper>

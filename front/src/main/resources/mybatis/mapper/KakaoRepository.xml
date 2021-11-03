@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.KakaoRepository">
+
+	<select id="findFrontIndexProductListCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM
+			PRODUCTDISPLAY PRD
+			INNER JOIN PRODUCT PR ON PRD.PRD_PRCODE = PR.PR_CODE
+			LEFT JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+		<where>
+			<if test=" r_prdtype != null "> AND PRD_TYPE = #{ r_prdtype } </if>
+			<if test=" r_prstatus != null "> AND PR_STATUS = #{ r_prstatus } </if>
+			<if test=" r_pruse != null "> AND PR_USE = #{ r_pruse } </if>
+			<if test=" r_krview != null and r_krview != '' "> AND PR_KRVIEW = #{ r_krview } </if>
+		</where>
+	</select>
+
+	<select id="findFrontIndexProductList" parameterType="map" resultType="Friend" statementType="CALLABLE">
+		SELECT 1 AS NAME FROM DUAL
+	</select>
+
+
+    <select id="findFriendsMain" parameterType="java.util.Map" statementType="CALLABLE">
+        {
+          CALL proc_get_main_data(
+            #{lang},
+            #{ownerId},
+            #{bannerList, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=BannerMap},
+            #{mainTopBanner, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=BannerMap},
+            #{productExpansions, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=DisplayGoodsExpansionMap},
+            #{boardArticle, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=BoardArticleMap}
+          )
+        }
+    </select>
+</mapper>

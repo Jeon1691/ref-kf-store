@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.OrderTrackingRepository">
+
+    <resultMap id="OrderTrackingMap" type="com.kakaofriends.front.domain.OrderTracking">
+        <result property="boxPk" column="OT_BOX_PK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="omNum" column="OT_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+        <result property="boxSeq" column="OT_BOX_SEQ" javaType="integer" jdbcType="INTEGER"/>
+        <result property="hawbNo" column="OT_HAWB_NO" javaType="string" jdbcType="VARCHAR"/>
+        <result property="osStatus" column="OT_OS_STATUS_KR" javaType="string" jdbcType="VARCHAR"/>
+        <result property="trackingStatusKr" column="OT_TRACKING_STATUS_KR" javaType="string" jdbcType="VARCHAR"/>
+        <result property="trackingStatus" column="OT_TRACKING_STATUS" javaType="string" jdbcType="VARCHAR"/>
+        <result property="trackingOrder" column="OT_TRACKING_ORDER" javaType="string" jdbcType="VARCHAR"/>
+        <result property="trackingDate" column="OT_TRACKING_DATE" javaType="date" jdbcType="DATE"/>
+        <result property="createDate" column="OT_CREATEDATE" javaType="date" jdbcType="DATE"/>
+        <result property="itemName" column="BOX_ITEM_NAME" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getTrakingBoxInfoByOrderNum" resultMap="OrderTrackingMap">
+        SELECT
+          OT_BOX_PK, OT_HAWB_NO, BOX_ITEM_NAME
+        FROM ORDERTRACKING OT LEFT JOIN ORDERBOX OB on OT.OT_OMNUM = OB.BOX_OMNUM
+        WHERE OT_OMNUM = #{orderNum}
+        GROUP BY OT_BOX_PK, OT_HAWB_NO, BOX_ITEM_NAME
+        ORDER BY OT_BOX_PK
+    </select>
+
+    <select id="getTrakingBoxDetailInfoByBoxPk" resultMap="OrderTrackingMap">
+        SELECT
+          OT_OS_STATUS, OT_TRACKING_STATUS_KR, OT_TRACKING_STATUS, OT_TRACKING_ORDER, OT_TRACKING_DATE
+        FROM ORDERTRACKING
+        WHERE OT_BOX_PK = #{boxPk}
+        ORDER BY OT_TRACKING_ORDER
+    </select>
+
+</mapper>

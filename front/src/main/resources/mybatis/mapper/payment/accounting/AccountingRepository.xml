@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.payment.accounting.AccountingRepository">
+
+	<!-- start of select -->
+	<select id="selectList" resultType="com.kakaofriends.front.domain.payment.accounting.AccountingData">
+		SELECT
+			ID AS id,
+			ORDER_ID AS orderId,
+			ORDER_SERIAL AS orderSerial,
+			DOMESTIC AS domestic,
+			ACTION AS action,
+			PRODUCT_ID AS productId,
+			QUANTITY AS quantity,
+			CURRENCY AS currency,
+			PRICE AS price,
+			PAYMENT_METHOD AS paymentMethod,
+			PAYMENT_AMOUNT AS paymentAmount,
+			POINT AS point,
+			COUPON AS coupon,
+			CREATE_DATE AS createDate
+		FROM
+			TB_KFO_ACCOUNTING
+		WHERE
+			ORDER_ID = #{data.orderId}
+		<if test='data.action != null and data.action != " " '>
+			AND ACTION = #{data.action}
+		</if>
+	</select>
+
+	<!-- start of insert -->
+	<insert id="insert" parameterType="com.kakaofriends.front.domain.payment.accounting.AccountingData">
+		INSERT INTO TB_KFO_ACCOUNTING (
+			ID,
+			ORDER_ID,
+			ORDER_SERIAL,
+			DOMESTIC,
+			ACTION,
+			PRODUCT_ID,
+			QUANTITY,
+			CURRENCY,
+			PRICE,
+			PAYMENT_METHOD,
+			PAYMENT_AMOUNT,
+			POINT,
+			COUPON
+		) VALUES (
+			ACCOUNTING_SEQ.nextval,
+			#{data.orderId},
+			#{data.orderSerial},
+			#{data.domestic},
+			#{data.action},
+			#{data.productId},
+			#{data.quantity},
+			#{data.currency},
+			#{data.price},
+			#{data.paymentMethod},
+			#{data.paymentAmount},
+			#{data.point},
+			#{data.coupon}
+		)
+	</insert>
+
+</mapper>

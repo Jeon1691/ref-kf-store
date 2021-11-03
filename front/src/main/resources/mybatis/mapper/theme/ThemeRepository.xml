@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.theme.ThemeRepository">
+	<select id="getThemeList" parameterType="map" resultType="com.kakaofriends.front.domain.theme.ThemeData">
+        SELECT
+            themeCode,
+            link,
+            orderNum,
+            LISTAGG(image, ',') within group(order by image) AS image,
+            LISTAGG(bgImage, ',') within group(order by bgImage) AS bgImage,
+            LISTAGG(imageM, ',') within group(order by imageM) AS imageM,
+            LISTAGG(bgImageM, ',') within group(order by bgImageM) AS bgImageM,
+            LISTAGG(alt, ',') within group(order by alt) AS alt,
+            LISTAGG(altSub, ',') within group(order by altSub) AS altSub,
+            LISTAGG(altM, ',') within group(order by altM) AS altM,
+            LISTAGG(altSubM, ',') within group(order by altSubM) AS altSubM
+        FROM (
+			SELECT
+                TH.THEME_CODE AS themeCode,
+                TH.LINK,
+                TH.ORDER_NUM AS orderNum,
+                CASE WHEN TARGET = 'web' THEN IMAGE
+                END AS image,
+                CASE WHEN TARGET = 'web' THEN BG_IMAGE
+                END AS bgImage,
+                CASE WHEN TARGET = 'mobile' THEN IMAGE
+                END AS imageM,
+                CASE WHEN TARGET = 'mobile' THEN BG_IMAGE
+                END AS bgImageM,
+                CASE WHEN TARGET = 'web' THEN ALT
+                END AS alt,
+                CASE WHEN TARGET = 'web' THEN ALT_SUB
+                END AS altSub,
+                CASE WHEN TARGET = 'mobile' THEN ALT
+                END AS altM,
+                CASE WHEN TARGET = 'mobile' THEN ALT_SUB
+                END AS altSubM
+			FROM TB_KFO_THEME TH
+			LEFT OUTER JOIN TB_KFO_THEME_INFO THI ON TH.THEME_CODE = THI.THEME_CODE
+			WHERE USE = 1
+                AND START_DATE <![CDATA[<=]]> TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'),'YYYYMMDD')
+				AND END_DATE >= TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'),'YYYYMMDD')
+				AND (LANGUAGE = #{ language } OR LANGUAGE is null)
+        )
+        GROUP BY themeCode, link, orderNum
+        ORDER BY orderNum
+	</select>
+
+	<select id="getThemeProductList" parameterType="map" resultType="com.kakaofriends.front.domain.theme.ThemeProductData">
+        SELECT
+            H.THEME_CODE AS themeCode,
+            I.ID AS prCode,
+            I.DEFAULT_PRCODE AS defaultPrcode,
+            I.NAME AS prName,
+            I.NAME1 AS prEnName,
+            I.IMAGE1 AS prImage,
+            I.DISCOUNTSDATE AS prDiscountsDate,
+            I.DISCOUNTEDATE AS prDiscounteDate,
+            I.SALEPRICE AS prlpSalePrice,
+            I.DISCOUNTPRICE AS prlpDiscountPrice,
+            ROUND(I.SALEPRICE / #{ exchangeRate }, 2) AS exchangePrice,
+            ROUND(I.DISCOUNTPRICE / #{ exchangeRate }, 2) AS exchangeDiscountPrice,
+            H.FOREIGNDELI_CHECK AS foreigndeliCheck,
+            H.ST_CHECK AS stZeroCheck,
+			(SELECT COUNT(*) FROM BASKET WHERE BS_OWNERID = #{ownerId} AND DISPLAY_GOODS_ID = H.ID AND BS_USE = 'Y' AND BS_DIRECT = 'N') AS basketCheck
+        FROM (
+                SELECT
+                    THP.THEME_CODE,
+                    THP.ORDER_NUM as THP_ORDER_NUM,
+                    TH.ORDER_NUM as TH_ORDER_NUM,
+                    A.ID,
+                    SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK,
+                    SUM(G.AVAILABLE_STOCK) AS ST_CHECK
+                FROM TB_KFO_THEME_PRODUCT THP
+                INNER JOIN TB_KFO_THEME TH ON TH.THEME_CODE = THP.THEME_CODE
+                INNER JOIN DISPLAY_GOODS A ON THP.DISPLAY_GOODS_ID = A.ID
+                INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+                INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+                INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+                INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+                INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+                INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+            WHERE
+                G.DOMESTIC = 1 AND A.STATUS = 1 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+                AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y'
+	            AND START_DATE <![CDATA[<=]]> TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'),'YYYYMMDD')
+	            AND TH.END_DATE >= TO_DATE(TO_CHAR(SYSDATE,'YYYYMMDD'),'YYYYMMDD')
+            GROUP BY THP.THEME_CODE, THP.ORDER_NUM, TH.ORDER_NUM, A.ID
+        ) H
+        INNER JOIN DISPLAY_GOODS I ON H.ID = I.ID
+        WHERE ST_CHECK > 0
+		ORDER BY H.TH_ORDER_NUM, H.THP_ORDER_NUM
+	</select>
+</mapper>

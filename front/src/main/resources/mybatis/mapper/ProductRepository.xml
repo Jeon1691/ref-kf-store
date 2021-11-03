@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.ProductRepository">
+
+	<resultMap id="ProductExpansionMap" type="ProductExpansion">
+		<result property="product.prSeq" column="PRC_CTSEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="product.prCode" column="PR_CODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage2" column="PR_IMAGE2" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage3" column="PR_IMAGE3" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage4" column="PR_IMAGE4" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage5" column="PR_IMAGE5" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prTimeSalesDate" column="PR_TIMESALESDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prTimeSaleeDate" column="PR_TIMESALEEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscountsDate" column="PR_DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscounteDate" column="PR_DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prForeigndeliyn" column="PR_FOREIGNDELIYN" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prNew" column="PR_NEW" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prHot" column="PR_HOT" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prType" column="PR_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prHeight" column="PR_HEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prWidth" column="PR_WIDTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prDepth" column="PR_DEPTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prWeight" column="PR_WEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpSupplyprice" column="PRLP_SUPPLYPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="PRLP_SALEPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="PRLP_DISCOUNTPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productDisplay.prdEtc1" column="PRD_ETC1" javaType="long" jdbcType="INTEGER"/>
+		<result property="productDisplay.prdType" column="PRD_TYPE" javaType="ProductDisplayType" typeHandler="ProductDisplayTypeHandler" jdbcType="VARCHAR"/>
+		<result property="prOptionCnt" column="PR_OPTIONCNT" javaType="long" jdbcType="INTEGER"/>
+		<result property="stEa" column="ST_EA" javaType="long" jdbcType="INTEGER"/>
+		<result property="bsSeq" column="BS_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="wsSeq" column="WS_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="category.ctSeq" column="CT_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="category.ctCode" column="CT_CODE" javaType="long" jdbcType="INTEGER"/>
+		<result property="category.ctName" column="CT_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="category.ctEname" column="CT_ENAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="categoryGroup" column="CT_PCODE" javaType="CategoryGroup" typeHandler="CategoryGroupTypeHandler" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<resultMap id="productDetailMap" type="ProductExpansion" extends="ProductExpansionMap">
+		<result property="product.prBprcode" column="PR_BARCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prManufacture" column="PR_MANUFACTURE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prCountry" column="PR_CONTRY" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prContent" column="PR_CONTENT" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prContent1" column="PR_CONTENT1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscountsDate" column="PR_DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscounteDate" column="PR_DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prStandard" column="PR_STANDARD" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prItemname1" column="PR_ITEMNAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prItemname2" column="PR_ITEMNAME2" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prItemname3" column="PR_ITEMNAME3" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prItemname4" column="PR_ITEMNAME4" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prItemname5" column="PR_ITEMNAME5" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prInfo" column="PR_INFO" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prKrview" column="PR_KRVIEW" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prType" column="PR_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prForeigndeliyn" column="PR_FOREIGNDELIYN" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prHeight" column="PR_HEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prWidth" column="PR_WIDTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prDepth" column="PR_DEPTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prWeight" column="PR_WEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpSupplyprice" column="PRLP_SUPPLYPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="PRLP_SALEPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="PRLP_DISCOUNTPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpDiscountprice2" column="PRLP_DISCOUNTPRICE2" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpDiscountprice3" column="PRLP_DISCOUNTPRICE3" javaType="integer" jdbcType="INTEGER"/>
+		<result property="category.ctSeq" column="CT_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="category.ctCode" column="CT_CODE" javaType="long" jdbcType="INTEGER"/>
+		<result property="category.ctName" column="CT_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="category.ctEname" column="CT_ENAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="categoryGroup" column="CT_PCODE" javaType="CategoryGroup" typeHandler="CategoryGroupTypeHandler" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<resultMap id="SuggestedProductMap" type="com.kakaofriends.front.domain.product.ProductDto$SuggestedProduct">
+		<result property="product.prCode" column="PR_CODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscountsDate" column="PR_DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscounteDate" column="PR_DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prHeight" column="PR_HEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prWidth" column="PR_WIDTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prDepth" column="PR_DEPTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="product.prWeight" column="PR_WEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpSupplyprice" column="PRLP_SUPPLYPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="PRLP_SALEPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="PRLP_DISCOUNTPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="category.ctSeq" column="PRC_CTSEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="category.ctCode" column="PRC_CTCODE" javaType="long" jdbcType="INTEGER"/>
+		<result property="category.ctPcode" column="CT_PCODE" javaType="long" jdbcType="INTEGER"/>
+		<result property="categoryGroup" column="CT_PCODE" javaType="CategoryGroup" typeHandler="CategoryGroupTypeHandler" jdbcType="INTEGER"/>
+		<result property="stEa" column="ST_EA" javaType="long" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<resultMap id="CategoryMap" type="Category">
+		<result property="ctSeq" column="CT_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="ctCode" column="CT_CODE" javaType="long" jdbcType="INTEGER"/>
+		<result property="ctName" column="CT_NAME" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<resultMap id="characterMap" type="ProductExpansion" extends="ProductExpansionMap">
+		<result property="product.ordernum" column="ORDERNUM" javaType="integer" jdbcType="INTEGER"/>
+		<result property="product.categoryCode" column="CATEGORY_CODE" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<resultMap id="ohmyfriendsMap" type="ProductExpansion">
+		<result property="product.ctCode" column="CT_CODE" javaType="long" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="EXSALEPRICE" javaType="double" jdbcType="INTEGER"/>
+		<result property="product.prCode" column="PR_CODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prForeigndeliyn" column="PR_FOREIGNDELIYN" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prNew" column="PR_NEW" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prHot" column="PR_HOT" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prType" column="PR_TYPE" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+	<resultMap id="eventMap" type="ProductExpansion">
+		<result property="product.prCode" column="PR_CODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prStock" column="PR_STOCK" javaType="long" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<select id="selectToCategory" parameterType="map" resultMap="CategoryMap" statementType="CALLABLE">
+		SELECT CT_SEQ, CT_CODE, CT_NAME FROM CATEGORY WHERE CT_SEQ = #{category}
+	</select>
+
+	<select id="findProductCountByCategoryWithCharacter" parameterType="map" resultType="int" statementType="CALLABLE">
+        SELECT
+        	COUNT(*)
+        FROM PRODUCT PR
+            INNER JOIN (
+            	SELECT
+            	DISTINCT PRC_PRCODE
+            	FROM PRODUCTCATEGORY
+            	WHERE PRC_CTSEQ IN
+				(
+              		SELECT CT_SEQ
+              		FROM CATEGORY
+					<choose>
+						<when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter == null">
+							)
+						</when>
+						<otherwise>
+							<where>
+								<choose>
+									<when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter == null">
+										AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+										)
+									</when>
+									<when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter != null">
+										AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCharacter} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+										)
+									</when>
+									<when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter != null">
+										AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+										)
+										AND PRC_PRCODE IN (SELECT PCA.PRC_PRCODE FROM PRODUCTCATEGORY PCA WHERE PCA.PRC_CTSEQ = #{productRequest.requestCharacter})
+									</when>
+								</choose>
+							</where>
+						</otherwise>
+					</choose>
+			) PRC ON PR.PR_CODE = PRC.PRC_PRCODE
+		<where>
+			<if test="productRequest.filter == 'global'"> AND PR.PR_FOREIGNDELIYN = 'Y' </if>
+			AND PR_KRVIEW = 'Y'
+		</where>
+	</select>
+
+	<select id="findProductCountByCategoryGroup" parameterType="map" resultType="int" statementType="CALLABLE">
+		SELECT COUNT(*)
+		FROM PRODUCT PR
+		LEFT OUTER JOIN PRODUCTDISPLAY PRD ON PR.PR_CODE = PRD.PRD_PRCODE
+		<where>
+			<if test="productRequest.filter == 'global'"> AND PR.PR_FOREIGNDELIYN = 'Y' </if>
+			<if test="productRequest.ctGroup == 'new'"> AND PRD.PRD_TYPE = '1' </if>
+			<if test="productRequest.ctGroup == 'best'"> AND PRD.PRD_TYPE = '3' </if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prUse)"> AND PR.PR_USE = #{productRequest.prUse} </if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prKrView)"> AND PR.PR_KRVIEW = #{productRequest.prKrView} </if>
+		</where>
+	</select>
+
+	<sql id="findProductsHeaderSQL">
+		SELECT
+		*
+		FROM
+		(
+		SELECT
+		ROWNUM RR,
+		XX.*
+		FROM
+		(
+		SELECT
+
+		ROW_NUMBER() OVER (ORDER BY
+		<choose>
+			<when test="productRequest.sort.name() == 'NEW'">PR.PR_INDATE DESC</when>
+			<when test="productRequest.sort.name() == 'PRICE_ASC'">PRLP.PRLP_SALEPRICE1</when>
+			<when test="productRequest.sort.name() == 'PRICE_DESC'">PRLP.PRLP_SALEPRICE1 DESC</when>
+			<otherwise>PR.PR_INDATE DESC</otherwise>
+		</choose>
+		) RNUM,
+		PR.PR_CODE,
+		PR.PR_NAME,
+		PR.PR_NAME1,
+		PR.PR_IMAGE1,
+		PR.PR_IMAGE12,
+		PR.PR_NEW,
+		PR.PR_HOT,
+		PR.PR_DISCOUNTSDATE,
+		PR.PR_DISCOUNTEDATE,
+		PR.PR_TYPE,
+		NVL( PR.PR_FOREIGNDELIYN, 'N' ) AS PR_FOREIGNDELIYN,
+		PRLP.PRLP_SUPPLYPRICE,
+		PRLP.PRLP_SALEPRICE1,
+		ROUND(PRLP.PRLP_SALEPRICE1 / #{productRequest.exchangeRate}, 2) as EXCHANGEPRICE,
+		PRLP.PRLP_DISCOUNTPRICE1,
+		ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{productRequest.exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+		ST.AVAILABLE_STOCK AS ST_EA,
+		(SELECT COUNT(*) FROM PRODUCTOPTION WHERE PRO_PRCODE = PR.PR_CODE) PR_OPTIONCNT,
+		(SELECT BS_SEQ FROM BASKET WHERE BS_OWNERID = #{productRequest.ownerId} AND BS_PRCODE = PR.PR_CODE AND BS_USE = 'Y' AND BS_DIRECT = 'N') BS_SEQ
+		FROM
+		PRODUCT PR
+	</sql>
+
+	<sql id="findProductsFooterSQL">
+		)
+		WHERE RR BETWEEN (#{pagination.firstRecordIndex} + 1) AND (#{pagination.recordCountPerPage} * #{pagination.currentPageNo})
+	</sql>
+
+	<select id="findProductsByCategoryWithCharacter" parameterType="map" resultMap="ProductExpansionMap" statementType="CALLABLE">
+		<include refid="findProductsHeaderSQL" />
+				INNER JOIN (
+					SELECT
+					DISTINCT PRC_PRCODE
+					FROM PRODUCTCATEGORY
+					WHERE PRC_CTSEQ IN
+					(
+						SELECT CT_SEQ
+						FROM CATEGORY
+						<choose>
+							<when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter == null">
+								)
+							</when>
+							<otherwise>
+								<where>
+									<choose>
+										<when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter == null">
+											AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+											)
+										</when>
+										<when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter != null">
+											AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCharacter} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+											)
+										</when>
+										<when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter != null">
+											AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+											)
+											AND PRC_PRCODE IN (SELECT PCA.PRC_PRCODE FROM PRODUCTCATEGORY PCA WHERE PCA.PRC_CTSEQ = #{productRequest.requestCharacter})
+										</when>
+									</choose>
+								</where>
+							</otherwise>
+						</choose>
+
+				) PRC ON PR.PR_CODE = PRC.PRC_PRCODE
+				LEFT OUTER JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+				INNER JOIN TB_KFO_STOCK ST ON PR.PR_CODE = ST.PRODUCT_ID AND DOMESTIC = 1
+				<where>
+					<if test="productRequest.filter == 'global'"> AND PR.PR_FOREIGNDELIYN = 'Y' </if>
+					AND PR_KRVIEW = 'Y'
+				</where>
+			) XX
+		<include refid="findProductsFooterSQL" />
+	</select>
+
+	<select id="findProductsByCategoryGroup" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="ProductExpansionMap" statementType="CALLABLE">
+		<include refid="findProductsHeaderSQL" />
+				LEFT OUTER JOIN PRODUCTDISPLAY PRD ON PR.PR_CODE = PRD.PRD_PRCODE
+				INNER JOIN
+				(
+					SELECT
+					DISTINCT PRC_PRCODE
+					FROM PRODUCTCATEGORY
+					WHERE PRC_CTSEQ IN (
+						SELECT CT_SEQ
+						FROM CATEGORY
+					)
+				) PRC ON PR.PR_CODE = PRC.PRC_PRCODE
+				LEFT OUTER JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+				INNER JOIN TB_KFO_STOCK ST ON PR.PR_CODE = ST.PRODUCT_ID AND DOMESTIC = 1
+				<where>
+					<if test="productRequest.filter == 'global'"> AND PR.PR_FOREIGNDELIYN = 'Y' </if>
+					<if test="productRequest.ctGroup == 'new'"> AND PRD.PRD_TYPE = '1' </if>
+					<if test="productRequest.ctGroup == 'best'"> AND PRD.PRD_TYPE = '3' </if>
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prUse)"> AND PR.PR_USE = #{productRequest.prUse} </if>
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prKrView)"> AND PR.PR_KRVIEW = #{productRequest.prKrView} </if>
+				</where>
+			) XX
+		<include refid="findProductsFooterSQL" />
+	</select>
+
+	<select id="findProductDetailByProductRequest" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="productDetailMap" statementType="CALLABLE">
+		SELECT
+			PR.*,
+			PRLP.PRLP_SUPPLYPRICE,
+			PRLP.PRLP_SALEPRICE1,
+			ROUND(PRLP.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE,
+			PRLP.PRLP_SALEPRICE2,
+			PRLP.PRLP_SALEPRICE3,
+			PRLP.PRLP_DISCOUNTPRICE1,
+			ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+			PRLP.PRLP_DISCOUNTPRICE2,
+			PRLP.PRLP_DISCOUNTPRICE3,
+			PRC.*,
+			CT.CT_SEQ,
+			CT.CT_CODE,
+			CT.CT_NAME,
+			CT.CT_ENAME,
+			-- CT.CT_PCODE,
+			ST.AVAILABLE_STOCK AS ST_EA,
+			(SELECT CONNECT_BY_ROOT(CT_SUB.CT_SEQ) FROM CATEGORY CT_SUB WHERE CT_SUB.CT_SEQ = CT.CT_SEQ START WITH CT_SUB.CT_CODE IN ('3', '4') CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE AND CT_SUB.CT_USE = 'Y') CT_PCODE,
+			(SELECT WS_SEQ FROM WISHLIST WHERE WS_OWNERID = #{ownerId} AND WS_PRCODE = #{prCode}) WS_SEQ,
+			(SELECT BS_SEQ FROM BASKET WHERE BS_OWNERID = #{ownerId} AND BS_PRCODE = #{prCode} AND BS_USE = 'Y' AND BS_DIRECT = 'N') BS_SEQ
+		FROM
+			(
+				SELECT PR_CODE, PR_NAME, PR_NAME1, PR_CONTENT, PR_CONTENT1, PR_IMAGE1, PR_IMAGE2, PR_IMAGE3, PR_IMAGE4, PR_IMAGE5, PR_IMAGE12, PR_DISCOUNTSDATE, PR_DISCOUNTEDATE, PR_STANDARD, PR_MANUFACTURE, PR_ITEMNAME1, PR_ITEMNAME2, PR_INFO, PR_COUNTRY, PR_TIMESALESDATE, PR_TIMESALEEDATE, PR_KRVIEW, PR_TYPE,
+				NVL( PR_FOREIGNDELIYN, 'N' ) AS PR_FOREIGNDELIYN
+				FROM PRODUCT
+				WHERE PR_USE = 'Y' AND PR_CODE = #{prCode}
+				<choose>
+					<when test="prKrView == 'All'"></when>
+					<when test="@org.apache.commons.lang3.StringUtils@isNotEmpty(prKrView)">AND PR_KRVIEW = #{prKrView}</when>
+					<otherwise>AND PR_KRVIEW = 'Y'</otherwise>
+				</choose>
+			) PR
+			INNER JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+			<if test="ctSeq == null"> INNER JOIN (SELECT MAX(PRC_PRCODE) PRC_PRCODE, MAX(PRC_CTSEQ) PRC_CTSEQ FROM PRODUCTCATEGORY WHERE PRC_PRCODE = #{prCode}) PRC ON PRC.PRC_PRCODE = PR.PR_CODE </if>
+			<if test="ctSeq != null"> INNER JOIN (SELECT PRC_PRCODE, PRC_CTSEQ FROM PRODUCTCATEGORY WHERE PRC_PRCODE = #{prCode} AND PRC_CTSEQ = #{ctSeq} ) PRC ON PRC.PRC_PRCODE = PR.PR_CODE </if>
+			INNER JOIN CATEGORY CT ON PRC.PRC_CTSEQ = CT.CT_SEQ
+			INNER JOIN TB_KFO_STOCK ST ON ST.PRODUCT_ID = PR.PR_CODE AND DOMESTIC = 1
+    </select>
+
+	<select id="findSuggestedProductsByProductCode" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="SuggestedProductMap" statementType="CALLABLE">
+		SELECT
+		  PROP.PROP_PRCODE, PR.PR_CODE, PR.PR_NAME, PR.PR_NAME1, PR.PR_IMAGE1, PR.PR_IMAGE12, PR.PR_DISCOUNTSDATE, PR.PR_DISCOUNTEDATE, PRLP.PRLP_SUPPLYPRICE, PRLP.PRLP_SALEPRICE1,ROUND(PRLP.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE, PRLP.PRLP_DISCOUNTPRICE1, ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE, PROP.PRC_CTSEQ, PROP.CT_CODE, CT.CT_PCODE,
+		  ST.AVAILABLE_STOCK AS st_ea
+		FROM
+		  (
+			SELECT MAX(PROP.PROP_PRCODE) PROP_PRCODE, PROP.PROP_PRCODEARR, MAX(PRC.PRC_CTSEQ) PRC_CTSEQ, MAX(CT.CT_CODE) CT_CODE
+			FROM PRODUCTOPTIONPRODUCT PROP INNER JOIN PRODUCTCATEGORY PRC ON PROP.PROP_PRCODEARR = PRC.PRC_PRCODE INNER JOIN CATEGORY CT ON PRC.PRC_CTSEQ = CT.CT_SEQ
+			WHERE PROP.PROP_PRCODE = #{prCode} AND PROP.PROP_PROTYPE = #{propPrType} GROUP BY PROP.PROP_PRCODEARR
+		  ) PROP
+		  INNER JOIN PRODUCT PR ON PROP.PROP_PRCODEARR = PR.PR_CODE
+		  INNER JOIN PRODUCTLEVELPRICE PRLP ON PROP.PROP_PRCODEARR = PRLP.PRLP_PRCODE
+		  INNER JOIN CATEGORY CT ON PROP.PRC_CTSEQ = CT.CT_SEQ
+    	  INNER JOIN TB_KFO_STOCK ST ON PROP.PROP_PRCODEARR = ST.PRODUCT_ID AND ST.DOMESTIC = 1
+		  WHERE PR.PR_USE = #{prUse}
+		  AND PR.PR_KRVIEW = 'Y'
+	</select>
+
+	<select id="findProductCountByName" parameterType="map" resultType="int" statementType="CALLABLE">
+		SELECT COUNT(DISTINCT pr.pr_code)
+		FROM PRODUCTCATEGORY pc
+			INNER JOIN CATEGORY ct ON pc.prc_ctseq = ct.ct_seq
+			INNER JOIN PRODUCT pr ON pc.prc_prcode = pr.pr_code
+			INNER JOIN PRODUCTLEVELPRICE prlp ON pr.pr_code = prlp.prlp_prcode
+		<where>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prUse)">pr.pr_use = #{searchRequest.prUse}</if>
+			<if test="searchRequest.prStatus != null"> AND pr.pr_status = #{searchRequest.prStatus}</if>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prLanguageViewColumn)"> AND ${searchRequest.prLanguageViewColumn} = #{searchRequest.prLanguageView} </if>
+			<if test="searchRequest.keyword != null">
+				AND (
+				UPPER(pr.pr_searchword) like UPPER('%' || #{searchRequest.keyword} || '%')
+				OR UPPER(pr.pr_name) like UPPER('%' || #{searchRequest.keyword} || '%')
+				OR UPPER(pr.pr_name1) like UPPER('%' || #{searchRequest.keyword} || '%')
+				OR UPPER(ct.ct_name) LIKE UPPER('%' || #{searchRequest.keyword} || '%')
+				OR UPPER(ct.ct_ename) LIKE UPPER('%' || #{searchRequest.keyword} || '%') )
+			</if>
+		</where>
+	</select>
+
+	<select id="findProductsByName" parameterType="map" resultMap="ProductExpansionMap" statementType="CALLABLE">
+		SELECT
+			*
+		FROM
+		(
+			SELECT XX.*,
+			ROWNUM AS RNUM,
+			(SELECT BS_SEQ FROM BASKET WHERE BS_OWNERID = #{searchRequest.ownerId} AND BS_PRCODE = XX.PR_CODE AND BS_USE = 'Y' AND BS_DIRECT = 'N') BS_SEQ
+			FROM (
+				SELECT  DISTINCT pr.pr_code,
+					pr.pr_seq,
+					pr.pr_name,
+					pr.pr_name1,
+					pr.pr_image1,
+					pr.pr_image12,
+					pr.pr_new,
+					pr.pr_hot,
+					NVL( pr.pr_foreigndeliyn, 'N') AS pr_foreigndeliyn,
+					pr.pr_type,
+					pr.pr_discountsdate,
+					pr.pr_discountedate,
+					prlp.prlp_supplyprice,
+					prlp.prlp_saleprice1,
+					prlp.prlp_discountprice1,
+					ROUND(prlp.prlp_saleprice1 / #{searchRequest.exchangeRate}, 2) as exchangeprice,
+					ROUND(prlp.prlp_discountprice1 / #{searchRequest.exchangeRate}, 2) as exchangediscountprice,
+					pr.pr_indate,
+					ST.AVAILABLE_STOCK AS ST_EA
+				FROM PRODUCTCATEGORY pc
+					INNER JOIN CATEGORY ct ON pc.prc_ctseq = ct.ct_seq
+					INNER JOIN PRODUCT pr ON pc.prc_prcode = pr.pr_code
+					INNER JOIN PRODUCTLEVELPRICE prlp ON pr.pr_code = prlp.prlp_prcode
+					INNER JOIN TB_KFO_STOCK ST ON ST.PRODUCT_ID = PR.PR_CODE AND DOMESTIC = 1
+				<where>
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prUse)">pr.pr_use = #{searchRequest.prUse}</if>
+					<if test="searchRequest.prStatus != null"> AND pr.pr_status = #{searchRequest.prStatus}</if>
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prLanguageViewColumn)"> AND ${searchRequest.prLanguageViewColumn} = #{searchRequest.prLanguageView} </if>
+					<if test="searchRequest.keyword != null">
+						AND (
+						   UPPER(pr.pr_searchword) like UPPER('%' || #{searchRequest.keyword} || '%')
+						OR UPPER(pr.pr_name) like UPPER('%' || #{searchRequest.keyword} || '%')
+						OR UPPER(pr.pr_name1) like UPPER('%' || #{searchRequest.keyword} || '%')
+						OR UPPER(ct.ct_name) LIKE UPPER('%' || #{searchRequest.keyword} || '%')
+						OR UPPER(ct.ct_ename) LIKE UPPER('%' || #{searchRequest.keyword} || '%') )
+					</if>
+				</where>
+				ORDER BY <choose>
+							<when test="searchRequest.sort.name() == 'NEW'">pr.PR_INDATE DESC</when>
+							<when test="searchRequest.sort.name() == 'PRICE_ASC'">PRLP.PRLP_SALEPRICE1</when>
+							<when test="searchRequest.sort.name() == 'PRICE_DESC'">PRLP.PRLP_SALEPRICE1 DESC</when>
+						</choose>
+				) XX
+			WHERE ROWNUM <![CDATA[ <= ]]> #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+		) XXX
+		WHERE XXX.RNUM <![CDATA[ >= ]]> #{pagination.firstRecordIndex} + 1
+	</select>
+
+
+	<select id="findProductByNewBest" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="ProductExpansionMap" statementType="CALLABLE">
+		SELECT /*+ result_cache */
+            ROWNUM RR,
+			(SELECT BS_SEQ FROM BASKET WHERE BS_OWNERID = #{ownerId} AND BS_PRCODE = XX.PR_CODE AND BS_USE = 'Y' AND BS_DIRECT = 'N') BS_SEQ,
+			XX.*
+		FROM
+			(
+				SELECT
+					ROW_NUMBER() OVER (ORDER BY PRD.PRD_ETC1 ASC, PRD_INDATE DESC) RNUM,
+					PRD.PRD_ETC1,
+					PRD.PRD_TYPE,
+					PR.PR_CODE,
+					PR.PR_NAME,
+					PR.PR_NAME1,
+					PR.PR_IMAGE1,
+					PR.PR_IMAGE12,
+					PR.PR_NEW,
+					PR.PR_HOT,
+					NVL( PR.PR_FOREIGNDELIYN, 'N' ) AS PR_FOREIGNDELIYN,
+					PR.PR_TYPE,
+					PR.PR_DISCOUNTSDATE,
+					PR.PR_DISCOUNTEDATE,
+					PRLP.PRLP_SUPPLYPRICE,
+					PRLP.PRLP_SALEPRICE1,
+					ROUND(PRLP.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE,
+					PRLP.PRLP_DISCOUNTPRICE1,
+					ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+					ST.AVAILABLE_STOCK AS ST_EA
+				FROM
+					PRODUCTDISPLAY PRD
+					INNER JOIN PRODUCT PR ON PRD.PRD_PRCODE = PR.PR_CODE
+					LEFT JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+					INNER JOIN TB_KFO_STOCK ST ON PR.PR_CODE = ST.PRODUCT_ID AND DOMESTIC = 1
+				<where>
+					<if test="prStatus != null"> PR.PR_STATUS = #{prStatus} </if>
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(prUse)"> AND PR.PR_USE = #{prUse} </if>
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(prKrView)"> AND PR.PR_KRVIEW = #{prKrView} </if>
+				</where>
+			) XX
+	</select>
+
+	<select id="findByPrCodes" parameterType="map" resultMap="ProductExpansionMap" statementType="CALLABLE">
+		SELECT
+		*
+		FROM
+		PRODUCT PR INNER JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+		WHERE PR.PR_CODE IN (
+		<foreach collection="prCodes" item="code" separator=",">
+			#{code}
+		</foreach>
+		)
+	</select>
+
+	<select id = "findProductByProductCode" resultMap="ProductExpansionMap" statementType="CALLABLE">
+		SELECT
+		PR.*,
+		PRLP.PRLP_SUPPLYPRICE,
+		PRLP.PRLP_SALEPRICE1,
+		ROUND(PRLP.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE,
+		PRLP.PRLP_SALEPRICE2,
+		PRLP.PRLP_SALEPRICE3,
+		PRLP.PRLP_DISCOUNTPRICE1,
+		ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+		PRLP.PRLP_DISCOUNTPRICE2,
+		PRLP.PRLP_DISCOUNTPRICE3,
+		PRC.*,
+		CT.CT_SEQ,
+		CT.CT_CODE,
+		CT.CT_NAME,
+		CT.CT_ENAME,
+		(SELECT CONNECT_BY_ROOT(CT_SUB.CT_SEQ) FROM CATEGORY CT_SUB WHERE CT_SUB.CT_SEQ = CT.CT_SEQ START WITH CT_SUB.CT_CODE IN ('3', '4') CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE AND CT_SUB.CT_USE = 'Y') CT_PCODE,
+    	ST.AVAILABLE_STOCK AS ST_EA
+		FROM
+		(
+		SELECT PR_CODE, PR_NAME, PR_NAME1, PR_CONTENT, PR_CONTENT1, PR_IMAGE1, PR_IMAGE2, PR_IMAGE3, PR_IMAGE4, PR_IMAGE5, PR_IMAGE12, PR_DISCOUNTSDATE, PR_DISCOUNTEDATE, PR_STANDARD, PR_MANUFACTURE, PR_ITEMNAME1, PR_ITEMNAME2, PR_INFO, PR_COUNTRY, PR_TIMESALESDATE, PR_TIMESALEEDATE, PR_KRVIEW, PR_TYPE
+		FROM PRODUCT
+		WHERE PR_USE = 'Y' AND PR_CODE = #{prCode}
+		) PR
+		INNER JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+		INNER JOIN (SELECT MAX(PRC_PRCODE) PRC_PRCODE, MAX(PRC_CTSEQ) PRC_CTSEQ FROM PRODUCTCATEGORY WHERE PRC_PRCODE = #{prCode}) PRC ON PRC.PRC_PRCODE = PR.PR_CODE
+		INNER JOIN CATEGORY CT ON PRC.PRC_CTSEQ = CT.CT_SEQ
+    	INNER JOIN TB_KFO_STOCK ST ON ST.PRODUCT_ID = PR.PR_CODE AND ST.DOMESTIC = 1
+	</select>
+
+	<select id="findProductByCharacter" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="characterMap" statementType="CALLABLE">
+		SELECT /*+ result_cache */
+            ROWNUM RR,
+			(SELECT BS_SEQ FROM BASKET WHERE BS_OWNERID = #{ownerId} AND BS_PRCODE = XX.PR_CODE AND BS_USE = 'Y' AND BS_DIRECT = 'N') BS_SEQ,
+			XX.*,
+			( SELECT ORDERNUM FROM RECOMMENDATION WHERE PR_CODE = XX.PR_CODE AND ROWNUM = 1 ) AS ORDERNUM,
+			( SELECT CATEGORY_CODE FROM RECOMMENDATION WHERE PR_CODE = XX.PR_CODE AND ROWNUM = 1 ) AS CATEGORY_CODE
+		FROM
+			(
+			SELECT
+				PR.PR_CODE,
+				PR.PR_NAME,
+				PR.PR_NAME1,
+				PR.PR_IMAGE1,
+				PR.PR_IMAGE12,
+				PR.PR_NEW,
+				PR.PR_HOT,
+				NVL( PR.PR_FOREIGNDELIYN, 'N' ) AS PR_FOREIGNDELIYN,
+				PR.PR_TYPE,
+				PR.PR_DISCOUNTSDATE,
+				PR.PR_DISCOUNTEDATE,
+				PRLP.PRLP_SUPPLYPRICE,
+				PRLP.PRLP_SALEPRICE1,
+				ROUND(PRLP.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE,
+				PRLP.PRLP_DISCOUNTPRICE1,
+				ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+				ST.AVAILABLE_STOCK AS ST_EA
+			FROM
+				PRODUCT PR
+			LEFT JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+			INNER JOIN TB_KFO_STOCK ST ON PR.PR_CODE = ST.PRODUCT_ID AND DOMESTIC = 1
+			<where>
+				<if test="prStatus != null"> PR.PR_STATUS = #{prStatus} </if>
+				<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(prUse)"> AND PR.PR_USE = #{prUse} </if>
+				<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(prKrView)"> AND PR.PR_KRVIEW = #{prKrView} </if>
+			</where>
+			) XX
+		WHERE PR_CODE IN ( SELECT PR_CODE FROM RECOMMENDATION )
+		ORDER BY CATEGORY_CODE, ORDERNUM
+	</select>
+
+    <select id="findRecommendationBanner" parameterType="map" resultType="com.kakaofriends.front.domain.product.RecommendationBanner">
+        SELECT SEQ, CATEGORYCODE, LANGUAGE, TITLE, SUBTITLE, PC_IMAGE AS pcImage, MOBILE_IMAGE AS mobileImage,
+        PC_BG_IMAGE AS pcBgImage, MOBILE_BG_IMAGE AS mobileBgImage, LINK, ALT, TARGET
+        FROM RECOMMENDATION_BANNER
+        WHERE LANGUAGE = #{language}
+        ORDER BY CATEGORYCODE
+    </select>
+
+	<select id="findProductForOhMyFriends" resultMap="ohmyfriendsMap">
+		SELECT
+		  ( SELECT PRC_CTSEQ FROM PRODUCTCATEGORY WHERE PRC_PRCODE = PR.PR_CODE AND PRC_CTSEQ BETWEEN 95 AND 99 ) AS CT_CODE,
+		  ( SELECT ( CASE WHEN PRLP_DISCOUNTPRICE1 > 0 THEN PRLP_DISCOUNTPRICE1 ELSE PRLP_SALEPRICE1 END ) FROM PRODUCTLEVELPRICE WHERE PRLP_PRCODE = PR.PR_CODE ) AS SALEPRICE,
+		  ROUND( ( ( SELECT ( CASE WHEN PRLP_DISCOUNTPRICE1 > 0 THEN PRLP_DISCOUNTPRICE1 ELSE PRLP_SALEPRICE1 END ) FROM PRODUCTLEVELPRICE WHERE PRLP_PRCODE = PR.PR_CODE ) / ( SELECT KRW FROM EXCHANGERATE ) ), 2 ) AS EXSALEPRICE,
+		  PR.PR_CODE,
+		  PR.PR_NAME,
+		  PR.PR_NAME1,
+		  PR.PR_ITEMNAME1,
+		  PR.PR_ITEMNAME2,
+		  PR.PR_STANDARD,
+		  PR.PR_MANUFACTURE,
+		  PR.PR_COUNTRY,
+		  PR.PR_STATUS,
+		  PR.PR_NEW,
+		  PR.PR_HOT,
+		  PR.PR_KRVIEW,
+		  PR.PR_TYPE,
+		  PR.PR_USE,
+		  PR.PR_FOREIGNDELIYN
+		FROM PRODUCT PR
+		WHERE PR.PR_CODE IN ( select PRC_PRCODE
+						   from PRODUCTCATEGORY
+						   where prc_ctseq in ( select ct_seq
+												from CATEGORY
+												where ct_code BETWEEN 95 and 99 ) )
+		ORDER BY CT_CODE
+	</select>
+
+	<!-- 제대로 사용하기 위해서는 재고 테이블 STOCK -> TB_KFO_STOCK 바라보도록 수정해야 함 -->
+	<select id="viewEventProductList" resultMap="eventMap">
+		SELECT ST_PRCODE AS PR_CODE,
+			   (NVL(ST_EA, 0) -  (SELECT /*+ INDEX(OS ORDERSUB_INDEX2) */ NVL(SUM(OS_EA), 0) OS_EA FROM ORDERSUB OS WHERE OS_PRCODE = A.ST_PRCODE AND OS_DELIINOUTTYPE = '1' AND (OS_STATUS >= 4 AND (OS_STATUS != 300 AND OS_STATUS != 3000 AND OS_STATUS != 30000 AND OS_STATUS != 300000)) )) AS PR_STOCK,
+			   ( SELECT PR_NAME FROM STORE.PRODUCT WHERE PR_CODE = A.ST_PRCODE ) AS PR_NAME
+		FROM STOCK A
+		WHERE ST_PRCODE IN ( SELECT PR_CODE FROM DOMESTIC_EVENT_STOCK )
+	</select>
+
+	<!-- 제대로 사용하기 위해서는 재고 테이블 STOCK -> TB_KFO_STOCK 바라보도록 수정해야 함 -->
+    <select id="viewEventProductByPrCode" resultMap="eventMap">
+		SELECT ST_PRCODE AS PR_CODE,
+			   (NVL(ST_EA, 0) -  (SELECT /*+ INDEX(OS ORDERSUB_INDEX2) */ NVL(SUM(OS_EA), 0) OS_EA FROM ORDERSUB OS WHERE OS_PRCODE = A.ST_PRCODE AND OS_DELIINOUTTYPE = '1' AND (OS_STATUS >= 4 AND (OS_STATUS != 300 AND OS_STATUS != 3000 AND OS_STATUS != 30000 AND OS_STATUS != 300000)) )) AS PR_STOCK,
+			   ( SELECT PR_NAME FROM STORE.PRODUCT WHERE PR_CODE = A.ST_PRCODE ) AS PR_NAME
+		FROM STOCK A
+		WHERE ST_PRCODE = #{prCode}
+    </select>
+
+	<!-- 제대로 사용하기 위해서는 재고 테이블 STOCK -> TB_KFO_STOCK 바라보도록 수정해야 함 -->
+    <select id="viewEventGlobalProductByPrCode" resultMap="eventMap">
+        SELECT ST_PRCODE AS PR_CODE,
+        (NVL(ST_EA, 0) -  (SELECT /*+ INDEX(OS ORDERSUB_INDEX2) */ NVL(SUM(OS_EA), 0) OS_EA FROM ORDERSUB OS WHERE OS_PRCODE = A.ST_PRCODE AND OS_DELIINOUTTYPE = '2' AND (OS_STATUS >= 4 AND (OS_STATUS != 300 AND OS_STATUS != 3000 AND OS_STATUS != 30000 AND OS_STATUS != 300000)) )) AS PR_STOCK,
+        ( SELECT PR_NAME FROM STORE.PRODUCT WHERE PR_CODE = A.ST_PRCODE ) AS PR_NAME
+        FROM STOCK_FOR A
+        WHERE ST_PRCODE = #{prCode}
+    </select>
+
+	<!-- 제대로 사용하기 위해서는 재고 테이블 STOCK -> TB_KFO_STOCK 바라보도록 수정해야 함 -->
+	<update id="updateEventStock" parameterType="string">
+		UPDATE DOMESTIC_EVENT_STOCK SET ST_COUNT = ST_COUNT - 1
+		WHERE PR_CODE = #{prCode}
+	</update>
+
+    <select id="findProductCategoryCode" parameterType="map" resultType="int">
+        SELECT CT_SEQ
+        FROM CATEGORY  START WITH CT_CODE IN
+        (
+        SELECT PRC_CTSEQ
+        FROM PRODUCTCATEGORY
+        WHERE PRC_PRCODE  IN
+        <foreach collection="bsPrCodes" item="code" separator="," open="(" close=")">
+            #{code}
+        </foreach>
+        )
+        CONNECT BY PRIOR CT_CODE = CT_PCODE
+    </select>
+
+	<select id="getCategoryName" resultType="com.kakaofriends.front.domain.SearchEngine">
+		select pr_code as prCode, pr_searchword as prSearchword, catname as prContent
+		from TB_TMP_SEARCHCOL
+	</select>
+
+	<update id="updateSearchWord" parameterType="com.kakaofriends.front.domain.SearchEngine">
+		UPDATE product
+		SET pr_searchword = #{prContent}
+		WHERE pr_code = #{prCode}
+	</update>
+
+	<!-- start of select -->
+	<select id="selectByProductCode" resultType="com.kakaofriends.front.domain.product.ProductData">
+		SELECT
+			PR_SEQ AS prSeq,
+			PR_CODE AS prCode,
+			PR_NAME AS prName,
+			PR_NAME1 AS prName1,
+			PR_SCPTYPE AS prScpType,
+			PR_SCPCODE AS prScpCode,
+			PR_ITEMNAME1 AS prItemName1,
+			PR_ITEMNAME2 AS prItemName2,
+			PR_BARCODE AS prBarcode,
+			PR_MANUFACTURE AS prManufacture,
+			PR_COUNTRY AS prCountry,
+			PR_MINBUYEA AS prMinBuyEa,
+			PR_FOREIGNDELIYN AS prForeignDeliYn,
+			PR_WEIGHT AS prWeight,
+			PR_SAVEMONEY AS prSaveMoney,
+			PR_STANDARD AS prStandard,
+			PR_STANDARD1 AS prStandard1,
+			PR_VOLUME1 AS prVolume1,
+			PR_VOLUME2 AS prVolume2,
+			PR_VOLUME3 AS prVolume3,
+			PR_COLOR AS prColor,
+			PR_IMAGE1 AS prImage1,
+			PR_IMAGE2 AS prImage2,
+			PR_IMAGE3 AS prImage3,
+			PR_IMAGE4 AS prImage4,
+			PR_IMAGE5 AS prImage5,
+			PR_IMAGE6 AS prImage6,
+			PR_IMAGE7 AS prImage7,
+			PR_IMAGE8 AS prImage8,
+			PR_IMAGE9 AS prImage9,
+			PR_IMAGE10 AS prImage10,
+			PR_IMAGE11 AS prImage11,
+			PR_IMAGE12 AS prImage12,
+			PR_INFO AS prInfo,
+			PR_INFO1 AS prInfo1,
+			PR_VIEW1 AS prView1,
+			PR_VIEW2 AS prView2,
+			PR_VIEW3 AS prView3,
+			PR_VIEW4 AS prView4,
+			PR_VIEW5 AS prView5,
+			PR_VIEW6 AS prView6,
+			PR_CONTENT AS prContent,
+			PR_CONTENT2 AS prContent2,
+			PR_SEARCHWORD AS prSearchWord,
+			PR_STATUS AS prStatus,
+			PR_DISCOUNTSDATE AS prDiscountSDate,
+			PR_DISCOUNTEDATE AS prDiscountEDate,
+			PR_NEW AS prNew,
+			PR_ORDER AS prOrder,
+			PR_KRVIEW AS prKrView,
+			PR_ENVIEW AS prEnView,
+			PR_CHVIEW AS prChView,
+			PR_TYPE AS prType,
+			PR_USE AS prUse,
+			PR_MOID AS prMoid,
+			PR_INID AS prInid,
+			PR_MODATE AS prModate,
+			PR_INDATE AS prIndate,
+			PR_HEIGHT AS prHeight,
+			PR_WIDTH AS prWidth,
+			PR_DEPTH AS prDepth
+		FROM
+			PRODUCT
+		WHERE
+			PR_CODE = #{productCode}
+	</select>
+
+	<!-- 2018.02.01 layla -->
+	<select id="getProductKrView" resultType="string">
+		SELECT PR_KRVIEW from PRODUCT where PR_CODE = #{productCode}
+	</select>
+
+	<!-- 2018.03.07 layla -->
+	<select id="findProductForContent" resultType="com.kakaofriends.core.domain.Product">
+		SELECT PR_SEQ AS prSeq, PR_CONTENT AS prContent FROM PRODUCT
+	</select>
+
+	<update id="updateProductForContentImageSrc" parameterType="com.kakaofriends.core.domain.Product">
+		UPDATE PRODUCT
+		SET PR_CONTENT = #{prContent}
+		WHERE PR_SEQ = #{prSeq}
+	</update>
+
+	<select id="findByPrCode" resultType="com.kakaofriends.core.domain.Product" parameterType="string">
+		SELECT
+			PR_SEQ AS prSeq,
+			PR_SPRCODE AS prsCpCode,
+			PR_VATYN AS prVatYn,
+			PR_NAME AS prName,
+			PR_NAME1 AS prName1,
+			PR_IMAGE1 AS prImage1,
+			PR_HEIGHT AS prHeight,
+			PR_WIDTH AS prWidth,
+			PR_DEPTH AS prDepth,
+			PR_WEIGHT AS prWeight
+		FROM PRODUCT
+		WHERE PR_CODE = #{prCode}
+	</select>
+</mapper>

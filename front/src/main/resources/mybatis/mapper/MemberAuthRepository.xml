@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.MemberAuthRepository">
+
+    <insert id="insert" parameterType="com.kakaofriends.front.domain.MemberAuth">
+        INSERT INTO KFO_MEMBER_AUTH (
+            ID,
+            AUTH_SERVICE,
+            AUTH_METHOD,
+            <if test="countryCode != null">
+                COUNTRY_CODE,
+            </if>
+            RECEIVER,
+            <if test="expireDate != null">
+                EXPIRE_DATE,
+            </if>
+            AUTH_NUMBER
+        ) VALUES (
+            SEQ_MEMBER_AUTH_ID.nextval,
+            #{authService},
+            #{authMethod},
+            <if test="countryCode != null">
+                #{countryCode},
+            </if>
+            #{receiver},
+            <if test="expireDate != null">
+                #{expireDate},
+            </if>
+            #{authNumber}
+        )
+    </insert>
+
+    <update id="preAuth" parameterType="com.kakaofriends.front.domain.MemberAuth">
+        UPDATE kfo_member_auth
+        SET use = '0'
+        WHERE auth_service = #{authService}
+          AND auth_method = #{authMethod}
+          AND country_code = #{countryCode}
+          AND receiver = #{receiver}
+    </update>
+
+    <select id="auth" parameterType="com.kakaofriends.front.domain.MemberAuth" resultType="String">
+        SELECT auth_number as authNumber
+        FROM kfo_member_auth
+        WHERE auth_service = #{authService}
+          AND auth_method = #{authMethod}
+          AND use = '1'
+          <if test="countryCode != null">
+              AND country_code = #{countryCode}
+          </if>
+          AND receiver = #{receiver}
+          AND expire_date <![CDATA[ > ]]> SYSDATE
+    </select>
+
+    <update id="afterAuth" parameterType="com.kakaofriends.front.domain.MemberAuth">
+        UPDATE kfo_member_auth
+        SET result = #{result}, use = '0'
+        WHERE auth_service = #{authService}
+          AND auth_method = #{authMethod}
+          <if test="countryCode != null">
+          AND country_code = #{countryCode}
+          </if>
+          AND receiver = #{receiver}
+          AND use = '1'
+    </update>
+
+    <select id="getCountSmsAuth" parameterType="com.kakaofriends.front.domain.MemberAuth" resultType="int">
+        SELECT COUNT(id)
+        FROM kfo_member_auth
+        WHERE receiver = #{receiver}
+            AND auth_method = 'MESSAGE'
+            AND auth_service = #{authService}
+            AND create_date >= TO_DATE(TO_CHAR(SYSDATE, 'yyyymmdd'), 'yyyymmdd')
+    </select>
+
+    <select id="isResendable" parameterType="com.kakaofriends.front.domain.MemberAuth" resultType="int">
+        SELECT COUNT(id)
+        FROM kfo_member_auth
+        WHERE auth_service = #{authService}
+            AND auth_method = #{authMethod}
+            <if test="countryCode != null">
+                AND country_code = #{countryCode}
+            </if>
+            AND receiver = #{receiver}
+            AND CREATE_DATE > #{createDate}
+    </select>
+</mapper>

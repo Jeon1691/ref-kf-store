@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.ProvisionRepository">
+
+    <select id="getLatestProvision" parameterType="com.kakaofriends.front.domain.Provision" resultType="com.kakaofriends.front.domain.Provision">
+        SELECT B.country, B.code, B.version, B.necessary, B.read_more as readMore, B.title, B.contents
+        FROM
+            (SELECT country, code, MAX(version) as version
+            FROM kfo_provision
+            WHERE use = '1'
+              AND country = #{country}
+              AND application_date <![CDATA[ < ]]> SYSDATE
+            GROUP BY country, code) A
+        INNER JOIN kfo_provision B ON A.country = b.country AND A.code = B.code AND A.version = B.version
+        ORDER BY B.order_seq
+    </select>
+
+    <select id="get" parameterType="com.kakaofriends.front.domain.Provision" resultType="com.kakaofriends.front.domain.Provision">
+        SELECT country, code, version, necessary, read_more as readMore, title, contents, application_date as applicationDate
+        FROM kfo_provision
+        WHERE country = #{country} AND code = #{code} AND version = #{version}
+    </select>
+
+</mapper>

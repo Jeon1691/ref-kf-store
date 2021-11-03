@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+    <entry key="active">production</entry>
+
+    <entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
+    <!--<entry key="jdbc.url">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(Host=10.5.47.113)(Port=1521))(ADDRESS=(PROTOCOL=TCP)(Host=10.5.47.114)(Port=1521)))(CONNECT_DATA=(SERVICE_NAME=KFSHOPA)))</entry>-->
+    <entry key="jdbc.url">jdbc:oracle:thin:@10.5.47.151:1521:KFSTORE</entry>
+    <entry key="jdbc.user">store</entry>
+    <entry key="jdbc.password">storedb</entry>
+    <entry key="jdbc.connectionTestQuery">SELECT 1 FROM DUAL</entry>
+
+    <entry key="spring.social.kakao.app.url.authorize">https://kauth.kakao.com</entry>
+    <entry key="spring.social.kakao.app.url.api">https://kapi.kakao.com</entry>
+    <entry key="spring.social.kakao.app.id">1737d9990c3a695cd5e7a3252b3c7003</entry>
+    <entry key="kakao.app.javascript.url">https://developers.kakao.com</entry>
+    <entry key="kakao.app.javascript.key">b4c237d92cb112dcdfc88271082dd0b0</entry>
+    <entry key="spring.social.facebook.app.id">331466213929261</entry>
+    <entry key="spring.social.facebook.appSecret">f95b8bfefb97838d56865ec0ddbf061b</entry>
+
+    <entry key="mail.smtp.url">lc.mail.daum.net</entry>
+    <entry key="mail.smtp.sender.addr">store@kakaofriends.com</entry>
+    <entry key="mail.smtp.sender.name">카카오프렌즈 온라인 스토어</entry>
+    <entry key="mail.smtp.sender.name.en">KAKAO FRIENDS ONLINE STORE</entry>
+    <entry key="mail.smtp.cc.add">dane@kakaofriends.com</entry>
+
+    <entry key="kakaoFriends.online.store.url">https://store.kakaofriends.com</entry>
+    <entry key="kakaoFriends.info.url">http://info.kakaofriends.com</entry>
+    <entry key="kakaoFriends.max.session">300</entry>
+    <entry key="kakaofriends.cdn.product">https://t1.daumcdn.net/friends/prod/product</entry>
+    <entry key="kakaofriends.cdn.banner">https://t1.daumcdn.net/friends/prod/banner</entry>
+    <entry key="kakaofriends.cdn.category">https://t1.daumcdn.net/friends/prod/category</entry>
+    <entry key="kakaofriends.cdn.recmd.banner">https://t1.daumcdn.net/friends/prod/recmd_banner</entry>
+    <entry key="kakaofriends.cdn.store">https://t1.daumcdn.net/friends/prod/store</entry>
+    <entry key="kakaofriends.cdn.promotion.share">https://t1.daumcdn.net/friends/prod/promotion/share</entry>
+    <entry key="kakaofriends.cdn.theme">https://t1.daumcdn.net/friends/prod/theme</entry>
+
+    <entry key="kakaofriends.tenth.url">https://t1.daumcdn.net/friends</entry>
+
+    <entry key="kakaofriends.tenth2.host">http://twg.tset.daumcdn.net</entry>
+    <entry key="kakaofriends.tenth2.prefixPath">/friends/prod</entry>
+    <entry key="kakaofriends.tenth2.downloadUrl">https://t1.daumcdn.net</entry>
+    <entry key="kakaofriends.tenth2.accessKey">friends</entry>
+    <entry key="kakaofriends.tenth2.secretKey">w_6d4c818e72de16e1b40911a2372f5e</entry>
+    <entry key="kakaofriends.tenth2.thumb.host">https://img1.daumcdn.net/thumb/</entry>
+    <entry key="kakaofriends.tenth2.thumb.orgHost">https://t1.daumcdn.net</entry>
+    <entry key="kakaofriends.tenth2.thumb.size">R300x300</entry>
+
+    <entry key="kakaofriends.official.instagram.url">https://api.instagram.com/v1/users/self/media/recent</entry>
+    <entry key="kakaofriends.official.instagram.access_token">1962604751.adaa276.a5dd8207c44142af9fa427c2e42c5bf3</entry>
+    <entry key="kakaofriends.official.instagram.count">1</entry>
+
+    <entry key="kakaofriends.lab.instagram.url">https://api.instagram.com/v1/users/self/media/recent</entry>
+    <entry key="kakaofriends.lab.instagram.access_token">1962604751.adaa276.a5dd8207c44142af9fa427c2e42c5bf3</entry>
+    <entry key="kakaofriends.lab.instagram.count">1</entry>
+
+    <entry key="kakaofriends.default.ko.uri">/kr/index</entry>
+    <entry key="kakaofriends.default.en.uri">/en/index</entry>
+
+    <entry key="kims.domain">http://kims-api.iwilab.com</entry>
+    <entry key="kims.callerNumber">15776263</entry>
+    <entry key="kims.appName">kakaofriends</entry>
+    <entry key="kims.sms.path">/api/send_sms</entry>
+    <entry key="kims.mms.path">/api/send_mms</entry>
+    <entry key="kims.ars.path">/api/send_ars</entry>
+    <entry key="kims.msg.path">/api/send_msg</entry>
+
+    <entry key="erpia.pid">kakaofriends</entry>
+    <entry key="kerpia.pwd">friends123</entry>
+    <entry key="erpia.admincode">kfriends</entry>
+
+    <entry key="ftp.ip">10.52.2.83</entry>
+    <entry key="ftp.hostname">kf-store01-file1</entry>
+    <entry key="ftp.path">friends/prod</entry>
+    <entry key="ftp.port">21</entry>
+    <entry key="ftp.username">kfuser</entry>
+    <entry key="ftp.password">kfpassword</entry>
+
+    <entry key="pgIniPay50.inipayhome">/friends/pg/INIpay50</entry>
+    <entry key="pgIniPay50.mid">kfriends01</entry>
+    <entry key="pgIniPay50.admin">1111</entry>
+    <entry key="pgIniPay50.P_NEXT_URL">https://store.kakaofriends.com/kr/order/inimobile/pnexturl</entry>
+    <entry key="pgIniPay50.P_NOTI_URL">https://store.kakaofriends.com/kr/order/inimobile/pnotiurl</entry>
+    <entry key="pgIniPay50.P_RETURN_URL">https://store.kakaofriends.com/kr/order/inimobile/preturnurl</entry>
+    <entry key="pgIniPay50.P_NEXT_URL_EN">https://store.kakaofriends.com/en/order/inimobile/pnexturl</entry>
+    <entry key="pgIniPay50.P_NOTI_URL_EN">https://store.kakaofriends.com/en/order/inimobile/pnotiurl</entry>
+    <entry key="pgIniPay50.P_RETURN_URL_EN">https://store.kakaofriends.com/en/order/inimobile/preturnurl</entry>
+    <entry key="pgIniPay50.P_NEXT_URL_ADD">https://store.kakaofriends.com/kr/mypage/inimobile/pnexturladd</entry>
+    <entry key="pgIniPay50.P_NOTI_URL_ADD">https://store.kakaofriends.com/kr/mypage/inimobile/pnotiurladd</entry>
+    <entry key="pgIniPay50.P_RETURN_URL_ADD">https://store.kakaofriends.com/kr/mypage/inimobile/preturnurladd</entry>
+    <entry key="pgIniPay50.P_NEXT_URL_ADD_EN">https://store.kakaofriends.com/en/mypage/inimobile/pnexturladd</entry>
+    <entry key="pgIniPay50.P_NOTI_URL_ADD_EN">https://store.kakaofriends.com/en/mypage/inimobile/pnotiurladd</entry>
+    <entry key="pgIniPay50.P_RETURN_URL_ADD_EN">https://store.kakaofriends.com/en/mypage/inimobile/preturnurladd</entry>
+    <entry key="pgIniPay50.redirectBaseURL">https://store.kakaofriends.com</entry>
+
+    <entry key="pgKakaopay.cnsPayHome">/friends/pg/KakaoPay</entry>
+    <entry key="pgKakaopay.logHome">/friends/pg/KakaoPay/log</entry>
+    <entry key="pgKakaopay.EncodeKey">PgaUQNyFEmxNmjTh9WVI69eju9jCFc2dIjuGPh3naA5he9ZMuiurs4OGT6QnfEs17Kt5tExXEEk4/8P5QgmCaw==</entry>
+    <entry key="pgKakaopay.merchantId">KCKFR0001m</entry>
+    <entry key="pgKakaopay.merchantEncKey">976fc8abac61034d</entry>
+    <entry key="pgKakaopay.merchantHashKey">8ea49e8faa4265c2</entry>
+    <entry key="pgKakaopay.CancelPwd">KCKFR0001</entry>
+    <entry key="pgKakaopay.merchantUrl">https://pg.cnspay.co.kr:443</entry>
+    <entry key="pgKakaopay.webPath">https://kmpay.lgcns.com:8443/</entry>
+    <entry key="pgKakaopay.msgName">merchant/requestDealApprove.dev</entry>
+    <entry key="pgKakaopay.requestDealApproveUrl">https://kmpay.lgcns.com:8443/merchant/requestDealApprove.dev</entry>
+
+    <entry key="paypal.clientId">AUFp5QIDc9Ghoz0mPCW_nVlONV9PvISEPJonHpyOvEgXVWHCuVbfQ8Z9fyEf4hgZ5Ncs5SdEH1ep2d8s</entry>
+    <entry key="paypal.clientSecret">ECeKjt9arLBIHVkD-xbAExE3IyNJM0BMJPbrp8IoOeZdFtgZCIYX2OC24tZA2e-i1TV9SMPueEdB1daf</entry>
+    <entry key="paypal.mode">live</entry>
+    <entry key="paypal.button.mode">production</entry>
+
+    <entry key="redis.host">10.201.2.191</entry>
+    <entry key="redis.password">kfmaster</entry>
+    <entry key="sales.scheduler.host">10.52.3.25</entry>
+
+    <entry key="kfo.payment.domain">http://113.29.180.139</entry>
+    <entry key="kfo.payment.cns.post.process">/api/payment/cns/post/process</entry>
+    <entry key="kfo.payment.cns.pre.process">/api/payment/cns/pre/process</entry>
+    <entry key="kfo.payment.cns.cancel.process">/api/payment/cns/cancel/process</entry>
+    <entry key="kfo.payment.inicis.post.process">/api/payment/inicis/post/process</entry>
+    <entry key="kfo.payment.inicis.pre.process">/api/payment/inicis/pre/process</entry>
+    <entry key="kfo.payment.inicis.cancel.process">/api/payment/inicis/cancel/process</entry>
+    <entry key="kfo.payment.inicis.mobile.approval">/api/payment/inicis/mobile/approval</entry>
+    <entry key="kfo.payment.paypal.create">/api/payment/paypal/create</entry>
+    <entry key="kfo.payment.paypal.execute">/api/payment/paypal/execute</entry>
+    <entry key="kfo.payment.paypal.cancel">/api/payment/paypal/cancel</entry>
+
+    <!-- kakaopay v2 추가. 2017.12.26 Breeze -->
+    <entry key="kakaopay2.redirect.domain">https://store.kakaofriends.com</entry>
+    <entry key="kakaopay2.redirect.fail">/order/sheet</entry>
+    <entry key="kakaopay2.redirect.cancel">/order/sheet</entry>
+
+    <entry key="kakaopay2.authorization">KakaoAK 2eec74783dfbc75e688a22c5e9b68149</entry>
+    <entry key="kakaopay2.contentType">application/x-www-form-urlencoded</entry>
+    <entry key="kakaopay2.cid">C571010182</entry>
+    <entry key="kakaopay2.url.domain">https://kapi.kakao.com/v1</entry>
+    <entry key="kakaopay2.url.ready">/payment/ready</entry>
+    <entry key="kakaopay2.url.approve">/payment/approve</entry>
+    <entry key="kakaopay2.url.cancel">/payment/cancel</entry>
+    <entry key="sync.plus.friend.url">https://sync.kakao.com/profiles/_ZlxfWl/card</entry>
+</properties>

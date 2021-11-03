@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- kr definition start -->
+	<definition name="articleLayout" templateExpression="/WEB-INF/templates/kr/article/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/article/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/article/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/article/article.jsp" />
+	</definition>
+
+	<definition name="productLayout" templateExpression="/WEB-INF/templates/kr/product/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/product/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/product/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/product/article.jsp" />
+	</definition>
+
+	<definition name="basketLayout" templateExpression="/WEB-INF/templates/kr/basket/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/basket/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/basket/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/basket/article.jsp" />
+	</definition>
+
+	<definition name="orderLayout" templateExpression="/WEB-INF/templates/kr/order/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/order/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/order/article.jsp" />
+	</definition>
+
+	<definition name="globalLayout" templateExpression="/WEB-INF/templates/kr/global/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/global/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/global/article.jsp" />
+	</definition>
+
+	<definition name="searchLayout" templateExpression="/WEB-INF/templates/kr/search/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/search/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/search/article.jsp" />
+	</definition>
+
+	<definition name="mypageLayout" templateExpression="/WEB-INF/templates/kr/mypage/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/mypage/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/mypage/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/mypage/article.jsp" />
+	</definition>
+
+	<definition name="detailLayout" templateExpression="/WEB-INF/templates/kr/detail/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/detail/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/detail/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/detail/article.jsp" />
+	</definition>
+
+	<definition name="onetooneWriteLayout" templateExpression="/WEB-INF/templates/kr/write/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/write/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/write/article.jsp" />
+	</definition>
+
+	<definition name="indexLayout" templateExpression="/WEB-INF/templates/kr/index/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/index/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/index/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/index/article.jsp" />
+	</definition>
+
+	<definition name="blankLayout" templateExpression="/WEB-INF/templates/kr/blank/layout.jsp">
+		<put-attribute name="article"   expression="/WEB-INF/templates/kr/blank/article.jsp" />
+	</definition>
+
+	<definition name="promotionLayout" templateExpression="/WEB-INF/templates/kr/promotion/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/promotion/header.jsp" />
+		<put-attribute name="article"   expression="/WEB-INF/templates/kr/promotion/article.jsp" />
+	</definition>
+
+	<definition name="eventLayout" templateExpression="/WEB-INF/templates/kr/promotion/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/promotion/header_wh.jsp" />
+		<put-attribute name="article"   expression="/WEB-INF/templates/kr/promotion/article.jsp" />
+	</definition>
+
+	<definition name="promotionViewLayout" templateExpression="/WEB-INF/templates/kr/promotion/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/promotion/header_wh.jsp" />
+		<put-attribute name="article"   expression="/WEB-INF/templates/kr/promotion/article.jsp" />
+	</definition>
+
+	<definition name="loginLayout" templateExpression="/WEB-INF/templates/kr/login/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/login/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/login/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/login/article.jsp" />
+	</definition>
+
+    <definition name="errorLayout" templateExpression="/WEB-INF/templates/kr/error/layout.jsp">
+        <put-attribute name="header"	expression="/WEB-INF/templates/kr/error/header.jsp" />
+        <put-attribute name="sub"	expression="/WEB-INF/templates/kr/error/sub.jsp" />
+        <put-attribute name="article"	expression="/WEB-INF/templates/kr/error/article.jsp" />
+    </definition>
+
+	<definition name="joinLayout" templateExpression="/WEB-INF/templates/kr/join/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/join/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/join/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/join/article.jsp" />
+	</definition>
+
+	<definition name="signupLayout" templateExpression="/WEB-INF/templates/kr/signup/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/signup/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/signup/article.jsp" />
+	</definition>
+
+	<definition name="memberLayout" templateExpression="/WEB-INF/templates/kr/member/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/member/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/member/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/member/article.jsp" />
+	</definition>
+
+    <!-- OhMyFriends 국문 -->
+    <definition name="ohmyfriendsViewLayout" templateExpression="/WEB-INF/templates/kr/ohmyfriends/layout.jsp">
+        <put-attribute name="header"	expression="/WEB-INF/templates/kr/ohmyfriends/header.jsp" />
+        <put-attribute name="article"   expression="/WEB-INF/templates/kr/ohmyfriends/article.jsp" />
+    </definition>
+
+	<!-- 개인정보 취급방침 / 이용약관 -->
+	<definition name="policyLayout" templateExpression="/WEB-INF/templates/kr/policy/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/policy/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/policy/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/policy/article.jsp" />
+	</definition>
+
+	<!-- 브랜드스토리 국문 -->
+	<definition name="brandLayout" templateExpression="/WEB-INF/templates/kr/brand/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/brand/header.jsp" />
+		<put-attribute name="article"   expression="/WEB-INF/templates/kr/brand/article.jsp" />
+	</definition>
+
+	<!-- 캐릭터소개 -->
+	<definition name="charInfoLayout" templateExpression="/WEB-INF/templates/kr/info/layoutChar.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/info/headerChar.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/info/article.jsp" />
+	</definition>
+
+	<!-- 매장안내 -->
+	<definition name="storeInfoLayout" templateExpression="/WEB-INF/templates/kr/info/layoutStore.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/kr/info/headerStore.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/kr/info/article.jsp" />
+	</definition>
+
+	<definition name="hcheck" extends="blankLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/hcheck.jsp" />
+	</definition>
+
+	<definition name="signup" extends="blankLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/signup.jsp" />
+	</definition>
+
+	<definition name="common/popup/*" extends="blankLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/common/popup/{1}.jsp" />
+	</definition>
+
+	<definition name="common/error/*" extends="blankLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/common/error/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/index" extends="indexLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/index.jsp" />
+	</definition>
+
+	<definition name="kr/*" extends="articleLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/order/*" extends="orderLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/order/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/global/*" extends="globalLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/global/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/basket/*" extends="basketLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/basket/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/mypage/*" extends="mypageLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/kr/mypage/sub.jsp" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/mypage/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/mypage/onetoone/write" extends="onetooneWriteLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/mypage/onetoone/write.jsp" />
+	</definition>
+
+	<definition name="kr/mypage/onetoone/*" extends="mypageLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/mypage/onetoone/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/search/list" extends="searchLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/search/list.jsp" />
+	</definition>
+
+	<definition name="kr/product/detail" extends="detailLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/product/detail.jsp" />
+	</definition>
+
+	<definition name="kr/product/list" extends="productLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/product/list.jsp" />
+	</definition>
+
+	<definition name="kr/promotion/*" extends="promotionLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/promotion/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/promotion/event/*" extends="eventLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/promotion/event/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/promotion/view" extends="promotionViewLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/promotion/view.jsp" />
+	</definition>
+
+	<!-- 로그인 -->
+	<definition name="kr/signup/login" extends="loginLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/signup/login.jsp" />
+	</definition>
+
+    <definition name="kr/signup/kakao" extends="loginLayout">
+        <put-attribute name="title" value="카카오프렌즈온라인스토어" />
+        <put-attribute name="article" expression="/WEB-INF/views/kr/signup/kakao.jsp" />
+    </definition>
+
+    <definition name="kr/signup/error" extends="errorLayout">
+        <put-attribute name="title" value="카카오프렌즈온라인스토어"/>
+        <put-attribute name="article" expression="/WEB-INF/views/common/error/signup.jsp"/>
+    </definition>
+
+    <definition name="kr/join/*" extends="joinLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/join/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/signup/*" extends="signupLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/signup/{1}.jsp" />
+	</definition>
+
+	<definition name="kr/member/welcome" extends="memberLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/signup/welcome.jsp" />
+	</definition>
+
+	<!-- 회원 가입 -->
+	<definition name="kr/signup" templateExpression="">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/join/join.jsp" />
+	</definition>
+
+	<!-- OhMyFriends 국문 -->
+    <definition name="kr/ohmyfriends/*" extends="ohmyfriendsViewLayout">
+        <put-attribute name="title" value="카카오프렌즈온라인스토어" />
+        <put-attribute name="article" expression="/WEB-INF/views/kr/ohmyfriends/{1}.jsp" />
+    </definition>
+
+	<!-- 개인정보 취급방침 / 이용약관 -->
+	<definition name="kr/policy/*" extends="policyLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/policy/{1}.jsp" />
+	</definition>
+
+	<!-- 브랜드스토리 국문 -->
+	<definition name="kr/brand/*" extends="brandLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/brand/{1}.jsp" />
+	</definition>
+
+	<!-- 캐릭터소개 -->
+	<definition name="kr/info/charInfo" extends="charInfoLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/info/charInfo.jsp" />
+	</definition>
+
+	<!-- 매장안내 -->
+	<definition name="kr/info/storeInfo" extends="storeInfoLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/info/storeInfo.jsp" />
+	</definition>
+
+	<definition name="kr/*/*" extends="articleLayout">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/kr/{1}/{2}.jsp" />
+	</definition>
+
+	<!-- kr definition end -->
+
+	<!-- en definition start -->
+	<definition name="articleLayoutEn" templateExpression="/WEB-INF/templates/en/article/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/article/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/article/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/article/article.jsp" />
+	</definition>
+
+	<definition name="productLayoutEn" templateExpression="/WEB-INF/templates/en/product/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/product/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/product/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/product/article.jsp" />
+	</definition>
+
+	<definition name="basketLayoutEn" templateExpression="/WEB-INF/templates/en/basket/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/basket/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/basket/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/basket/article.jsp" />
+	</definition>
+
+	<definition name="orderLayoutEn" templateExpression="/WEB-INF/templates/en/order/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/order/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/order/article.jsp" />
+	</definition>
+
+	<definition name="globalLayoutEn" templateExpression="/WEB-INF/templates/en/global/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/global/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/global/article.jsp" />
+	</definition>
+
+	<definition name="searchLayoutEn" templateExpression="/WEB-INF/templates/en/search/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/search/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/search/article.jsp" />
+	</definition>
+
+	<definition name="mypageLayoutEn" templateExpression="/WEB-INF/templates/en/mypage/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/mypage/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/mypage/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/mypage/article.jsp" />
+	</definition>
+
+	<definition name="detailLayoutEn" templateExpression="/WEB-INF/templates/en/detail/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/detail/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/detail/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/detail/article.jsp" />
+	</definition>
+
+	<definition name="onetooneWriteLayoutEn" templateExpression="/WEB-INF/templates/en/write/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/write/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/write/article.jsp" />
+	</definition>
+
+	<definition name="indexLayoutEn" templateExpression="/WEB-INF/templates/en/index/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/index/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/index/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/index/article.jsp" />
+	</definition>
+
+	<definition name="blankLayoutEn" templateExpression="/WEB-INF/templates/en/blank/layout.jsp">
+		<put-attribute name="article"   expression="/WEB-INF/templates/en/blank/article.jsp" />
+	</definition>
+
+	<definition name="promotionLayoutEn" templateExpression="/WEB-INF/templates/en/promotion/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/promotion/header.jsp" />
+		<put-attribute name="article"   expression="/WEB-INF/templates/en/promotion/article.jsp" />
+	</definition>
+
+	<definition name="eventLayoutEn" templateExpression="/WEB-INF/templates/en/promotion/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/promotion/header_wh.jsp" />
+		<put-attribute name="article"   expression="/WEB-INF/templates/en/promotion/article.jsp" />
+	</definition>
+
+	<definition name="loginLayoutEn" templateExpression="/WEB-INF/templates/en/login/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/login/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/login/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/login/article.jsp" />
+	</definition>
+
+	<definition name="joinLayoutEn" templateExpression="/WEB-INF/templates/en/join/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/join/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/join/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/join/article.jsp" />
+	</definition>
+
+	<definition name="signupLayoutEn" templateExpression="/WEB-INF/templates/en/signup/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/signup/header.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/signup/article.jsp" />
+	</definition>
+
+	<definition name="memberLayoutEn" templateExpression="/WEB-INF/templates/en/member/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/member/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/member/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/member/article.jsp" />
+	</definition>
+
+    <!-- OhMyFriends 영문 -->
+    <definition name="ohmyfriendsViewLayoutEn" templateExpression="/WEB-INF/templates/en/ohmyfriends/layout.jsp">
+        <put-attribute name="header"	expression="/WEB-INF/templates/en/ohmyfriends/header.jsp" />
+        <put-attribute name="article"   expression="/WEB-INF/templates/en/ohmyfriends/article.jsp" />
+    </definition>
+
+	<!-- 개인정보 취급방침 / 이용약관 영문 -->
+	<definition name="policyLayoutEn" templateExpression="/WEB-INF/templates/en/policy/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/policy/header.jsp" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/policy/sub.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/policy/article.jsp" />
+	</definition>
+
+	<!-- 브랜드스토리 영문 -->
+	<definition name="brandLayoutEn" templateExpression="/WEB-INF/templates/en/brand/layout.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/brand/header.jsp" />
+		<put-attribute name="article"   expression="/WEB-INF/templates/en/brand/article.jsp" />
+	</definition>
+
+	<!-- 캐릭터소개 -->
+	<definition name="charInfoLayoutEn" templateExpression="/WEB-INF/templates/en/info/layoutChar.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/info/headerChar.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/info/article.jsp" />
+	</definition>
+
+	<!-- 매장안내 -->
+	<definition name="storeInfoLayoutEn" templateExpression="/WEB-INF/templates/en/info/layoutStore.jsp">
+		<put-attribute name="header"	expression="/WEB-INF/templates/en/info/headerStore.jsp" />
+		<put-attribute name="article"	expression="/WEB-INF/templates/en/info/article.jsp" />
+	</definition>
+
+	<definition name="en/index" extends="indexLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/index.jsp" />
+	</definition>
+
+	<definition name="en/*" extends="articleLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/{1}.jsp" />
+	</definition>
+
+	<definition name="en/common/error/*" extends="blankLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/common/error/{1}.jsp" />
+	</definition>
+
+	<definition name="en/order/*" extends="orderLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/order/{1}.jsp" />
+	</definition>
+
+	<definition name="en/global/*" extends="globalLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/global/{1}.jsp" />
+	</definition>
+
+	<definition name="en/basket/*" extends="basketLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/basket/{1}.jsp" />
+	</definition>
+
+	<definition name="en/mypage/*" extends="mypageLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="sub"	expression="/WEB-INF/templates/en/mypage/sub.jsp" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/mypage/{1}.jsp" />
+	</definition>
+
+	<definition name="en/mypage/onetoone/write" extends="onetooneWriteLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/mypage/onetoone/write.jsp" />
+	</definition>
+
+	<definition name="en/mypage/onetoone/*" extends="mypageLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/mypage/onetoone/{1}.jsp" />
+	</definition>
+
+	<definition name="en/search/list" extends="searchLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/search/list.jsp" />
+	</definition>
+
+	<definition name="en/product/detail" extends="detailLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/product/detail.jsp" />
+	</definition>
+
+	<definition name="en/product/list" extends="productLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/product/list.jsp" />
+	</definition>
+
+	<definition name="en/promotion/*" extends="promotionLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/promotion/{1}.jsp" />
+	</definition>
+
+	<definition name="en/promotion/event/*" extends="eventLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/promotion/event/{1}.jsp" />
+	</definition>
+
+	<definition name="en/signup/login" extends="loginLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/signup/login.jsp" />
+	</definition>
+
+    <definition name="en/signup/error" extends="loginLayout">
+        <put-attribute name="title" value="카카오프렌즈온라인스토어"/>
+        <put-attribute name="article" expression="/WEB-INF/views/common/error/signup.jsp"/>
+    </definition>
+
+	<definition name="en/join/*" extends="joinLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/join/{1}.jsp" />
+	</definition>
+
+	<definition name="en/signup/*" extends="signupLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/signup/{1}.jsp" />
+	</definition>
+
+	<definition name="en/member/welcome" extends="memberLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/signup/welcome.jsp" />
+	</definition>
+
+    <!-- OhMyFriends 영문 -->
+    <definition name="en/ohmyfriends/*" extends="ohmyfriendsViewLayoutEn">
+        <put-attribute name="title" value="카카오프렌즈온라인스토어" />
+        <put-attribute name="article" expression="/WEB-INF/views/en/ohmyfriends/{1}.jsp" />
+    </definition>
+
+	<!-- 개인정보 취급방침 / 이용약관 영문 -->
+	<definition name="en/policy/*" extends="policyLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/policy/{1}.jsp" />
+	</definition>
+
+	<!-- 브랜드스토리 영문 -->
+	<definition name="en/brand/*" extends="brandLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/brand/{1}.jsp" />
+	</definition>
+
+	<!-- 캐릭터소개 -->
+	<definition name="en/info/charInfo" extends="charInfoLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/info/charInfo.jsp" />
+	</definition>
+
+	<!-- 매장안내 -->
+	<definition name="en/info/storeInfo" extends="storeInfoLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/info/storeInfo.jsp" />
+	</definition>
+
+	<definition name="en/*/*" extends="articleLayoutEn">
+		<put-attribute name="title" value="카카오프렌즈온라인스토어" />
+		<put-attribute name="article" expression="/WEB-INF/views/en/{1}/{2}.jsp" />
+	</definition>
+
+	<!-- en definition end -->
+
+</tiles-definitions>

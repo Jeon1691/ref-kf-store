@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.StoreRepository">
+
+	<resultMap id="StoreMap" type="Store">
+		<id property="stSeq" column="ST_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="stArea" column="ST_AREA" javaType="string" jdbcType="VARCHAR"/>
+		<result property="storeArea.staArea" column="STA_AREA" javaType="string" jdbcType="VARCHAR"/>
+		<result property="storeArea.staNum" column="STA_NUM" javaType="long" jdbcType="VARCHAR"/>
+		<result property="stStpe" column="ST_STEP" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stImg" column="ST_IMG" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stName" column="ST_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stTel" column="ST_TEL" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stOpentime" column="ST_OPENTIME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stClosetime" column="ST_CLOSETIME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stZipcode" column="ST_ZIPCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stAddr1" column="ST_ADDR1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stAddr2" column="ST_ADDR2" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stZonecode" column="ST_ZONECODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stMapx" column="ST_MAPX" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stMapy" column="ST_MAPY" javaType="string" jdbcType="VARCHAR"/>
+		<result property="stDay" column="ST_DAY" javaType="BusinessDayType" typeHandler="BusinessDayTypeHandler" jdbcType="VARCHAR"/>
+		<result property="stInfo" column="ST_INFO" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="findAll" parameterType="map" resultMap="StoreMap">
+		SELECT
+		  A.ST_SEQ,
+		  B.STA_AREA,
+		  B.STA_NUM,
+		  A.ST_STEP,
+		  A.ST_IMG,
+		  A.ST_NAME,
+		  A.ST_TEL,
+		  A.ST_OPENTIME,
+		  A.ST_CLOSETIME,
+		  A.ST_ZIPCODE,
+		  A.ST_ADDR1,
+		  A.ST_ADDR2,
+		  A.ST_ZONECODE,
+		  A.ST_MAPX,
+		  A.ST_MAPY,
+		  A.ST_DAY,
+		  A.ST_INFO
+		FROM STORE A
+		  LEFT JOIN STOREAREA B
+			ON A.ST_AREA = B.STA_NUM
+		ORDER BY A.ST_STEP
+	</select>
+
+</mapper>

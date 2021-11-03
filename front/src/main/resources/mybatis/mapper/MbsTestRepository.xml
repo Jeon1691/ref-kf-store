@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.MbsTestRepository">
+    <select id="userList" resultType="com.kakaofriends.front.domain.Member">
+        SELECT ID, EMAIL
+        FROM KFO_MEMBER
+        WHERE ID IN (2, 3, 6, 7, 9, 11, 8880, 17568, 18518)
+    </select>
+
+    <insert id="addPoint" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsPoint">
+        INSERT INTO TB_KFO_MBS_POINT (
+        MP_USERID,
+        MP_TITLE,
+        MP_ETITLE,
+        MP_SDATE,
+        MP_EDATE,
+        MP_AMOUNT,
+        MP_REST,
+        MP_TYPE,
+        REG_DTTM,
+        MP_SEQ
+        )
+        VALUES (
+        #{ MP_USERID, jdbcType=VARCHAR },
+        'Gift',
+        'Gift',
+        #{MP_SDATE, jdbcType=DATE },
+        #{MP_EDATE, jdbcType=DATE },
+        #{MP_AMOUNT, jdbcType=NUMERIC },
+        #{MP_REST, jdbcType=NUMERIC },
+        'G',
+        SYSDATE,
+        SEQ_POINT_ID.NEXTVAL
+        )
+    </insert>
+
+    <select id="categoryList" resultType="map">
+        SELECT CT_CODE, CT_NAME
+        FROM CATEGORY
+        WHERE CT_NAME IS NOT NULL
+          AND CT_USE = 'Y'
+    </select>
+
+    <select id="masterList" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        SELECT
+        GCM.GCM_CODE AS CPH_GCMCODE,
+        GCM.GCM_GOAL AS CPH_NAME,
+        GCM.GCM_EGOAL AS CPH_ENAME,
+        GCM.GCM_SDATE AS CPH_SDATE,
+        GCM.GCM_EDATE AS CPH_EDATE,
+        GCM.GCM_PRICE AS CPH_PRICE,
+        GCM.GCM_TYPE AS CPH_TYPE,
+        GCM.GCM_INDATE AS REG_DTTM,
+        GCM.GCM_MODATE AS UPD_DTTM,
+        GCM.GCM_OPTION_TYPE AS CPH_OPTION_TYPE,
+        GCM.GCM_OPTION_VALUE AS CPH_OPTION_VALUE,
+        GCM.GCM_OPTION_CATEGORY AS CPH_OPTION_CATEGORY,
+        GCM.GCM_DUPLICATION AS CPH_DUPLICATION,
+        CT.CT_NAME AS CT_NAME,
+        CT.CT_ENAME AS CT_ENAME
+        FROM GIFTCARDMASTER GCM
+
+    	LEFT JOIN CATEGORY CT ON GCM.GCM_OPTION_CATEGORY = CT.CT_CODE
+
+        WHERE GCM_TYPE IN ('6', '7')
+    </select>
+
+    <select id="selectMasterCodeInfo" parameterType="String" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        SELECT
+        GCM.GCM_CODE AS CPH_GCMCODE,
+        GCM.GCM_GOAL AS CPH_NAME,
+        GCM.GCM_EGOAL AS CPH_ENAME,
+        GCM.GCM_SDATE AS CPH_SDATE,
+        GCM.GCM_EDATE AS CPH_EDATE,
+        GCM.GCM_PRICE AS CPH_PRICE,
+        GCM.GCM_TYPE AS CPH_TYPE,
+        GCM.GCM_INDATE AS REG_DTTM,
+        GCM.GCM_MODATE AS UPD_DTTM,
+        GCM.GCM_OPTION_TYPE AS CPH_OPTION_TYPE,
+        GCM.GCM_OPTION_VALUE AS CPH_OPTION_VALUE,
+        GCM.GCM_OPTION_CATEGORY AS CPH_OPTION_CATEGORY,
+        GCM.GCM_DUPLICATION AS CPH_DUPLICATION,
+        CT.CT_NAME AS CT_NAME,
+        CT.CT_ENAME AS CT_ENAME
+        FROM GIFTCARDMASTER GCM
+
+        LEFT JOIN CATEGORY CT ON GCM.GCM_OPTION_CATEGORY = CT.CT_CODE
+
+        WHERE GCM.GCM_CODE = #{ GCM_CODE }
+    </select>
+
+    <insert id="addMasterCoupon" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        INSERT INTO GIFTCARDMASTER
+        (GCM_CODE,
+        GCM_NAME,
+        GCM_GOAL,
+        GCM_EGOAL,
+        GCM_SDATE,
+        GCM_EDATE,
+        GCM_PRICE,
+        GCM_TYPE,
+        GCM_INDATE,
+        GCM_INID,
+        GCM_LEVEL,
+        GCM_DUPLICATION,
+        GCM_OPTION_TYPE,
+        GCM_OPTION_VALUE,
+        GCM_OPTION_CATEGORY
+        )
+        VALUES (
+        #{ CPH_GCMCODE, jdbcType=VARCHAR },
+        '온라인 사용자 대상 쿠폰',
+        #{ CPH_NAME, jdbcType=VARCHAR },
+        #{ CPH_ENAME, jdbcType=VARCHAR },
+        #{ CPH_SDATE, jdbcType=DATE},
+        #{ CPH_EDATE, jdbcType=DATE},
+        #{ CPH_PRICE, jdbcType=NUMERIC },
+        #{ CPH_TYPE, jdbcType=VARCHAR },
+        sysdate,
+        'layla',
+        'W',
+        #{ CPH_DUPLICATION, jdbcType=VARCHAR },
+        #{ CPH_OPTION_TYPE, jdbcType=VARCHAR },
+        #{ CPH_OPTION_VALUE, jdbcType=VARCHAR },
+        #{ CPH_OPTION_CATEGORY, jdbcType=VARCHAR }
+        )
+    </insert>
+
+    <insert id="addSubCoupon" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        INSERT INTO GIFTCARD
+        (GC_GCMCODE,
+        GC_CODE,
+        GC_PRICE,
+        GC_SDATE,
+        GC_EDATE,
+        GC_USE,
+        GC_INDATE,
+        GC_USERID
+        ) VALUES (
+        #{ CPH_GCMCODE, jdbcType=VARCHAR },
+        #{ CPH_CODE, jdbcType=VARCHAR },
+        #{ CPH_PRICE, jdbcType=NUMERIC },
+        #{ CPH_SDATE, jdbcType=DATE},
+        #{ CPH_EDATE, jdbcType=DATE},
+        '1',
+        sysdate,
+        #{ CPH_USERID, jdbcType=VARCHAR }
+        )
+    </insert>
+
+    <insert id="insertUserCouponHistory" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        INSERT INTO TB_KFO_MBS_COUPON_HISTORY
+        (CPH_GCMCODE,
+        CPH_CODE,
+        CPH_NAME,
+        CPH_ENAME,
+        CPH_SDATE,
+        CPH_EDATE,
+        CPH_PRICE,
+        CPH_USE,
+        REG_DTTM,
+        CPH_USERID,
+        CPH_TYPE,
+        CPH_LEVEL,
+        CPH_DUPLICATION,
+        CPH_OPTION_TYPE,
+        CPH_OPTION_VALUE,
+        CPH_OPTION_CATEGORY,
+        CPH_SEQ
+        ) VALUES (
+        #{ CPH_GCMCODE, jdbcType=VARCHAR },
+        #{ CPH_CODE, jdbcType=VARCHAR },
+        #{ CPH_NAME, jdbcType=VARCHAR },
+        #{ CPH_ENAME, jdbcType=VARCHAR },
+        #{ CPH_SDATE, jdbcType=DATE},
+        #{ CPH_EDATE, jdbcType=DATE},
+        #{ CPH_PRICE, jdbcType=NUMERIC },
+        '1',
+        sysdate,
+        #{ CPH_USERID, jdbcType=VARCHAR },
+        #{ CPH_TYPE, jdbcType=VARCHAR },
+        'W',
+        #{ CPH_DUPLICATION, jdbcType=VARCHAR },
+        #{ CPH_OPTION_TYPE, jdbcType=VARCHAR },
+        #{ CPH_OPTION_VALUE, jdbcType=VARCHAR },
+        #{ CPH_OPTION_CATEGORY, jdbcType=VARCHAR },
+        SEQ_COUPON_HISTORY_ID.NEXTVAL
+        )
+    </insert>
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.PromotionRepository">
+
+	<resultMap id="PromotionExpansionMap" type="PromotionExpansion">
+		<id property="promotion.prmSeq" column="PRM_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="promotion.prmLanguage" column="PRM_LANGUAGE" javaType="string" jdbcType="CHAR"/>
+		<result property="promotion.prmName" column="PRM_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmImage1" column="PRM_IMAGE1" javaType="string" jdbcType="INTEGER"/>
+		<result property="promotion.prmImage2" column="PRM_IMAGE2" javaType="string" jdbcType="INTEGER"/>
+		<result property="promotion.prmContent" column="PRM_CONTENT" javaType="string" jdbcType="CLOB"/>
+		<result property="promotion.prmCommentUse" column="PRM_COMMENTUSE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmCheckDay" column="PRM_CHECKDAY" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmEtc2" column="PRM_ETC2" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmEtc3" column="PRM_ETC3" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmEtc4" column="PRM_ETC4" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmEtc5" column="PRM_ETC5" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmEtc6" column="PRM_ETC6" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmLevel" column="PRM_LEVEL" javaType="long" jdbcType="VARCHAR"/>
+		<result property="promotion.prmType" column="PRM_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmUse" column="PRM_USE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmMoid" column="PRM_MOID" javaType="string" jdbcType="CHAR"/>
+		<result property="promotion.prmInid" column="PRM_INID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="promotion.prmModate" column="PRM_MODATE" javaType="date" jdbcType="VARCHAR"/>
+		<result property="promotion.prmIndate" column="PRM_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+		<result property="promotion.prmSdate" column="PRM_SDATE" javaType="string" jdbcType="TIMESTAMP"/>
+		<result property="promotion.prmEdate" column="PRM_EDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="promotion.prmOgTitle" column="PRM_OGTITLE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="promotion.prmOgImage" column="PRM_OGIMAGE" javaType="string" jdbcType="VARCHAR"/>
+		<collection property="suggestedProducts" column="PRM_SEQ" javaType="java.util.ArrayList" ofType="com.kakaofriends.front.domain.product.ProductDto$SuggestedProduct" select="findSuggestedProductByPrCode"/>
+	</resultMap>
+
+	<resultMap id="SuggestedProductMap" type="com.kakaofriends.front.domain.product.ProductDto$SuggestedProduct">
+		<result property="product.prCode" column="ID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName1" column="NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscountsDate" column="DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscounteDate" column="DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage1" column="IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage12" column="IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="DISCOUNTPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="stZeroCheck" column="ST_CHECK" javaType="long" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<select id="findByPrmSeq" parameterType="long" resultMap="PromotionExpansionMap" statementType="CALLABLE">
+		SELECT
+			PRM_SEQ,
+			PRM_LANGUAGE,
+			PRM_NAME,
+			PRM_IMAGE1,
+			PRM_IMAGE2,
+			PRM_CONTENT,
+			PRM_COMMENTUSE,
+			PRM_CHECKDAY,
+			PRM_ETC2,
+			PRM_ETC3,
+			PRM_ETC4,
+			PRM_ETC5,
+			PRM_ETC6,
+			PRM_LEVEL,
+			PRM_TYPE,
+			PRM_USE,
+			PRM_OGTITLE,
+			PRM_OGIMAGE,
+			PRM_MOID,
+			PRM_INID,
+			PRM_MODATE,
+			PRM_INDATE,
+			PRM_SDATE,
+			PRM_EDATE
+		FROM
+			PROMOTION
+		WHERE
+			PRM_SEQ = #{prmSeq}
+	</select>
+
+	<select id="findSuggestedProductByPrCode" parameterType="long" resultMap="SuggestedProductMap">
+		SELECT
+			H.*,
+			I.NAME,
+			I.NAME1,
+			I.IMAGE1,
+			I.DISCOUNTSDATE,
+			I.DISCOUNTEDATE,
+			I.SALEPRICE,
+			I.DISCOUNTPRICE
+		FROM (
+			SELECT
+				A.ID,
+				PM.PRMP_ORDERNUM,
+				SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK,
+				SUM(G.AVAILABLE_STOCK) AS ST_CHECK
+			FROM PROMOTIONPRODUCT PM
+			INNER JOIN DISPLAY_GOODS A ON PM.DISPLAY_GOODS_ID = A.ID
+			INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+			INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+			INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+			INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+			INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+			INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+			WHERE
+				PM.PRMP_PRMSEQ = #{prmSeq} AND G.DOMESTIC = 1 AND A.STATUS != 2 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+				AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y'
+			GROUP BY A.ID, PM.PRMP_ORDERNUM
+		) H
+		INNER JOIN DISPLAY_GOODS I ON H.ID = I.ID
+		ORDER BY H.PRMP_ORDERNUM, I.INDATE DESC
+	</select>
+</mapper>
+

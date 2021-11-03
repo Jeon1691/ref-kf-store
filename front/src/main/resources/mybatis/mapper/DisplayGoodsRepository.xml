@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.DisplayGoodsRepository">
+    <resultMap id="DisplayGoodsExpansionMap" type="com.kakaofriends.front.domain.product.ProductExpansion">
+        <result property="product.prCode" column="ID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prName" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prName1" column="NAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage1" column="IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage2" column="IMAGE2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage3" column="IMAGE3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage4" column="IMAGE4" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage5" column="IMAGE5" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage12" column="IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prType" column="TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prDiscountsDate" column="DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prDiscounteDate" column="DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.defaultPrcode" column="DEFAULT_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="productLevelPrice.prlpSaleprice1" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+        <result property="productLevelPrice.prlpDiscountprice1" column="DISCOUNTPRICE" javaType="integer" jdbcType="INTEGER"/>
+        <result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+        <result property="productLevelPrice.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+        <result property="productDisplay.prdEtc1" column="PRD_ETC1" javaType="long" jdbcType="INTEGER"/>
+        <result property="productDisplay.prdType" column="PRD_TYPE" javaType="ProductDisplayType" typeHandler="ProductDisplayTypeHandler" jdbcType="VARCHAR"/>
+        <result property="foreigndeliCheck" column="FOREIGNDELI_CHECK" javaType="long" jdbcType="INTEGER"/>
+        <result property="stZeroCheck" column="ST_CHECK" javaType="long" jdbcType="INTEGER"/>
+        <result property="basketCheck" column="BASKET_CHECK" javaType="long" jdbcType="INTEGER"/>
+        <result property="wsSeq" column="WS_SEQ" javaType="long" jdbcType="INTEGER"/>
+        <result property="category.ctSeq" column="CT_SEQ" javaType="long" jdbcType="INTEGER"/>
+        <result property="category.ctCode" column="CT_CODE" javaType="long" jdbcType="INTEGER"/>
+        <result property="category.ctName" column="CT_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="category.ctEname" column="CT_ENAME" javaType="string" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="DisplayGoodsDetailMap" type="com.kakaofriends.front.domain.product.DisplayGoodsExpansion">
+        <result property="displayGoods.id" column="ID" javaType="long" jdbcType="INTEGER"/>
+        <result property="displayGoods.code" column="CODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.name" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.name1" column="NAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image1" column="IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image2" column="IMAGE2" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image3" column="IMAGE3" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image4" column="IMAGE4" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image5" column="IMAGE5" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image6" column="IMAGE6" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image7" column="IMAGE7" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image8" column="IMAGE8" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image9" column="IMAGE9" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image10" column="IMAGE10" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image11" column="IMAGE11" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.image12" column="IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.content" column="CONTENT" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.content1" column="CONTENT1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.discountsDate" column="DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.discounteDate" column="DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.foreignDeliYn" column="FOREIGNDELIYN" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.krView" column="KRVIEW" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.type" column="TYPE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="displayGoods.salePrice" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+        <result property="displayGoods.discountPrice" column="DISCOUNTPRICE" javaType="integer" jdbcType="INTEGER"/>
+        <result property="displayGoods.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+        <result property="displayGoods.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+        <!--<result property="productDisplay.prdEtc1" column="PRD_ETC1" javaType="long" jdbcType="INTEGER"/>
+        <result property="productDisplay.prdType" column="PRD_TYPE" javaType="ProductDisplayType" typeHandler="ProductDisplayTypeHandler" jdbcType="VARCHAR"/>
+        <result property="prOptionCnt" column="PR_OPTIONCNT" javaType="long" jdbcType="INTEGER"/>-->
+        <result property="displayGoods.defaultPrcode" column="DEFAULT_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="foreigndeliCheck" column="FOREIGNDELI_CHECK" javaType="long" jdbcType="INTEGER"/>
+        <result property="stZeroCheck" column="ST_CHECK" javaType="long" jdbcType="INTEGER"/>
+        <result property="basketCheck" column="BASKET_CHECK" javaType="long" jdbcType="INTEGER"/>
+        <result property="prGiftBagCount" column="GIFTBAG_COUNT" javaType="long" jdbcType="INTEGER"/>
+        <result property="wsSeq" column="WS_SEQ" javaType="long" jdbcType="INTEGER"/>
+        <result property="category.ctSeq" column="CT_SEQ" javaType="long" jdbcType="INTEGER"/>
+        <result property="category.ctCode" column="CT_CODE" javaType="long" jdbcType="INTEGER"/>
+        <result property="category.ctName" column="CT_NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="category.ctEname" column="CT_ENAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="categoryGroup" column="CT_PCODE" javaType="CategoryGroup" typeHandler="CategoryGroupTypeHandler" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="SuggestedProductMap" type="com.kakaofriends.front.domain.product.ProductDto$SuggestedProduct">
+        <result property="product.prCode" column="ID" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prName" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prName1" column="NAME1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prDiscountsDate" column="DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prDiscounteDate" column="DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage1" column="IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+        <result property="product.prImage12" column="IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+        <result property="productLevelPrice.prlpSaleprice1" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+        <result property="productLevelPrice.prlpDiscountprice1" column="DISCOUNTPRICE" javaType="integer" jdbcType="INTEGER"/>
+        <result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+        <result property="productLevelPrice.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+        <result property="stZeroCheck" column="ST_CHECK" javaType="long" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- prCode는 displayGoodsId -->
+	<select id="findByDisplayGoodsId" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="DisplayGoodsDetailMap">
+		 SELECT
+            H.ID,
+            NAME,
+            NAME1,
+            CONTENT,
+            CONTENT1,
+            IMAGE1,
+            IMAGE2,
+            IMAGE3,
+            IMAGE4,
+            IMAGE5,
+            IMAGE6,
+            IMAGE7,
+            IMAGE8,
+            IMAGE9,
+            IMAGE10,
+            IMAGE11,
+            IMAGE12,
+            DISCOUNTSDATE,
+            DISCOUNTEDATE,
+            SALEPRICE,
+            DISCOUNTPRICE,
+            ROUND(SALEPRICE / #{ exchangeRate }, 2) AS EXCHANGEPRICE,
+            ROUND(DISCOUNTPRICE / #{ exchangeRate }, 2) AS EXCHANGEDISCOUNTPRICE,
+            KRVIEW,
+            TYPE,
+            DEFAULT_PRCODE,
+            H.FOREIGNDELI_CHECK,
+            H.ST_CHECK,
+            H.GIFTBAG_COUNT,
+            --DGC.*,
+			CT.CT_SEQ,
+			CT.CT_CODE,
+			CT.CT_NAME,
+			CT.CT_ENAME,
+            (SELECT CONNECT_BY_ROOT(CT_SUB.CT_SEQ) FROM CATEGORY CT_SUB WHERE CT_SUB.CT_SEQ = CT.CT_SEQ START WITH CT_SUB.CT_CODE IN ('3', '4') CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE AND CT_SUB.CT_USE = 'Y') CT_PCODE,
+            (SELECT WS_SEQ FROM WISHLIST WHERE WS_OWNERID = #{ownerId} AND DISPLAY_GOODS_ID = #{prCode}) AS WS_SEQ,
+            (SELECT COUNT(*) FROM BASKET WHERE BS_OWNERID = #{ownerId} AND DISPLAY_GOODS_ID = H.ID AND BS_USE = 'Y' AND BS_DIRECT = 'N') AS BASKET_CHECK
+        FROM (
+            SELECT
+                A.ID,
+                SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK,
+                SUM(G.AVAILABLE_STOCK) AS ST_CHECK,
+                SUM(DECODE(F.PR_TYPE, '8', 1, 0)) AS GIFTBAG_COUNT
+            FROM DISPLAY_GOODS A
+            INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+            INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+            INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+            INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+            INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+            INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+            WHERE
+              G.DOMESTIC = 1 AND A.STATUS != 2 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+              AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y' AND A.ID = #{prCode}
+            GROUP BY A.ID
+        ) H
+        INNER JOIN DISPLAY_GOODS I ON H.ID = I.ID
+        <if test="ctSeq == null"> INNER JOIN (SELECT MAX(DISPLAY_GOODS_ID) DISPLAY_GOODS_ID, MAX(CTSEQ) CTSEQ FROM DISPLAY_GOODS_CATEGORY WHERE DISPLAY_GOODS_ID = #{prCode}) DGC ON DGC.DISPLAY_GOODS_ID = H.ID </if>
+        <if test="ctSeq != null"> INNER JOIN (SELECT DISPLAY_GOODS_ID, CTSEQ FROM DISPLAY_GOODS_CATEGORY WHERE DISPLAY_GOODS_ID = #{prCode} AND CTSEQ = #{ctSeq}) DGC ON DGC.DISPLAY_GOODS_ID = H.ID </if>
+        INNER JOIN CATEGORY CT ON DGC.CTSEQ = CT.CT_SEQ
+	</select>
+
+    <select id="findByDisplayGoodsIdOptionTitle" parameterType="map" resultType="com.kakaofriends.front.domain.product.GoodsOptionTitle">
+		SELECT
+			D.NAME AS name,
+			D.NAME_EN AS nameEn,
+            D.ID AS goodsOptionId
+        FROM DISPLAY_GOODS A
+        INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+        INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+		WHERE D.GOODS_ID = #{goodsId} AND PARENT_GOODS_OPTION_ID <![CDATA[ < ]]> 0
+        ORDER BY D.SORT
+	</select>
+
+	<select id="findByDisplayGoodsIdOption" parameterType="map" resultType="com.kakaofriends.front.domain.product.GoodsOption">
+        SELECT
+            GO.ID AS id,
+            GO.NAME AS name,
+            GO.NAME_EN AS nameEn,
+            GO.GOODS_ID AS goodsId,
+            GO.PARENT_GOODS_OPTION_ID AS parentGoodsOptionId,
+            GO.SORT AS sort,
+            P.PR_FOREIGNDELIYN AS prForeigndeliyn
+        FROM GOODS_OPTION GO
+        LEFT JOIN PRODUCT_OPTION_MAPPING POP ON GO.ID = POP.GOODS_OPTION_ID
+        LEFT JOIN PRODUCT P ON POP.PRCODE = P.PR_CODE
+        <where>
+            <if test="goodsId == null or goodsId == 0"> GO.GOODS_ID = 0 </if>
+            <if test="goodsId != null and goodsId != 0"> GO.GOODS_ID = #{goodsId} </if>
+            <if test="parentGoodsOptionId == null or parentGoodsOptionId == 0"> AND GO.PARENT_GOODS_OPTION_ID = 0 </if>
+            <if test="parentGoodsOptionId != null and parentGoodsOptionId != 0"> AND GO.PARENT_GOODS_OPTION_ID = #{parentGoodsOptionId} </if>
+            AND ( P.PR_CODE IS NULL OR P.PR_CODE IS NOT NULL AND P.PR_KRVIEW = 'Y' )
+        </where>
+        ORDER BY GO.SORT
+	</select>
+
+    <select id="findByDisplayGoodsIdOptionPrice" parameterType="map" resultType="com.kakaofriends.front.domain.product.GoodsOptionPrice">
+        SELECT
+            D.ID,
+            C.SALEPRICE AS salePrice,
+            C.DISCOUNTPRICE AS discountPrice,
+            C.DISCOUNTSDATE AS discountsDate,
+            C.DISCOUNTEDATE AS discounteDate,
+            --E.GOODS_OPTION_ID,
+            F.PR_DISCOUNTSDATE AS prDiscountsDate,
+            F.PR_DISCOUNTEDATE AS prDiscounteDate,
+            G.PRLP_SALEPRICE1 AS prSalePrice,
+            G.PRLP_DISCOUNTPRICE1 AS prDiscountPrice,
+            H.AVAILABLE_STOCK AS availableStock
+        FROM GOODS C
+        INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+        INNER JOIN PRODUCTLEVELPRICE G ON F.PR_CODE = G.PRLP_PRCODE
+        INNER JOIN TB_KFO_STOCK H ON F.PR_CODE = H.PRODUCT_ID
+        WHERE
+            D.ID = #{goodsOptionId} AND D.GOODS_ID = #{goodsId} AND F.PR_CODE IS NOT NULL
+            AND F.PR_USE = 'Y' AND F.PR_STATUS = 1 AND F.PR_KRVIEW = 'Y' AND H.DOMESTIC = '1'
+    </select>
+
+    <select id="findByDisplayGoodsIdGoods" parameterType="map" resultType="com.kakaofriends.front.domain.product.Goods">
+        SELECT DISTINCT
+            A.ID AS displayGoodsId,
+            C.ID AS id,
+            --D.ID AS goodsOptionId,
+            C.ADDON_TYPE AS addonType,
+            C.OPTION_TYPE AS optionType,
+            C.NAME AS name,
+            C.NAME_EN AS nameEn,
+            C.SALEPRICE AS salePrice,
+            C.DISCOUNTPRICE AS discountPrice,
+            C.DISCOUNTSDATE AS discountsDate,
+            C.DISCOUNTEDATE AS discounteDate,
+            ROUND(C.SALEPRICE / #{ exchangeRate }, 2) AS exchangePrice,
+            ROUND(C.DISCOUNTPRICE / #{ exchangeRate }, 2) AS exchangeDiscountPrice
+        FROM DISPLAY_GOODS A
+        INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+        INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+        WHERE
+          A.ID = #{displayGoodsId} AND A.STATUS != 2 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+          AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y'
+    </select>
+
+    <select id="findGoodsOptionId" parameterType="map" resultType="Long">
+        SELECT ID
+        FROM GOODS_OPTION
+        WHERE GOODS_ID = #{goodsId}
+    </select>
+
+    <select id="findByGoodsIdEctDataSum" parameterType="com.kakaofriends.front.domain.product.Goods" resultType="com.kakaofriends.front.domain.product.GoodsEtcData">
+        SELECT
+            SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS foreigndeliCheck,
+            SUM(G.AVAILABLE_STOCK) AS stZeroCheck
+        FROM DISPLAY_GOODS A
+        INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+        INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+        INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+        WHERE
+            G.DOMESTIC = 1 AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y' AND A.ID = #{displayGoodsId} AND C.ID = #{id}
+        GROUP BY A.ID, C.ADDON_TYPE
+    </select>
+
+    <select id="findByGoodsIdEctData" parameterType="com.kakaofriends.front.domain.product.Goods" resultType="com.kakaofriends.front.domain.product.GoodsEtcData">
+        SELECT
+            DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0) AS foreigndeliCheck,
+            G.AVAILABLE_STOCK AS stZeroCheck,
+            F.PR_DISCOUNTSDATE AS discountsDate,
+            F.PR_DISCOUNTEDATE AS discounteDate,
+            H.PRLP_SALEPRICE1 AS salePrice,
+            H.PRLP_DISCOUNTPRICE1 AS discountPrice
+        FROM DISPLAY_GOODS A
+        INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+        INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+        INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+        INNER JOIN PRODUCTLEVELPRICE H ON F.PR_CODE = H.PRLP_PRCODE
+        WHERE
+            G.DOMESTIC = 1 AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y' AND A.ID = #{displayGoodsId} AND C.ID = #{id}
+    </select>
+
+
+	<select id="findProducts" parameterType="map" resultMap="DisplayGoodsExpansionMap">
+        SELECT
+            B.PR_CODE AS ID,
+            B.PR_NAME AS NAME,
+            B.PR_NAME1 AS NAME1,
+            B.PR_TYPE AS TYPE,
+            B.PR_FOREIGNDELIYN AS FOREIGNDELIYN,
+            B.PR_DISCOUNTSDATE AS DISCOUNTSDATE,
+            B.PR_DISCOUNTEDATE AS DISCOUNTEDATE,
+            C.PRLP_SALEPRICE1 AS SALEPRICE,
+            C.PRLP_DISCOUNTPRICE1 AS DISCOUNTPRICE,
+			ROUND(C.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE,
+			ROUND(C.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+            D.AVAILABLE_STOCK AS ST_CHECK
+        FROM PRODUCT_OPTION_MAPPING A
+        INNER JOIN PRODUCT B ON A.PRCODE = B.PR_CODE
+        INNER JOIN PRODUCTLEVELPRICE C ON B.PR_CODE = C.PRLP_PRCODE
+        INNER JOIN TB_KFO_STOCK D ON C.PRLP_PRCODE = D.PRODUCT_ID
+        WHERE A.GOODS_OPTION_ID = #{goodsOptionId} AND B.PR_USE = 'Y' AND B.PR_STATUS = 1 AND B.PR_KRVIEW = 'Y' AND D.DOMESTIC = 1
+	</select>
+
+    <select id="findGoodsIdByPrcode" parameterType="map" resultType="long">
+        SELECT
+          C.ID
+        FROM DISPLAY_GOODS A
+        INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+        INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+        WHERE A.ID = #{displayGoodsId} AND F.PR_CODE = #{prCode}
+    </select>
+
+    <!-- 추천상품조회 start -->
+    <select id="findSuggestedByDisplayGoodsId" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="SuggestedProductMap">
+		 SELECT
+            H.ID,
+            NAME,
+            NAME1,
+            IMAGE1,
+            DISCOUNTSDATE,
+            DISCOUNTEDATE,
+            SALEPRICE,
+            DISCOUNTPRICE,
+            ROUND(SALEPRICE / #{ exchangeRate }, 2) AS EXCHANGEPRICE,
+            ROUND(DISCOUNTPRICE / #{ exchangeRate }, 2) AS EXCHANGEDISCOUNTPRICE,
+            H.ST_CHECK
+        FROM (
+            SELECT
+                A.ID,
+                SUM(G.AVAILABLE_STOCK) AS ST_CHECK
+                FROM (
+                    SELECT
+                        MAX(prop.DISPLAY_GOODS_ID),
+                        prop.DISPLAY_GOODS_RECOMMEND_ID,
+                        MAX(prc.CTSEQ) CTSEQ,
+                        MAX(ct.ct_code) ct_code
+                    FROM
+                        DISPLAY_GOODS_RECOMMEND prop
+                        INNER JOIN DISPLAY_GOODS_CATEGORY prc ON prop.DISPLAY_GOODS_RECOMMEND_ID = prc.DISPLAY_GOODS_ID
+                        INNER JOIN category ct ON prc.CTSEQ = ct.ct_seq
+                    WHERE
+                        prop.DISPLAY_GOODS_ID = #{prCode}
+                    GROUP BY
+                        prop.DISPLAY_GOODS_RECOMMEND_ID
+                ) prop
+            INNER JOIN DISPLAY_GOODS A ON PROP.DISPLAY_GOODS_RECOMMEND_ID = A.ID
+            INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+            INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+            INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+            INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+            INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+            INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+            WHERE
+              G.DOMESTIC = 1 AND A.STATUS != 2 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+              AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y'
+            GROUP BY A.ID
+        ) H
+        INNER JOIN DISPLAY_GOODS I ON H.ID = I.ID
+	</select>
+    <!-- 추천상품조회 end -->
+
+    <sql id="findProductsHeaderSQL">
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+        ROWNUM RR,
+        XX.*
+        FROM
+        (
+        SELECT
+        ROW_NUMBER() OVER (ORDER BY
+        <choose>
+            <when test="productRequest.sort.name() == 'NEW'">Y.INDATE DESC</when>
+            <when test="productRequest.sort.name() == 'PRICE_ASC'">Y.SALEPRICE</when>
+            <when test="productRequest.sort.name() == 'PRICE_DESC'">Y.SALEPRICE DESC</when>
+            <otherwise>Y.INDATE DESC</otherwise>
+        </choose>
+        ) RNUM,
+        Z.*,
+        Y.NAME,
+        Y.NAME1,
+        Y.IMAGE1,
+        Y.KRVIEW,
+        Y.DEFAULT_PRCODE,
+        Y.DISCOUNTSDATE,
+        Y.DISCOUNTEDATE,
+        Y.SALEPRICE,
+        Y.DISCOUNTPRICE,
+        ROUND(Y.SALEPRICE / #{productRequest.exchangeRate}, 2) as EXCHANGEPRICE,
+        ROUND(Y.DISCOUNTPRICE / #{productRequest.exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+        ( SELECT COUNT(*) FROM BASKET WHERE BS_OWNERID = #{productRequest.ownerId}  AND DISPLAY_GOODS_ID = Z.ID AND BS_USE = 'Y' AND BS_DIRECT = 'N') BASKET_CHECK
+        FROM (
+    </sql>
+
+    <sql id="findProductsFooterSQL">
+		)
+		WHERE RR BETWEEN (#{pagination.firstRecordIndex} + 1) AND (#{pagination.recordCountPerPage} * #{pagination.currentPageNo})
+	</sql>
+
+    <!-- 전시상품 카테고리 리스트 start -->
+    <select id="findProductCountByCategoryWithCharacter" parameterType="map" resultType="int" statementType="CALLABLE">
+        SELECT
+        COUNT(*)
+        FROM DISPLAY_GOODS DG
+        INNER JOIN (
+        SELECT
+        DISTINCT DISPLAY_GOODS_ID
+        FROM DISPLAY_GOODS_CATEGORY
+        WHERE CTSEQ IN
+        (
+        SELECT CT_SEQ
+        FROM CATEGORY
+        <choose>
+            <when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter == null">
+                )
+            </when>
+            <otherwise>
+                <where>
+                    <choose>
+                        <when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter == null">
+                            AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+                            )
+                        </when>
+                        <when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter != null">
+                            AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCharacter} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+                            )
+                        </when>
+                        <when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter != null">
+                            AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+                            )
+                            AND DISPLAY_GOODS_ID IN (SELECT PCA.DISPLAY_GOODS_ID FROM DISPLAY_GOODS_CATEGORY PCA WHERE PCA.CTSEQ = #{productRequest.requestCharacter})
+                        </when>
+                    </choose>
+                </where>
+            </otherwise>
+        </choose>
+        ) PRC ON DG.ID = PRC.DISPLAY_GOODS_ID
+        INNER JOIN (
+        SELECT
+        A.ID,
+        SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK
+        FROM DISPLAY_GOODS A
+        LEFT JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        LEFT JOIN GOODS C ON B.GOODS_ID = C.ID
+        LEFT JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        LEFT JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        LEFT JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+        LEFT JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+        WHERE
+            G.DOMESTIC = 1 AND A.STATUS != 2 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+            AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y'
+        GROUP BY A.ID
+        ) G ON DG.ID = G.ID
+        <where>
+            <if test="productRequest.filter == 'global'"> AND FOREIGNDELI_CHECK > 0 </if>
+        </where>
+    </select>
+
+    <select id="findProductsByCategoryWithCharacter" parameterType="map" resultMap="DisplayGoodsExpansionMap" statementType="CALLABLE">
+        <include refid="findProductsHeaderSQL" />
+        SELECT
+            A.ID,
+            SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK,
+            SUM(G.AVAILABLE_STOCK) AS ST_CHECK
+        FROM DISPLAY_GOODS A
+        LEFT JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        LEFT JOIN GOODS C ON B.GOODS_ID = C.ID
+        LEFT JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        LEFT JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        LEFT JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+        LEFT JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+        WHERE
+            G.DOMESTIC = 1 AND A.STATUS != 2 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+            AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y'
+        GROUP BY A.ID
+        ) Z
+        INNER JOIN (
+        SELECT
+        DISTINCT DISPLAY_GOODS_ID
+        FROM DISPLAY_GOODS_CATEGORY
+        WHERE CTSEQ IN
+        (
+        SELECT CT_SEQ
+        FROM CATEGORY
+        <choose>
+            <when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter == null">
+                )
+            </when>
+            <otherwise>
+                <where>
+                    <choose>
+                        <when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter == null">
+                            AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+                            )
+                        </when>
+                        <when test="(productRequest.requestCategory == 3 or productRequest.requestCategory == null) and productRequest.requestCharacter != null">
+                            AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCharacter} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+                            )
+                        </when>
+                        <when test="(productRequest.requestCategory != 3 and productRequest.requestCategory != null) and productRequest.requestCharacter != null">
+                            AND CT_CODE IN (SELECT CT_SUB.CT_CODE FROM CATEGORY CT_SUB START WITH CT_SUB.CT_CODE = #{productRequest.requestCategory} CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE)
+                            )
+                            AND DISPLAY_GOODS_ID IN (SELECT PCA.DISPLAY_GOODS_ID FROM DISPLAY_GOODS_CATEGORY PCA WHERE PCA.CTSEQ = #{productRequest.requestCharacter})
+                        </when>
+                    </choose>
+                </where>
+            </otherwise>
+        </choose>
+        ) PRC ON Z.ID = PRC.DISPLAY_GOODS_ID
+        INNER JOIN DISPLAY_GOODS Y ON Z.ID = Y.ID
+        <where>
+            <if test="productRequest.filter == 'global'"> AND FOREIGNDELI_CHECK > 0  </if>
+        </where>
+        ) XX
+        <include refid="findProductsFooterSQL" />
+    </select>
+    <!-- 전시상품 카테고리 리스트 end -->
+
+    <!-- 전시상품 검색 리스트 start -->
+    <select id="findProductCountByName" parameterType="map" resultType="int">
+        SELECT COUNT(DISTINCT H.ID)
+        FROM (
+            SELECT
+              A.ID
+            FROM DISPLAY_GOODS A
+            LEFT JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+            LEFT JOIN GOODS C ON B.GOODS_ID = C.ID
+            LEFT JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+            LEFT JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+            LEFT JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+            <where>
+                A.KRVIEW = 'Y' AND F.PR_KRVIEW = 'Y'
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prUse)">AND A.USE = #{searchRequest.prUse} AND F.PR_USE = #{searchRequest.prUse}</if>
+                <if test="searchRequest.prStatus != null"> AND A.STATUS = #{searchRequest.prStatus} AND F.PR_STATUS = #{searchRequest.prStatus} </if>
+            </where>
+        GROUP BY A.ID
+        ) H
+        INNER JOIN DISPLAY_GOODS_CATEGORY I ON H.ID = I.DISPLAY_GOODS_ID
+        INNER JOIN category CT ON I.CTSEQ = CT.ct_seq
+        INNER JOIN DISPLAY_GOODS J ON I.DISPLAY_GOODS_ID = J.ID
+        <where>
+            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prLanguageViewColumn)"> AND ${searchRequest.prLanguageViewColumn} = #{searchRequest.prLanguageView} </if>
+            <if test="searchRequest.keyword != null">
+                AND (
+                UPPER(J.searchword) like UPPER('%' || #{searchRequest.keyword} || '%')
+                OR UPPER(J.name) like UPPER('%' || #{searchRequest.keyword} || '%')
+                OR UPPER(J.name1) like UPPER('%' || #{searchRequest.keyword} || '%')
+                OR UPPER(ct.ct_name) LIKE UPPER('%' || #{searchRequest.keyword} || '%')
+                OR UPPER(ct.ct_ename) LIKE UPPER('%' || #{searchRequest.keyword} || '%') )
+            </if>
+        </where>
+    </select>
+
+    <select id="findProductsByName" parameterType="map" resultMap="DisplayGoodsExpansionMap">
+        SELECT
+            *
+            FROM
+            (
+                SELECT XX.*,
+                      ROWNUM AS RNUM,
+                      (SELECT COUNT(*) FROM BASKET WHERE BS_OWNERID = #{searchRequest.ownerId} AND DISPLAY_GOODS_ID = XX.ID AND BS_USE = 'Y' AND BS_DIRECT = 'N') BASKET_CHECK
+                    FROM (
+                        SELECT DISTINCT
+                        H.ID,
+                        J.NAME,
+                        J.NAME1,
+                        J.IMAGE1,
+                        J.IMAGE12,
+                        H.FOREIGNDELI_CHECK,
+                        H.ST_CHECK,
+                        J.INDATE,
+                        J.DISCOUNTSDATE,
+                        J.DISCOUNTEDATE,
+                        J.SALEPRICE,
+                        J.DISCOUNTPRICE,
+                        J.DEFAULT_PRCODE,
+                        ROUND(J.SALEPRICE / #{searchRequest.exchangeRate}, 2) AS EXCHANGEPRICE,
+                        ROUND(J.DISCOUNTPRICE / #{searchRequest.exchangeRate}, 2) AS EXCHANGEDISCOUNTPRICE
+                    FROM (
+                        SELECT
+                            A.ID,
+                            SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK,
+                            SUM(G.AVAILABLE_STOCK) AS ST_CHECK
+                        FROM DISPLAY_GOODS A
+                        LEFT JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+                        LEFT JOIN GOODS C ON B.GOODS_ID = C.ID
+                        LEFT JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+                        LEFT JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+                        LEFT JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+                        LEFT JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+                        <where>
+                            G.DOMESTIC = 1  AND A.KRVIEW = 'Y' AND F.PR_KRVIEW = 'Y'
+                            <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prUse)">AND A.USE = #{searchRequest.prUse} AND F.PR_USE = #{searchRequest.prUse}</if>
+                            <if test="searchRequest.prStatus != null"> AND A.STATUS = #{searchRequest.prStatus} AND F.PR_STATUS = #{searchRequest.prStatus} </if>
+                        </where>
+                        GROUP BY A.ID
+                    ) H
+                    INNER JOIN DISPLAY_GOODS_CATEGORY I ON H.ID = I.DISPLAY_GOODS_ID
+                    INNER JOIN CATEGORY CT ON I.CTSEQ = CT.ct_seq
+                    INNER JOIN DISPLAY_GOODS J ON I.DISPLAY_GOODS_ID = J.ID
+                    <where>
+                        <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(searchRequest.prLanguageViewColumn)"> AND ${searchRequest.prLanguageViewColumn} = #{searchRequest.prLanguageView} </if>
+                        <if test="searchRequest.keyword != null">
+                            AND (
+                            UPPER(J.searchword) like UPPER('%' || #{searchRequest.keyword} || '%')
+                            OR UPPER(J.name) like UPPER('%' || #{searchRequest.keyword} || '%')
+                            OR UPPER(J.name1) like UPPER('%' || #{searchRequest.keyword} || '%')
+                            OR UPPER(ct.ct_name) LIKE UPPER('%' || #{searchRequest.keyword} || '%')
+                            OR UPPER(ct.ct_ename) LIKE UPPER('%' || #{searchRequest.keyword} || '%') )
+                        </if>
+                    </where>
+                    ORDER BY
+                    <choose>
+                        <when test="searchRequest.sort.name() == 'NEW'">J.INDATE DESC</when>
+                        <when test="searchRequest.sort.name() == 'PRICE_ASC'">J.SALEPRICE</when>
+                        <when test="searchRequest.sort.name() == 'PRICE_DESC'">J.SALEPRICE DESC</when>
+                    </choose>
+                    ) XX
+                WHERE ROWNUM <![CDATA[ <= ]]> #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+                ) XXX
+            WHERE XXX.RNUM <![CDATA[ >= ]]> #{pagination.firstRecordIndex} + 1
+    </select>
+    <!-- 전시상품 검색 리스트 end -->
+
+    <!-- 전시상품 신상품/인기상품 리스트 start -->
+    <select id="findProductCountByCategoryGroup" parameterType="map" resultType="int" statementType="CALLABLE">
+        SELECT COUNT(*)
+            FROM (
+                SELECT
+                    A.ID,
+                    SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK
+                FROM DISPLAY_GOODS A
+                LEFT JOIN PRODUCTDISPLAY Z ON Z.DISPLAY_GOODS_ID = A.ID
+                LEFT JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+                LEFT JOIN GOODS C ON B.GOODS_ID = C.ID
+                LEFT JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+                LEFT JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+                LEFT JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+                <where>
+                    A.STATUS != 2 AND F.PR_STATUS = 1 AND F.PR_STATUS = 1
+                    <if test="productRequest.ctGroup == 'new'"> AND Z.PRD_TYPE = '1' </if>
+                    <if test="productRequest.ctGroup == 'best'"> AND Z.PRD_TYPE = '3' </if>
+                    <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prUse)"> AND A.USE = #{productRequest.prUse} AND F.PR_USE = #{productRequest.prUse}</if>
+                    <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prKrView)"> AND A.KRVIEW = #{productRequest.prKrView} AND F.PR_KRVIEW = #{productRequest.prKrView}</if>
+                </where>
+                GROUP BY A.ID
+        ) Z
+        <where>
+          <if test="productRequest.filter == 'global'"> AND Z.FOREIGNDELI_CHECK > 0 </if>
+        </where>
+    </select>
+
+    <select id="findProductsByCategoryGroup" parameterType="com.kakaofriends.front.domain.product.ProductDto$ProductRequest" resultMap="DisplayGoodsExpansionMap">
+        <include refid="findProductsHeaderSQL" />
+            SELECT
+                A.ID,
+                SUM(DECODE(F.PR_FOREIGNDELIYN, 'Y', 1, 0)) AS FOREIGNDELI_CHECK,
+                SUM(G.AVAILABLE_STOCK) AS ST_CHECK
+            FROM DISPLAY_GOODS A
+            LEFT JOIN PRODUCTDISPLAY PRD ON A.ID = PRD.DISPLAY_GOODS_ID
+            LEFT JOIN DISPLAY_GOODS_DETAIL B ON PRD.DISPLAY_GOODS_ID = B.DISPLAY_GOODS_ID
+            LEFT JOIN GOODS C ON B.GOODS_ID = C.ID
+            LEFT JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+            LEFT JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+            LEFT JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+            LEFT JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+            <where>
+                G.DOMESTIC = 1 AND A.STATUS != 2 AND F.PR_STATUS = 1
+                <if test="productRequest.ctGroup == 'new'"> AND PRD.PRD_TYPE = '1' </if>
+                <if test="productRequest.ctGroup == 'best'"> AND PRD.PRD_TYPE = '3' </if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prUse)"> AND A.USE = #{productRequest.prUse} AND F.PR_USE = #{productRequest.prUse}</if>
+                <if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(productRequest.prKrView)"> AND A.KRVIEW = #{productRequest.prKrView} AND F.PR_KRVIEW = #{productRequest.prKrView}</if>
+            </where>
+            GROUP BY A.ID
+        ) Z
+        INNER JOIN DISPLAY_GOODS Y ON Z.ID = Y.ID
+        <where>
+            <if test="productRequest.filter == 'global'"> AND Z.FOREIGNDELI_CHECK > 0 </if>
+        </where>
+        ) XX
+        <include refid="findProductsFooterSQL" />
+        <!-- 전시상품 신상품/인기상품 리스트 end -->
+    </select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.MyPageTopRepository">
+
+    <select id="myPageTopData" parameterType="map" resultType="map">
+        SELECT
+        (SELECT NVL(SUM(MP_REST), 0) FROM TB_KFO_MBS_POINT WHERE MP_USERID = #{userId} and TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> MP_EDATE) as myPointRest,
+        NVL((SELECT COUNT(OS_OMNUM) FROM (SELECT OS_OMNUM FROM ORDERSUB WHERE OS_OWNERID = #{userId}
+            AND OS_PRCODE IS NOT NULL
+            AND OS_STATUS IN
+            <foreach collection="getShippingCount" item="orderStatusType" open="(" separator="," close=")">
+                #{orderStatusType.code}
+            </foreach>
+          GROUP BY OS_OMNUM
+        )), 0) as myOmCnt,
+        NVL((SELECT COUNT(OS_OMNUM) FROM (SELECT OS_OMNUM FROM ORDERSUB WHERE OS_OWNERID = #{userId}
+            AND OS_PRCODE IS NOT NULL
+            AND OS_STATUS IN
+            <foreach collection="getCancelingCount" item="orderStatusType" open="(" separator="," close=")">
+                #{orderStatusType.code}
+            </foreach>
+          GROUP BY OS_OMNUM
+        )), 0) as myDeliCnt,
+        (SELECT COUNT(*) FROM GIFTCARD WHERE GC_USERID = #{userId} AND GC_USE IN (1,4) AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> GC_EDATE) as myCouponCnt
+        FROM DUAL
+    </select>
+</mapper>

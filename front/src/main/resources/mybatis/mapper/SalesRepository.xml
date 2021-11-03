@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.SalesRepository">
+
+    <!-- start of select -->
+    <select id="selectList" resultType="com.kakaofriends.front.domain.sales.SalesData">
+        SELECT 
+            SS_SEQ AS ssSeq,
+            SS_OMNUM AS ssOmNum,
+            SS_OSSERIAL AS ssOsSerial,
+            SS_SCPCODE AS ssScpCode,
+            SS_BCPCODE AS ssBcpCode,
+            SS_MBID AS ssMbId,
+            SS_CARDMONEY AS ssCardMoney,
+            SS_COUPONMONEY AS ssCouponMoney,
+            SS_LATERMONEY AS ssLaterMoney,
+            SS_BUDGETMONEY AS ssBudgetMoney,
+            SS_SAVEMONEY AS ssSaveMoney,
+            SS_POINTMONEY AS ssPointMoney,
+            SS_VIRTUALACCOUNTMONEY AS ssVirtualAccountMoney,
+            SS_ORIGINALMONEY AS ssOriginalMoney,
+            SS_SALEMONEY AS ssSaleMoney,
+            SS_TOTORIGINALMONEY AS ssTotOriginalMoney,
+            SS_TOTSALEMONEY AS ssTotSaleMoney,
+            SS_CCNUMB AS ssCcNumB,
+            SS_CCNUMS AS ssCcNumS,
+            SS_CALCULATEBUSE AS ssCalculateBUse,
+            SS_CALCULATESUSE AS ssCalculateSUse,
+            SS_TYPE AS ssType,
+            SS_MOID AS ssMoId,
+            SS_INID AS ssInId,
+            SS_MODATE AS ssMoDate,
+            SS_INDATE AS ssInDate,
+            SS_ACCOUNTMONEY AS ssAccountMoney,
+            SS_MONEYUNIT AS ssMoneyUnit,
+            SS_TX_SEQ AS ssTxSeq,
+            SS_DPCODE AS ssDpCode,
+            SS_KAKAOMONEY AS ssKakaoMoney,
+            SS_PHONEMONEY AS ssPhoneMoney,
+            SS_DUZONDATE AS ssDuzonDate,
+            SS_DUZONFLAG AS ssDuzonFlag,
+            SS_PAYPALMONEY AS ssPaypalMoney
+        FROM 
+            sales
+        WHERE
+            ss_omnum = #{sales.ssOmNum}
+    </select>
+
+    <!-- start of insert -->
+    <insert id="insert">
+        INSERT INTO SALES (
+            SS_SEQ,
+            SS_OMNUM,
+            SS_OSSERIAL,
+            SS_SCPCODE,
+            SS_BCPCODE,
+            SS_MBID,
+            SS_CARDMONEY,
+            SS_COUPONMONEY,
+            SS_LATERMONEY,
+            SS_BUDGETMONEY,
+            SS_SAVEMONEY,
+            SS_POINTMONEY,
+            SS_VIRTUALACCOUNTMONEY,
+            SS_ORIGINALMONEY,
+            SS_SALEMONEY,
+            SS_TOTORIGINALMONEY,
+            SS_TOTSALEMONEY,
+            SS_CCNUMB,
+            SS_CCNUMS,
+            SS_CALCULATEBUSE,
+            SS_CALCULATESUSE,
+            SS_TYPE,
+            SS_MOID,
+            SS_INID,
+            SS_MODATE,
+            SS_INDATE,
+            SS_ACCOUNTMONEY,
+            SS_MONEYUNIT,
+            SS_TX_SEQ,
+            SS_DPCODE,
+            SS_KAKAOMONEY,
+            SS_PHONEMONEY,
+            SS_DUZONDATE,
+            SS_DUZONFLAG,
+            SS_PAYPALMONEY
+        ) VALUES (
+            USQ_SALES.NEXTVAL,
+            #{sales.ssOmNum},
+            #{sales.ssOsSerial},
+            #{sales.ssScpCode, jdbcType=VARCHAR},
+            #{sales.ssBcpCode, jdbcType=VARCHAR},
+            #{sales.ssMbId, jdbcType=VARCHAR},
+            #{sales.ssCardMoney},
+            #{sales.ssCouponMoney},
+            #{sales.ssLaterMoney},
+            #{sales.ssBudgetMoney},
+            #{sales.ssSaveMoney},
+            #{sales.ssPointMoney},
+            #{sales.ssVirtualAccountMoney},
+            #{sales.ssOriginalMoney},
+            #{sales.ssSaleMoney},
+            #{sales.ssTotOriginalMoney},
+            #{sales.ssTotSaleMoney},
+            #{sales.ssCcNumB, jdbcType=VARCHAR},
+            #{sales.ssCcNumS, jdbcType=VARCHAR},
+            #{sales.ssCalculateBUse, jdbcType=VARCHAR},
+            #{sales.ssCalculateSUse, jdbcType=VARCHAR},
+            #{sales.ssType, jdbcType=VARCHAR},
+            #{sales.ssMoId, jdbcType=VARCHAR},
+            #{sales.ssInId, jdbcType=VARCHAR},
+            #{sales.ssMoDate},
+            #{sales.ssInDate},
+            #{sales.ssAccountMoney},
+            #{sales.ssMoneyUnit},
+            #{sales.ssTxSeq},
+            #{sales.ssDpCode, jdbcType=VARCHAR},
+            #{sales.ssKakaoMoney},
+            #{sales.ssPhoneMoney},
+            #{sales.ssDuzonDate, jdbcType=DATE},
+            #{sales.ssDuzonFlag, jdbcType=VARCHAR},
+            #{sales.ssPaypalMoney}
+            )
+    </insert>
+
+</mapper>

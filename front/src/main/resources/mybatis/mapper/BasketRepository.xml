@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.BasketRepository">
+
+	<resultMap id="BasketMap" type="BasketExpansion">
+		<id property="basket.bsSeq" column="BS_SEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="basket.bsOwnerId" column="BS_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basket.bsPrCode" column="BS_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basket.bsEa" column="BS_EA" javaType="long" jdbcType="INTEGER"/>
+		<result property="basket.bsCtSeq" column="BS_CTSEQ" javaType="long" jdbcType="INTEGER"/>
+		<result property="basket.bsType" column="BS_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basket.displayGoodsId" column="DISPLAY_GOODS_ID" javaType="long" jdbcType="INTEGER"/>
+		<result property="basket.addonType" column="ADDON_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prCode" column="PR_CODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prName" column="PR_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prName1" column="PR_NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prImage1" column="PR_IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prImage12" column="PR_IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prDiscountsDate" column="PR_DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prDiscounteDate" column="PR_DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prKrview" column="PR_KRVIEW" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prType" column="PR_TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prForeigndeliyn" column="PR_FOREIGNDELIYN" javaType="string" jdbcType="VARCHAR"/>
+		<result property="basketInProduct.prWeight" column="PR_WEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="basketInProduct.prHeight" column="PR_WIDTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="basketInProduct.prWidth" column="PR_HEIGHT" javaType="double" jdbcType="DOUBLE"/>
+		<result property="basketInProduct.prDepth" column="PR_DEPTH" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpSupplyprice" column="PRLP_SUPPLYPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="PRLP_SALEPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.exchangePrice" column="EXCHANGEPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.exchangeDiscountPrice" column="EXCHANGEDISCOUNTPRICE" javaType="double" jdbcType="DOUBLE"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="PRLP_DISCOUNTPRICE1" javaType="integer" jdbcType="INTEGER"/>
+		<result property="stEa" column="ST_EA" javaType="long" jdbcType="INTEGER"/>
+		<result property="stDomestic" column="DOMESTIC" javaType="java.lang.Boolean" jdbcType="VARCHAR"/>
+		<result property="goodsOptionTitle.name" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="goodsOptionTitle.nameEn" column="NAME_EN" javaType="string" jdbcType="VARCHAR"/>
+		<result property="displayGoodsKrView" column="KRVIEW" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<resultMap id="SuggestedProductMap" type="com.kakaofriends.front.domain.product.ProductDto$SuggestedProduct">
+		<result property="product.prCode" column="ID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName" column="NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prName1" column="NAME1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscountsDate" column="DISCOUNTSDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prDiscounteDate" column="DISCOUNTEDATE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage1" column="IMAGE1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prImage12" column="IMAGE12" javaType="string" jdbcType="VARCHAR"/>
+		<result property="product.prType" column="TYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="productLevelPrice.prlpSaleprice1" column="SALEPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="productLevelPrice.prlpDiscountprice1" column="DISCOUNTPRICE" javaType="integer" jdbcType="INTEGER"/>
+		<result property="stZeroCheck" column="ST_CHECK" javaType="long" jdbcType="INTEGER"/>
+		<result property="prGiftBagCount" column="GIFTBAG_COUNT" javaType="long" jdbcType="INTEGER"/>
+		<result property="product.defaultPrcode" column="DEFAULT_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="category.ctSeq" column="CTSEQ" javaType="long" jdbcType="INTEGER"/>
+ 		<!--<result property="category.ctCode" column="PRC_CTCODE" javaType="long" jdbcType="INTEGER"/>-->
+ 		<result property="category.ctPcode" column="CT_PCODE" javaType="long" jdbcType="INTEGER"/>
+		<result property="categoryGroup" column="CT_PCODE" javaType="CategoryGroup" typeHandler="CategoryGroupTypeHandler" jdbcType="INTEGER"/>
+	</resultMap>
+	<select id="findByBsOwnerIdPrCode" resultMap="BasketMap" statementType="CALLABLE">
+		<include refid="basketCommon" />
+		/*
+		  변경이력 : 2018.08.23 layla
+			- WHERE 조건에 전시상품코드 추가
+		*/
+		WHERE BS_OWNERID = #{ownerId} AND BS_PRCODE= #{prCode} AND BS.DISPLAY_GOODS_ID = #{displayGoodsId} AND BS_USE = 'Y' AND BS_DIRECT = #{bsDirect}
+	</select>
+	<!-- 2018.01.31 layla -->
+	<select id="findByBsOwnerIdBsSeq" resultMap="BasketMap" statementType="CALLABLE">
+		<include refid="basketCommon" />
+		WHERE BS_OWNERID = #{ownerId} AND BS_SEQ= #{bsSeq} AND BS_USE = 'Y' AND BS_DIRECT = #{bsDirect}
+	</select>
+	<insert id="basketInsert" parameterType="Basket">
+		/*
+		  변경이력 : 2018.08.23 layla
+			- 전시상품코드 추가
+		*/
+		<selectKey resultType="long" keyColumn="BS_SEQ" keyProperty="bsSeq" order="BEFORE">
+		SELECT NVL( MAX(BS_SEQ), 0)+1 FROM BASKET
+		</selectKey>
+		INSERT INTO BASKET (
+			BS_SEQ,
+			BS_OWNERID,
+			BS_PRCODE,
+			BS_PROPTION,
+			BS_EA,
+			BS_ETC1,
+			BS_ETC2,
+			BS_ETC3,
+			BS_ETC4,
+			BS_ETC5,
+			BS_CTSEQ,
+			BS_LEVEL,
+			BS_TYPE,
+			BS_USE,
+			BS_MOID,
+			BS_INID,
+			BS_MODATE,
+			BS_INDATE,
+			BS_DIRECT,
+			DISPLAY_GOODS_ID
+		) VALUES (
+			(SELECT NVL( MAX(BS_SEQ), 0)+1 FROM BASKET),
+			#{bsOwnerId, jdbcType=VARCHAR},
+			#{bsPrCode, jdbcType=VARCHAR},
+			#{bsPrOption, jdbcType=VARCHAR},
+			#{bsEa, jdbcType=NUMERIC},
+			#{bsEtc1, jdbcType=VARCHAR},
+			#{bsEtc2, jdbcType=VARCHAR},
+			#{bsEtc3, jdbcType=VARCHAR},
+			#{bsEtc4, jdbcType=VARCHAR},
+			#{bsEtc5, jdbcType=VARCHAR},
+			#{bsCtSeq, jdbcType=NUMERIC},
+			#{bsLevel, jdbcType=VARCHAR},
+			#{bsType, jdbcType=VARCHAR},
+			'Y',
+			#{bsMoid, jdbcType=VARCHAR},
+			#{bsInid, jdbcType=VARCHAR},
+			SYSDATE,
+			SYSDATE,
+			#{bsDirect, jdbcType=VARCHAR},
+			#{displayGoodsId, jdbcType=NUMERIC}
+		)
+	</insert>
+
+	<!--
+		변경이력 : 2018.08.28 layla
+		- 전시상품테이블 바라보도록 변경
+		- NAME, NAME_EN (옵션명) 추
+	-->
+	<sql id="basketCommon">
+		SELECT
+			BS_SEQ,
+			BS_OWNERID,
+			BS_EA,
+			BS_PRCODE,
+			BS_TYPE,
+			BS_CTSEQ,
+			BS.DISPLAY_GOODS_ID,
+			PR.PR_CODE,
+			PR.PR_NAME,
+			PR.PR_NAME1,
+			PR.PR_IMAGE1,
+			PR.PR_IMAGE12,
+			PR.PR_DISCOUNTSDATE,
+			PR.PR_DISCOUNTEDATE,
+			NVL( PR.PR_FOREIGNDELIYN, 'N' ) AS PR_FOREIGNDELIYN,
+			PR.PR_KRVIEW,
+			PR.PR_TYPE,
+			PR.PR_WEIGHT,
+			PR.PR_WIDTH,
+			PR.PR_HEIGHT,
+			PR.PR_DEPTH,
+			ST.AVAILABLE_STOCK AS ST_EA,
+			PRLP.PRLP_SUPPLYPRICE,
+			PRLP.PRLP_SALEPRICE1,
+			ROUND(PRLP.PRLP_SALEPRICE1 / #{exchangeRate}, 2) as EXCHANGEPRICE,
+			PRLP.PRLP_DISCOUNTPRICE1,
+			ROUND(PRLP.PRLP_DISCOUNTPRICE1 / #{exchangeRate}, 2) as EXCHANGEDISCOUNTPRICE,
+			ST.DOMESTIC,
+			NVL2(DP.PARENT_GOODS_OPTION_ID, (DP.NAME || ' - ' ||D.NAME), D.NAME) NAME,
+			NVL2(DP.PARENT_GOODS_OPTION_ID, (DP.NAME_EN || ' - ' ||D.NAME_EN), D.NAME_EN) NAME_EN,
+  			C.ADDON_TYPE,
+  			A.KRVIEW
+		FROM
+			BASKET BS
+			INNER JOIN DISPLAY_GOODS A ON A.ID = BS.DISPLAY_GOODS_ID
+            INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+            INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+            INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+  			LEFT JOIN GOODS_OPTION DP ON D.PARENT_GOODS_OPTION_ID = DP.ID
+            INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+			INNER JOIN PRODUCT PR ON PR.PR_CODE = E.PRCODE AND BS.BS_PRCODE = E.PRCODE
+			INNER JOIN PRODUCTLEVELPRICE PRLP ON PRLP.PRLP_PRCODE = PR.PR_CODE
+    		INNER JOIN TB_KFO_STOCK ST ON ST.PRODUCT_ID = PR.PR_CODE AND ST.DOMESTIC = #{domestic}
+	</sql>
+
+	<select id="findByBsOwnerId" resultMap="BasketMap" statementType="CALLABLE">
+		<include refid="basketCommon" />
+	  WHERE
+			BS_OWNERID = #{ownerId} AND BS_USE = 'Y' AND BS_DIRECT = 'N'
+	  	ORDER BY BS_SEQ DESC
+	</select>
+
+	<select id="findByBsSeqIds" resultMap="BasketMap" statementType="CALLABLE">
+	  <include refid="basketCommon" />
+		WHERE
+			BS_SEQ IN
+			<foreach collection="seqIds" item="seqId" open="(" separator="," close=")">
+				#{seqId}
+			</foreach>
+		ORDER BY BS_SEQ DESC
+	</select>
+
+	<select id="findSuggestedProductByPrCode" parameterType="map" resultMap="SuggestedProductMap">
+		/*
+		  변경이력 : 2018.08.28 layla
+			- 전시상품테이블 바라보도록 변경
+			- prCode -> displayGoodsId
+			- resultmap 에서 분리 -> repository
+		*/
+		 SELECT
+            H.ID,
+            I.NAME,
+            I.NAME1,
+            I.IMAGE1,
+            I.IMAGE12,
+            I.TYPE,
+            I.DISCOUNTSDATE,
+            I.DISCOUNTEDATE,
+            I.SALEPRICE,
+            I.DISCOUNTPRICE,
+            I.DEFAULT_PRCODE,
+            H.ST_CHECK,
+            H.GIFTBAG_COUNT,
+            H.CTSEQ,
+            CT.CT_CODE,
+            CT.CT_SEQ,
+            CT.CT_PCODE
+        FROM (
+            SELECT
+                A.ID,
+                PROP.CTSEQ,
+                SUM(G.AVAILABLE_STOCK) AS ST_CHECK,
+                SUM(DECODE(F.PR_TYPE, '8', 1, 0)) AS GIFTBAG_COUNT
+                FROM (
+                    SELECT
+                        MAX(prop.DISPLAY_GOODS_ID),
+                        prop.DISPLAY_GOODS_RECOMMEND_ID,
+                        MAX(prc.CTSEQ) CTSEQ,
+                        MAX(ct.ct_code) ct_code
+                    FROM
+                        DISPLAY_GOODS_RECOMMEND prop
+                        INNER JOIN DISPLAY_GOODS_CATEGORY prc ON prop.DISPLAY_GOODS_RECOMMEND_ID = prc.DISPLAY_GOODS_ID
+                        INNER JOIN category ct ON prc.CTSEQ = ct.ct_seq
+                    WHERE
+                        prop.DISPLAY_GOODS_ID = #{displayGoodsId}
+                    GROUP BY
+                        prop.DISPLAY_GOODS_RECOMMEND_ID
+                ) prop
+            INNER JOIN DISPLAY_GOODS A ON PROP.DISPLAY_GOODS_RECOMMEND_ID = A.ID
+            INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+            INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+            INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+            INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+            INNER JOIN PRODUCT F ON E.PRCODE = F.PR_CODE
+            INNER JOIN TB_KFO_STOCK G ON F.PR_CODE = G.PRODUCT_ID
+            WHERE
+              G.DOMESTIC = #{domestic} AND A.STATUS != 2 AND A.USE = 'Y' AND A.KRVIEW = 'Y'
+              AND F.PR_STATUS = 1 AND F.PR_USE = 'Y' AND F.PR_KRVIEW = 'Y'
+            GROUP BY A.ID, PROP.CTSEQ
+        ) H
+        INNER JOIN DISPLAY_GOODS I ON H.ID = I.ID
+        INNER JOIN CATEGORY CT ON H.CTSEQ = CT.CT_SEQ
+	</select>
+
+	<!-- start of update -->
+	<update id="basketListUpdateBsEaPlus" parameterType="map" statementType="CALLABLE">
+		{CALL
+			DECLARE
+			BEGIN
+			<foreach item="updateBasket" collection="updateBasketList" separator=";" close=";">
+				UPDATE BASKET SET BS_EA = #{updateBasket.bsEa} WHERE BS_OWNERID = #{updateBasket.bsOwnerId} AND BS_PRCODE = #{updateBasket.bsPrCode} AND BS_USE = 'Y' AND BS_DIRECT = 'N'
+			</foreach>
+			END
+		}
+	</update>
+
+	<update id="basketListUpdateOwnerId" parameterType="map" statementType="CALLABLE">
+		{CALL
+			DECLARE
+			BEGIN
+			<foreach item="basketExpansion" collection="basketExpansionList" separator=";" close=";">
+				UPDATE BASKET SET BS_OWNERID = #{loginId} WHERE BS_SEQ = #{basketExpansion.basket.bsSeq} AND BS_PRCODE = #{basketExpansion.basket.bsPrCode} AND BS_USE = 'Y' AND BS_DIRECT = 'N'
+			</foreach>
+			END
+		}
+	</update>
+
+	<update id="basketUpdateBsEa" parameterType="Basket">
+		UPDATE BASKET SET BS_EA = #{bsEa}
+		WHERE BS_OWNERID = #{bsOwnerId}
+		AND BS_PRCODE= #{bsPrCode} AND BS_USE = 'Y' AND BS_DIRECT= #{bsDirect}
+	</update>
+
+	<update id="basketUpdateBsEaBySeq" parameterType="Basket">
+		/*
+		  변경이력 : 2018.08.23 layla
+			- WHERE 조건에 전시상품코드 추가
+		*/
+		UPDATE BASKET SET BS_EA = #{bsEa}
+		WHERE BS_OWNERID = #{bsOwnerId} AND DISPLAY_GOODS_ID = #{displayGoodsId} AND BS_SEQ = #{bsSeq}
+	</update>
+
+	<update id="basketUseUpdateForBsSeq" parameterType="com.kakaofriends.front.domain.basket.BasketDto$UseUpdate">
+		UPDATE BASKET SET BS_USE = #{bsUse}
+		WHERE IN
+		<foreach collection="bsSeqList" item="bsSeq" open="(" separator="," close=")">
+			#{bsSeq}
+		</foreach>
+	</update>
+
+	<!-- start of select -->
+	<select id="selectList" resultType="com.kakaofriends.front.domain.basket.BasketData">
+		SELECT
+			BS_SEQ AS bsSeq,
+			BS_OWNERID AS bsOwnerId,
+			BS_PRCODE AS bsPrCode,
+			BS_PROPTION AS bsProOption,
+			BS_EA AS bsEa,
+			BS_CTSEQ AS bsCtSeq,
+			BS_TYPE AS bsType,
+			BS_USE AS baUse,
+			BS_MOID AS bsMoid,
+			BS_INID AS bsInId,
+			BS_MODATE AS bsMoDate,
+			BS_INDATE AS bsInDate,
+			BS_DIRECT AS bsDirect
+		FROM
+			BASKET
+		WHERE
+		BS_SEQ IN
+		<foreach collection="sequenceList" item="sequence" open="(" separator="," close=")">
+			#{sequence}
+		</foreach>
+	</select>
+
+	<select id="findByBsOwnerIdAllCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM BASKET BS
+        INNER JOIN DISPLAY_GOODS A ON A.ID = BS.DISPLAY_GOODS_ID
+        INNER JOIN DISPLAY_GOODS_DETAIL B ON A.ID = B.DISPLAY_GOODS_ID
+        INNER JOIN GOODS C ON B.GOODS_ID = C.ID
+        INNER JOIN GOODS_OPTION D ON C.ID = D.GOODS_ID
+        INNER JOIN PRODUCT_OPTION_MAPPING E ON D.ID = E.GOODS_OPTION_ID
+        INNER JOIN PRODUCT PR ON PR.PR_CODE = E.PRCODE AND BS.BS_PRCODE = E.PRCODE
+		WHERE BS_OWNERID = #{ownerId} AND BS_USE = 'Y' AND BS_DIRECT = #{bsDirect}
+	</select>
+
+	<!-- start of delete -->
+	<delete id="delete">
+		DELETE FROM
+	  		BASKET
+	  	WHERE
+	  		BS_SEQ = #{sequence}
+	</delete>
+
+	<delete id="deleteByMemberId">
+		DELETE FROM
+	  		BASKET
+	  	WHERE
+	  		BS_OWNERID = #{memberId}
+	</delete>
+
+	<delete id="basketDeleteProduct" parameterType="Basket">
+		DELETE FROM BASKET
+		WHERE BS_SEQ = #{bsSeq}
+		<!--AND BS_PRCODE = #{bsPrCode}
+		AND BS_OWNERID = #{bsOwnerId}
+		AND BS_USE = 'Y'
+		AND BS_DIRECT = #{bsDirect}
+		AND DISPLAY_GOODS_ID = #{displayGoodsId}-->
+	</delete>
+
+	<!-- layla getBsSeq -->
+	<select id="findByDisplayProductIdAllCount" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM BASKET
+		WHERE BS_OWNERID = #{ownerId} AND DISPLAY_GOODS_ID = #{displayGoodsId} AND BS_USE = 'Y' AND BS_DIRECT = 'Y'
+	</select>
+</mapper>

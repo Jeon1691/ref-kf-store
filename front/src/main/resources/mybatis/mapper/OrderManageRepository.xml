@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.OrderManageRepository">
+
+	<resultMap id="OrderAddressMap" type="com.kakaofriends.core.domain.OrderAddress">
+		<result property="oaOmNum" column="OA_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaOmOsSerial" column="OA_OSSERIAL" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaName" column="OA_NAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaTel" column="OA_TEL" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaFax" column="OA_FAX" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaPhone" column="OA_PHONE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaEmail" column="OA_EMAIL" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaLevel" column="OA_LEVEL" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaZoneCode" column="OA_ZONECODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaZipCode" column="OA_ZIPCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaAddr1" column="OA_ADDR1" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaAddr2" column="OA_ADDR2" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaAddr3" column="OA_ADDR3" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaCountryCode" column="OAMT_COUNTRYCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaCountryName" column="OAMT_COUNTRYNAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaDeliName" column="OA_DELINAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaDeliMemo" column="OA_DELIMEMO" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaType" column="OA_TYPE" javaType="DeliInOutType" typeHandler="DeliInOutTypeHandler" jdbcType="VARCHAR"/>
+		<result property="oaUse" column="OA_USE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaMoId" column="OA_MOID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaInId" column="OA_INID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaMoDate" column="OA_MODATE" javaType="date" jdbcType="TIMESTAMP"/>
+		<result property="oaInDate" column="OA_INDATE" javaType="date" jdbcType="TIMESTAMP"/>
+		<result property="oaOrderErTel" column="OA_ORDERERTEL" javaType="string" jdbcType="VARCHAR"/>
+		<result property="oaOrderErEmail" column="OA_ORDEREREMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaOmOsSerial" column="OA_OSSERIAL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerName" column="OA_BUYERNAME" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerPhone" column="OA_BUYEREMAIL" javaType="string" jdbcType="VARCHAR"/>
+        <result property="oaBuyerEmail" column="OA_BUYERPHONE" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<resultMap id="OrderSubMap" type="OrderSub">
+		<result property="osSeq" column="OS_SEQ" javaType="int" jdbcType="INTEGER"/>
+		<result property="osOmNum" column="OS_OMNUM" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osSerial" column="OS_SERIAL" javaType="int" jdbcType="INTEGER"/>
+		<result property="osPgtId" column="OS_PGTID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osPrCode" column="OS_PRCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osScpCode" column="OS_SCPCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osBcpCode" column="OS_BCPCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osBdpCode" column="OS_BDPCODE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osOwnerId" column="OS_OWNERID" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osOwnerName" column="OS_OWNERNAME" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osDeliInOutType" column="OS_DELIINOUTTYPE" javaType="string" jdbcType="VARCHAR"/>
+		<result property="osTotSaleMoney" column="OS_TOTSALEMONEY" javaType="Integer" jdbcType="INTEGER"/>
+		<result property="osInDate" column="OS_INDATE" javaType="date" jdbcType="DATE"/>
+	</resultMap>
+
+	<update id="updateOrderAddressByOrderNumber" parameterType="com.kakaofriends.front.domain.order.OrderAddressDto$request" statementType="CALLABLE">
+	{
+	CALL
+		DECLARE
+		BEGIN
+		UPDATE ORDERADDRESS
+		SET OA_NAME = TRIM(#{oaName}),
+			OA_PHONE = TRIM(#{oaOrderErTel}),
+			OA_ORDERERTEL = TRIM(#{oaOrderErTel}),
+			OA_ZONECODE = #{oaZoneCode},
+			OA_ZIPCODE = #{oaZoneCode},
+			OA_ADDR1 = #{oaAddr1},
+			OA_ADDR2 = #{oaAddr2},
+			OA_ADDR3 = #{oaAddr3, jdbcType=VARCHAR},
+			OA_DELIMEMO = #{oaDeliMemo},
+			OA_MOID = #{userId},
+			OA_MODATE = SYSDATE
+		WHERE OA_OMNUM = #{oaOmNum};
+
+		UPDATE ORDERSUB
+		SET OS_DELIMEMO = #{oaDeliMemo},
+			OS_MOID = #{userId},
+			OS_OWNERNAME = TRIM(#{oaName}),
+			OS_MODATE = SYSDATE
+		WHERE OS_OMNUM = #{oaOmNum};
+
+		UPDATE ORDERMAIN
+		SET OM_DELIMEMO = #{oaDeliMemo},
+			OM_MOID = #{userId},
+			OM_OWNERNAME = TRIM(#{oaName}),
+			OM_MODATE = SYSDATE
+		WHERE OM_NUM = #{oaOmNum};
+		END
+	}
+	</update>
+
+    <update id="updateOrderAddressBuyerInfo">
+        UPDATE ORDERADDRESS
+        SET  OA_BUYERNAME = TRIM(#{buyerName}), OA_BUYEREMAIL = TRIM(#{buyerEmail}), OA_EMAIL = TRIM(#{buyerEmail}), OA_ORDEREREMAIL = TRIM(#{buyerEmail})
+        WHERE OA_OMNUM = #{oaOmNum}
+    </update>
+
+	<select id="findOrderAddressByOrderNumber" parameterType="string" resultMap="OrderAddressMap" statementType="CALLABLE">
+		SELECT
+			OA_NAME,
+			OA_TEL,
+			OA_FAX,
+			OA_PHONE,
+			OA_EMAIL,
+			OA_ZONECODE,
+			OA_ZIPCODE,
+			OA_ADDR1,
+			OA_ADDR2,
+			OA_DELIMEMO,
+			OA_MOID,
+			OA_INID,
+			OA_ORDERERTEL,
+			OA_ORDEREREMAIL,
+			OA_BUYERNAME,
+			OA_BUYEREMAIL,
+			OA_BUYERPHONE
+		FROM ORDERADDRESS
+		WHERE OA_OMNUM = #{oaOmNum}
+	</select>
+
+	<update id="updateGiftCardForOrderCancel" parameterType="map" statementType="CALLABLE">
+		UPDATE GIFTCARD
+		SET
+		GC_USE = (select case when gcm_type = '7' then '4' else '1' end gcm_type from giftcardmaster where gc_gcmcode = gcm_code),
+		GC_STOPDATE = SYSDATE,
+		GC_OMNUM = '1',
+		GC_RESETCNT = GC_RESETCNT + 1
+		WHERE
+		GC_OMNUM = #{orderNumber}
+	</update>
+
+	<update id="updateOrderSubForOrderCancel" parameterType="map" statementType="CALLABLE">
+		<foreach item="orderSubShipping" collection="orderSubShippingList" open="DECLARE BEGIN" separator=";" close="; END;">
+		UPDATE ORDERSUB
+		SET
+			OS_TOTORIGINALMONEY = #{orderSubShipping.orderSub.osTotOriginalMoney},
+			OS_TOTSALEMONEY = #{orderSubShipping.orderSub.osTotSaleMoney},
+			OS_INEA = #{orderSubShipping.orderSub.osInEa},
+			OS_OUTEA = #{orderSubShipping.orderSub.osOutEa},
+			OS_STATUS = #{orderSubShipping.orderSub.osStatus.code},
+			OS_MOID = #{orderSubShipping.orderSub.osMoId},
+			OS_MODATE = SYSDATE
+		WHERE
+			OS_OMNUM = #{orderSubShipping.orderSub.osOmNum} AND OS_SEQ = #{orderSubShipping.orderSub.osSeq}
+		</foreach>
+	</update>
+
+	<update id="updateOrderSubForReturnRequestAll" parameterType="map" statementType="CALLABLE">
+		<foreach item="orderSubShipping" collection="orderSubShippingList" open="DECLARE BEGIN" separator=";" close="; END;">
+			UPDATE ORDERSUB
+			SET
+			OS_STATUS = #{orderSubShipping.orderSub.osStatus.code},
+			OS_MOID = #{orderSubShipping.orderSub.osMoId},
+			OS_CANCELREASON = #{orderSubShipping.orderSub.osCancelReason},
+			OS_MODATE = SYSDATE
+			WHERE
+			OS_OMNUM = #{orderSubShipping.orderSub.osOmNum} AND OS_SEQ = #{orderSubShipping.orderSub.osSeq}
+		</foreach>
+	</update>
+
+	<insert id="insertOrderSubHistoryForOrderCancel" parameterType="map" statementType="CALLABLE">
+		<foreach item="orderSubHistory" collection="orderSubHistoryList" open="DECLARE BEGIN" separator=";" close="; END;">
+		INSERT INTO ORDERSUBHISTORY
+		(
+			OSH_SEQ,
+			OSH_OMNUM,
+			OSH_OSSERIAL,
+			OSH_MEMO,
+			OSH_OSSTATUS,
+			OSH_LEVEL,
+			OSH_TYPE,
+			OSH_USE,
+			OSH_MOID,
+			OSH_INID,
+			OSH_MODATE,
+			OSH_INDATE
+		)VALUES(
+			ORDERSUB_HISTORY_SEQ.NEXTVAL,
+			#{orderSubHistory.oshOmNum},
+			#{orderSubHistory.oshOsSerial},
+			#{orderSubHistory.oshMemo},
+			#{orderSubHistory.oshOsStatus.code},
+			null,
+			null,
+			null,
+			#{orderSubHistory.oshMoId},
+			#{orderSubHistory.oshInId},
+			SYSDATE,
+			SYSDATE
+		)
+		</foreach>
+	</insert>
+
+	<update id="updateOrderSubByOrderStatus" parameterType="OrderSub" statementType="CALLABLE">
+			UPDATE ORDERSUB
+			SET
+				OS_STATUS = #{osStatus.code},
+				OS_CANCELREASON = #{osCancelReason},
+				OS_SCPCODE = #{osScpCode},
+				OS_MOID = #{osMoId},
+				OS_MODATE = SYSDATE
+			WHERE
+				OS_OMNUM = #{osOmNum} AND OS_SEQ = #{osSeq}
+	</update>
+
+	<insert id="insertOrderSubHistorByOrderStatus" parameterType="OrderSubHistory" statementType="CALLABLE">
+			INSERT INTO ORDERSUBHISTORY
+			(
+				OSH_SEQ,
+				OSH_OMNUM,
+				OSH_OSSERIAL,
+				OSH_MEMO,
+				OSH_OSSTATUS,
+				OSH_LEVEL,
+				OSH_TYPE,
+				OSH_USE,
+				OSH_MOID,
+				OSH_INID,
+				OSH_MODATE,
+				OSH_INDATE
+			)VALUES(
+				ORDERSUB_HISTORY_SEQ.NEXTVAL,
+				#{oshOmNum},
+				#{oshOsSerial},
+				#{oshMemo},
+				#{oshOsStatus.code},
+				null,
+				null,
+				null,
+				#{oshMoId},
+				#{oshInId},
+				SYSDATE,
+				SYSDATE
+			)
+	</insert>
+
+	<insert id="insertSales" parameterType="Sales" statementType="CALLABLE">
+			INSERT INTO SALES
+			(
+				SS_SEQ,
+				SS_OMNUM,
+				SS_OSSERIAL,
+				SS_SCPCODE,
+				SS_BCPCODE,
+				SS_MBID,
+				SS_ACCOUNTMONEY,
+				SS_CARDMONEY,
+				SS_KAKAOMONEY,
+				SS_PHONEMONEY,
+				SS_COUPONMONEY,
+				SS_ORIGINALMONEY,
+				SS_SALEMONEY,
+				SS_TOTORIGINALMONEY,
+				SS_TOTSALEMONEY,
+				SS_DPCODE,
+				SS_MONEYUNIT,
+				SS_CALCULATEBUSE,
+				SS_CALCULATESUSE,
+				SS_MOID,
+				SS_INID,
+				SS_MODATE,
+				SS_INDATE
+			)VALUES(
+				(SELECT NVL( MAX(SS_SEQ), 0)+1 FROM SALES),
+				#{ssOmNum},
+				#{ssOsSerial},
+				#{ssScpCode},
+				#{ssBcpCode},
+				#{ssMbId},
+				#{ssAccountMoney},
+				#{ssCardMoney},
+				#{ssKakaoMoney},
+				#{ssPhoneMoney},
+				#{ssCouponMoney},
+				#{ssOriginalMoney},
+				#{ssSaleMoney},
+				#{ssTotOriginalMoney},
+				#{ssTotSaleMoney},
+				#{ssDpCode},
+				#{ssMoneyUnit},
+				#{ssCalculateBUse},
+				#{ssCalculateSUse},
+				#{ssMoId},
+				#{ssInId},
+				SYSDATE,
+				SYSDATE
+			)
+	</insert>
+	<update id="updateOrderSubForPartition" parameterType="OrderSub" statementType="CALLABLE">
+		UPDATE ORDERSUB
+		SET
+			OS_COUPONMONEY = #{osCouponMoney},
+			OS_CARDMONEY = #{osCardMoney},
+			OS_KAKAOMONEY = #{osKakaoMoney},
+			OS_ACCOUNTMONEY = #{osAccountMoney},
+			OS_TOTORIGINALMONEY = #{osTotOriginalMoney},
+			OS_TOTSALEMONEY = #{osTotSaleMoney},
+			OS_OUTEA = #{osOutEa},
+			OS_INEA = #{osInEa},
+			OS_MOID = #{osMoId},
+			OS_MODATE = SYSDATE
+		WHERE
+		OS_OMNUM = #{osOmNum} AND OS_SEQ = #{osSeq} AND OS_SERIAL = #{osSerial}
+	</update>
+
+	<insert id="insertOrderSubForPartition" parameterType="OrderSub" statementType="CALLABLE">
+	<selectKey resultType="int" keyColumn="OS_SERIAL" keyProperty="osSerial" order="BEFORE">
+		SELECT NVL( MAX(OS_SERIAL), 0)+1 FROM ORDERSUB WHERE OS_OMNUM = #{osOmNum}
+	</selectKey>
+	INSERT INTO ORDERSUB
+	(
+		OS_SEQ,
+		OS_OMNUM,
+		OS_SERIAL,
+		OS_PGTID,
+		OS_PRCODE,
+		OS_SCPCODE,
+		OS_BCPCODE,
+		OS_BDPCODE,
+		OS_OWNERID,
+		OS_OWNERNAME,
+		OS_ACCOUNTMONEY,
+		OS_CARDMONEY,
+		OS_COUPONMONEY,
+		OS_LATERMONEY,
+		OS_BUDGETMONEY,
+		OS_SAVEMONEY,
+		OS_POINTMONEY,
+		OS_VIRTUALACCOUNTMONEY,
+		OS_SAVEMONEYPERCENTAGE,
+		OS_NEWSAVEMONEY,
+		OS_NEWPRSAVEMONEY,
+		OS_ORIGINALMONEY,
+		OS_SALEMONEY,
+		OS_TOTORIGINALMONEY,
+		OS_TOTSALEMONEY,
+		OS_EA,
+		OS_OUTEA,
+		OS_INEA,
+		OS_BGISEQ,
+		OS_RELEASENUM,
+		OS_OPTIONNAME,
+		OS_MEMO,
+		OS_REFUNDACCOUNT,
+		OS_REFUNDACCOUNTBANK,
+		OS_REFUNDACCOUNTNAME,
+		OS_REFUNDSTATUS,
+		OS_CPPAYTYPE,
+		OS_VATUSE,
+		OS_ESCROWUSE,
+		OS_ESCROWSTATUS,
+		OS_PARTCANCELUSE,
+		OS_BUYCALCULATE,
+		OS_SUPPLYCALCULATE,
+		OS_DELITYPE,
+		OS_DELIPAYTYPE,
+		OS_DELIMOENYUSE,
+		OS_DELIMEMO,
+		OS_DELINUM,
+		OS_DELIBOXEA,
+		OS_PCCSEQ,
+		OS_STATUS,
+		OS_ETC1,
+		OS_ETC2,
+		OS_ETC3,
+		OS_ETC4,
+		OS_ETC5,
+		OS_ETC6,
+		OS_LEVEL,
+		OS_TYPE,
+		OS_USE,
+		OS_MOID,
+		OS_INID,
+		OS_MODATE,
+		OS_INDATE,
+		OS_DEPOSITACCOUNT,
+		OS_DEPOSITACCOUNTBANK,
+		OS_DEPOSITACCOUNTINNAME,
+		OS_ACCESSTYPE,
+		OS_MINUSACCOUNTMONEY,
+		OS_MINUSCARDMONEY,
+		OS_MINUSCOUPONMONEY,
+		OS_MINUSLATERMONEY,
+		OS_MINUSBUDGETMONEY,
+		OS_MINUSSAVEMONEY,
+		OS_MINUSPOINTMONEY,
+		OS_MINUSVIRTUALACCOUNTMONEY,
+		OS_DELIINOUTTYPE,
+		OS_CARDTYPE,
+		OS_DEPOSITACCOUNTNAME,
+		OS_DEPOSITACCOUNTINDATE,
+		OS_DEPOSITACCOUNTINTIME,
+		OS_CREDITCARDNUM,
+		OS_PARENTPRCODE,
+		OS_CTSEQ,
+		OS_CANCELREASON,
+		OS_ACTADMINID,
+		OS_KAKAOMONEY,
+		OS_PHONEMONEY
+	) VALUES (
+		ordersubseq.nextval,
+		#{osOmNum, jdbcType=VARCHAR},
+		(SELECT NVL( MAX(OS_SERIAL), 0)+1 FROM ORDERSUB WHERE OS_OMNUM = #{osOmNum}),
+		#{osPgtId, jdbcType=VARCHAR},
+		#{osPrCode, jdbcType=VARCHAR},
+		#{osScpCode, jdbcType=VARCHAR},
+		#{osBcpCode, jdbcType=VARCHAR},
+		#{osBdpCode, jdbcType=VARCHAR},
+		#{osOwnerId, jdbcType=VARCHAR},
+		#{osOwnerName, jdbcType=VARCHAR},
+		#{osAccountMoney, jdbcType=INTEGER},
+		#{osCardMoney, jdbcType=INTEGER},
+		#{osCouponMoney, jdbcType=INTEGER},
+		#{osLaterMoney, jdbcType=INTEGER},
+		#{osBudgetMoney, jdbcType=INTEGER},
+		#{osSaveMoney, jdbcType=INTEGER},
+		#{osPointMoney, jdbcType=INTEGER},
+		#{osVirtualAccountMoney, jdbcType=INTEGER},
+		#{osSaveMoneyPercentage, jdbcType=INTEGER},
+		#{osNewSaveMoney, jdbcType=INTEGER},
+		#{osNewPrSaveMoney, jdbcType=INTEGER},
+		#{osOriginalMoney, jdbcType=INTEGER},
+		#{osSaleMoney, jdbcType=INTEGER},
+		#{osTotOriginalMoney, jdbcType=INTEGER},
+		#{osTotSaleMoney, jdbcType=INTEGER},
+		#{osEa, jdbcType=INTEGER},
+		#{osOutEa, jdbcType=INTEGER},
+		#{osInEa, jdbcType=INTEGER},
+		#{osBgiSeq, jdbcType=INTEGER},
+		#{osReleaseNum, jdbcType=VARCHAR},
+		#{osOptionName, jdbcType=VARCHAR},
+		#{osMemo, jdbcType=VARCHAR},
+		#{osRefundAccount, jdbcType=VARCHAR},
+		#{osRefundAccountBank, jdbcType=VARCHAR},
+		#{osRefundAccountName, jdbcType=VARCHAR},
+		#{osRefundStatus, jdbcType=VARCHAR},
+		#{osCpPayType, jdbcType=VARCHAR},
+		#{osVatUse, jdbcType=VARCHAR},
+		#{osEscRowUse, jdbcType=VARCHAR},
+		#{osEscRowStatus, jdbcType=VARCHAR},
+		#{osPartCancelUse, jdbcType=VARCHAR},
+		#{osBuyCalculate, jdbcType=VARCHAR},
+		#{osSupplyCalculate, jdbcType=VARCHAR},
+		#{osDeliType, jdbcType=VARCHAR},
+		#{osDeliPayType, jdbcType=VARCHAR},
+		#{osDeliMoenyUse, jdbcType=VARCHAR},
+		#{osDeliMemo, jdbcType=VARCHAR},
+		#{osDeliNum, jdbcType=VARCHAR},
+		#{osDeliBoxEa, jdbcType=INTEGER},
+		#{osPccSeq, jdbcType=INTEGER},
+		#{osStatus.code, jdbcType=INTEGER},
+		#{osEtc1, jdbcType=VARCHAR},
+		#{osEtc2, jdbcType=VARCHAR},
+		#{osEtc3, jdbcType=VARCHAR},
+		#{osEtc4, jdbcType=VARCHAR},
+		#{osEtc5, jdbcType=VARCHAR},
+		#{osEtc6, jdbcType=VARCHAR},
+		#{osLevel, jdbcType=VARCHAR},
+		#{osType, jdbcType=VARCHAR},
+		#{osUse, jdbcType=VARCHAR},
+		#{osMoId, jdbcType=VARCHAR},
+		#{osInId, jdbcType=VARCHAR},
+		SYSDATE,
+		SYSDATE,
+		#{osDepositAccount, jdbcType=VARCHAR},
+		#{osDepositAccountBank, jdbcType=VARCHAR},
+		#{osDepositAccountName, jdbcType=VARCHAR},
+		#{osAccessType, jdbcType=VARCHAR},
+		#{osMinusAccountMoney, jdbcType=INTEGER},
+		#{osMinusCardMoney, jdbcType=INTEGER},
+		#{osMinusCouponMoney, jdbcType=INTEGER},
+		#{osMinusLaterMoney, jdbcType=INTEGER},
+		#{osMinusBudgetMoney, jdbcType=INTEGER},
+		#{osMinusSaveMoney, jdbcType=INTEGER},
+		#{osMinusPointMoney, jdbcType=INTEGER},
+		#{osMinusVirtualAccountMoney, jdbcType=INTEGER},
+		#{osDeliInOutType, jdbcType=VARCHAR},
+		#{osCardType, jdbcType=VARCHAR},
+		#{osDepositAccountName, jdbcType=VARCHAR},
+		#{osDepositAccountInDate, jdbcType=VARCHAR},
+		#{osDepositAccountInTime, jdbcType=VARCHAR},
+		#{osCreditCardNum, jdbcType=VARCHAR},
+		#{osParentPrCode, jdbcType=VARCHAR},
+		#{osCtSeq, jdbcType=INTEGER},
+		#{osCancelReason, jdbcType=VARCHAR},
+		#{osActAdminId, jdbcType=VARCHAR},
+		#{osKakaoMoney, jdbcType=INTEGER},
+		#{osPhoneMoney, jdbcType=INTEGER}
+	)
+	</insert>
+
+	<select id="getNonCompleteStatusCnt" parameterType="com.kakaofriends.core.domain.OrderSub" resultType="int">
+		SELECT all_cnt - exe_cnt
+		FROM(
+			SELECT count(*) all_cnt, sum(case when OS_STATUS in (9, 40000, 400000, 50000, 500000) then 1 else 0 end) exe_cnt
+			FROM ORDERSUB
+			WHERE OS_TYPE = 1
+				AND OS_ORIGINALMONEY != 0
+				AND OS_OMNUM = #{osOmNum}
+				<if test="osPrCode != null and osPrCode != '' ">
+					AND OS_PRCODE = #{osPrCode}
+				</if>
+				AND os_indate <![CDATA[>=]]> to_date('20171201', 'YYYYMMDD')
+		  )
+	</select>
+
+	<select id="getTotalPaymentByOmnum" parameterType="com.kakaofriends.core.domain.OrderSub" resultType="int">
+		SELECT SUM(OS_TOTSALEMONEY) - MAX(OS_COUPONMONEY) - MAX(OS_POINTMONEY)
+		FROM ORDERSUB
+		WHERE OS_TYPE = 1
+			AND OS_ORIGINALMONEY != 0
+			AND OS_OMNUM = #{osOmNum}
+			<if test="osPrCode != null and osPrCode != '' ">
+				AND OS_PRCODE = #{osPrCode}
+			</if>
+    		AND OS_STATUS in (9, 40000, 400000, 50000, 500000)
+		<if test="osPrCode != null and osPrCode != '' ">
+		GROUP BY OS_PRCODE
+		</if>
+
+	</select>
+
+	<select id="getPriceListByAllOrderSubStatus" resultMap="OrderSubMap">
+		SELECT OS_OMNUM, OS_OWNERID, OS_DELIINOUTTYPE, min(OS_INDATE) OS_INDATE, SUM(OS_TOTSALEMONEY - OS_COUPONMONEY - OS_POINTMONEY) OS_TOTSALEMONEY
+		FROM ORDERSUB
+			INNER JOIN KFO_MEMBER ON OS_OWNERID = ID
+		WHERE OS_TYPE = 1
+			AND OS_ORIGINALMONEY != 0
+			AND OS_STATUS in (9, 40000, 400000, 50000, 500000)
+			AND OS_OMNUM in (
+				SELECT os_omnum
+				FROM(
+					SELECT os_omnum, count(*) all_cnt, sum(case when OS_STATUS in (9, 40000, 400000, 50000, 500000) then 1 else 0 end) exe_cnt
+					FROM ORDERSUB
+					WHERE OS_TYPE = 1
+						AND OS_ORIGINALMONEY != 0
+						AND OS_INDATE <![CDATA[>=]]> (sysdate -2)
+						and os_indate <![CDATA[>=]]> to_date('20171201', 'YYYYMMDD')
+					GROUP BY os_omnum
+						)
+				WHERE all_cnt - exe_cnt <![CDATA[<=]]> 0 )
+			AND OS_OMNUM NOT IN (
+				SELECT MP_OMNUM
+				FROM TB_KFO_MBS_POINT
+				WHERE MP_TYPE = 'G' AND MP_OMNUM IS NOT NULL )
+		GROUP BY OS_OMNUM, OS_OWNERID, OS_DELIINOUTTYPE
+	</select>
+
+	<update id="updateOrderSubDeliveryForOrderCancel" parameterType="map" statementType="CALLABLE">
+		UPDATE ORDERSUB
+		SET
+			OS_TOTORIGINALMONEY = 0,
+			OS_TOTSALEMONEY = 0,
+			OS_INEA = 1,
+			OS_OUTEA = 0,
+			OS_STATUS = #{cancelStatus},
+			OS_MOID = #{moId},
+			OS_MODATE = SYSDATE
+		WHERE
+		OS_OMNUM = #{orderNumber} AND OS_TYPE = 2
+	</update>
+
+	<select id="getProductIdByOrderSub" parameterType="int" resultType="String">
+		SELECT OS_PRCODE
+		FROM ORDERSUB
+		WHERE OS_SEQ = #{osSequence}
+	</select>
+</mapper>

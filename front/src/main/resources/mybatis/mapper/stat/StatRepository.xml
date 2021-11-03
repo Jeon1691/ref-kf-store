@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.stat.StatRepository">
+
+	<insert id="insert" parameterType="com.kakaofriends.front.domain.stat.StatInflowData">
+		MERGE INTO tb_kfo_stat_inflow
+        USING dual
+        ON (site = #{site} AND indate = #{indate} AND intime = #{intime})
+            WHEN MATCHED THEN
+                UPDATE SET
+                    cnt = cnt + 1
+            WHEN NOT MATCHED THEN
+                INSERT (site, indate, intime, cnt)
+                VALUES (#{site}, #{indate}, #{intime}, 1)
+	</insert>
+</mapper>

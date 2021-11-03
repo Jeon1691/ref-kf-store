@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.AddressRepository">
+
+	<resultMap id="BaseResultMap" type="com.kakaofriends.core.domain.Address">
+		<id column="AD_SEQ" jdbcType="DECIMAL" property="adSeq"/>
+		<result column="AD_ADDR1" jdbcType="VARCHAR" property="adAddr1"/>
+		<result column="AD_ADDR2" jdbcType="VARCHAR" property="adAddr2"/>
+		<result column="AD_ZIPCODE" jdbcType="VARCHAR" property="adZipcode"/>
+		<result column="AD_TEL" jdbcType="VARCHAR" property="adTel"/>
+		<result column="AD_FAX" jdbcType="VARCHAR" property="adFax"/>
+		<result column="AD_PHONE" jdbcType="VARCHAR" property="adPhone"/>
+		<result column="AD_EMAIL" jdbcType="VARCHAR" property="adEmail"/>
+		<result column="AD_OWNERID" jdbcType="VARCHAR" property="adOwnerid"/>
+		<result column="AD_OWNERNAME" jdbcType="VARCHAR" property="adOwnername"/>
+		<result column="AD_ZONECODE" jdbcType="VARCHAR" property="adZonecode"/>
+		<result column="AD_ETC2" jdbcType="VARCHAR" property="adEtc2"/>
+		<result column="AD_ETC3" jdbcType="VARCHAR" property="adEtc3"/>
+		<result column="AD_ETC4" jdbcType="VARCHAR" property="adEtc4"/>
+		<result column="AD_ETC5" jdbcType="VARCHAR" property="adEtc5"/>
+		<result column="AD_ETC6" jdbcType="VARCHAR" property="adEtc6"/>
+		<result column="AD_LEVEL" jdbcType="VARCHAR" property="adLevel"/>
+		<result column="AD_TYPE" jdbcType="VARCHAR" property="adType"/>
+		<result column="AD_USE" jdbcType="CHAR" property="adUse"/>
+		<result column="AD_MOID" jdbcType="VARCHAR" property="adMoid"/>
+		<result column="AD_INID" jdbcType="VARCHAR" property="adInid"/>
+		<result column="AD_MODATE" jdbcType="TIMESTAMP" property="adModate"/>
+		<result column="AD_INDATE" jdbcType="TIMESTAMP" property="adIndate"/>
+	</resultMap>
+
+	<insert id="insertAddress" parameterType="Address">
+		INSERT INTO ADDRESS (
+			AD_SEQ,
+			AD_ADDR1,
+			AD_ADDR2,
+			AD_ZIPCODE,
+			AD_TEL,
+			AD_FAX,
+			AD_PHONE,
+			AD_EMAIL,
+			AD_OWNERID,
+			AD_OWNERNAME,
+			AD_ZONECODE,
+			AD_ETC2,
+			AD_ETC3,
+			AD_ETC4,
+			AD_ETC5,
+			AD_ETC6,
+			AD_LEVEL,
+			AD_TYPE,
+			AD_USE,
+			AD_MOID,
+			AD_INID,
+			AD_MODATE,
+			AD_INDATE
+		) VALUES (
+			#{adSeq, jdbcType=VARCHAR },
+			#{adAddr1, jdbcType=VARCHAR },
+			#{adAddr2, jdbcType=VARCHAR },
+			#{adZipcode, jdbcType=VARCHAR },
+			#{adTel, jdbcType=VARCHAR },
+			#{adFax, jdbcType=VARCHAR },
+			#{adPhone, jdbcType=VARCHAR },
+			#{adEmail, jdbcType=VARCHAR },
+			#{adOwnerid, jdbcType=VARCHAR },
+			#{adOwnername, jdbcType=VARCHAR },
+			#{adZonecode, jdbcType=VARCHAR },
+			#{adEtc2, jdbcType=VARCHAR },
+			#{adEtc3, jdbcType=VARCHAR },
+			#{adEtc4, jdbcType=VARCHAR },
+			#{adEtc5, jdbcType=VARCHAR },
+			#{adEtc6, jdbcType=VARCHAR },
+			#{adLevel, jdbcType=VARCHAR },
+			#{adType, jdbcType=VARCHAR },
+			#{adUse, jdbcType=VARCHAR },
+			#{adMoid, jdbcType=VARCHAR },
+			#{adInid, jdbcType=VARCHAR },
+			SYSDATE,
+			SYSDATE
+		)
+	</insert>
+
+	<select id="findMaxSeq" parameterType="map" resultType="long">
+		SELECT NVL( MAX(${ r_maxcolumn }), 0 )+1 FROM ADDRESS
+	</select>
+
+</mapper>

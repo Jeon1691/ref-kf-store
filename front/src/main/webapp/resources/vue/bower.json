@@ -1,0 +1,25 @@
+{
+  "name": "realtimeissue",
+  "version": "0.0.0",
+  "authors": [
+    "Heesang Chae <theand@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-resource": "1.2.22",
+    "angular-spinner": "~0.5.1",
+    "angular": "1.2.22",
+    "es5-shim": "~4.0.2",
+    "d3": "~3.4.11",
+    "c3": "~0.2.5",
+    "jquery": "1.11.1"
+  }
+}

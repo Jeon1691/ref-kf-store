@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.ProductLevelPriceRepository">
+
+    <!-- start of select -->
+    <select id="select" resultType="com.kakaofriends.front.domain.product.ProductLevelPriceData">
+        SELECT
+            PRLP_SEQ AS prlpSeq,
+            PRLP_PRCODE AS prlpPrcode,
+            PRLP_SUPPLYPRICE AS prlpSupplyprice,
+            PRLP_SALEPRICE1 AS prlpSaleprice1,
+            PRLP_DISCOUNTPRICE1 AS prlpDiscountprice1,
+            PRLP_MOID AS prlpMoid,
+            PRLP_INID AS prlpInid,
+            PRLP_MODATE AS prlpModate,
+            PRLP_INDATE AS prlpIndate
+        FROM
+            PRODUCTLEVELPRICE
+        WHERE
+            PRLP_PRCODE = #{productCode}
+    </select>
+
+</mapper>

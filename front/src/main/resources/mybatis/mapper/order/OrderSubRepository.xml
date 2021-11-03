@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.order.OrderSubRepository">
+
+	<update id="orderSubToSales" parameterType="hashmap">
+		INSERT INTO SALES
+		(
+			SS_SEQ, SS_OMNUM, SS_OSSERIAL, SS_SCPCODE, SS_BCPCODE, SS_MBID, SS_CARDMONEY, SS_COUPONMONEY, SS_LATERMONEY, SS_BUDGETMONEY, SS_SAVEMONEY, SS_POINTMONEY, SS_VIRTUALACCOUNTMONEY, SS_ORIGINALMONEY, SS_SALEMONEY,
+			SS_TOTORIGINALMONEY, SS_TOTSALEMONEY, SS_CALCULATEBUSE, SS_CALCULATESUSE, SS_INID, SS_INDATE, SS_ACCOUNTMONEY, SS_MONEYUNIT, SS_DPCODE
+		)
+		SELECT
+			USQ_SALES.NEXTVAL, OS_OMNUM, OS_SERIAL, OS_SCPCODE, OS_BCPCODE, OS_OWNERID, OS_CARDMONEY, OS_COUPONMONEY, OS_LATERMONEY, OS_BUDGETMONEY, OS_SAVEMONEY, OS_POINTMONEY, OS_VIRTUALACCOUNTMONEY, OS_ORIGINALMONEY, OS_SALEMONEY,
+			OS_TOTORIGINALMONEY, OS_TOTSALEMONEY, 'N', 'N', #{sessId} , SYSDATE, OS_ACCOUNTMONEY, 'won', OS_BDPCODE
+		FROM
+			ORDERSUB
+		WHERE
+			OS_OMNUM = #{omNum}
+	</update>
+
+
+	<select id="getOrderSalesData" resultType="hashmap">
+		SELECT
+		count(*) COUNTVALUE
+		,NVL(SUM(OM.OM_CARDMONEY + OM.OM_LATERMONEY + OM.OM_VIRTUALACCOUNTMONEY + OM.OM_ACCOUNTMONEY + OM.OM_KAKAOMONEY + OM.OM_PHONEMONEY + OM.OM_PAYPALMONEY), 0 ) TOTALMONEY
+		FROM  ORDERMAIN OM
+		WHERE OM.OM_PAYTYPE != 0 AND OM.OM_INDATE >= TO_DATE(#{today}, 'YYYY-MM-DD') AND OM.OM_INDATE <![CDATA[ < ]]> TO_DATE(#{today}, 'YYYY-MM-DD') + 1
+		AND OM.OM_NUM IN ( SELECT OS_OMNUM FROM ORDERSUB OS where OS.OS_STATUS NOT IN (30000, 40000, 300000, 400000) AND OS.OS_PRCODE is not null AND OS.OS_INDATE >= TO_DATE(#{today}, 'YYYY-MM-DD') AND OS.OS_INDATE <![CDATA[ < ]]> TO_DATE(#{today}, 'YYYY-MM-DD') + 1 )
+	</select>
+
+	<!-- start of select -->
+	<select id="select" resultType="com.kakaofriends.front.domain.order.OrderSubData">
+		SELECT
+			<include refid="selectFieldClause"/>
+		FROM
+			ORDERSUB
+		WHERE
+			OS_SEQ = #{sequence}
+	</select>
+
+    <select id="selectList" resultType="com.kakaofriends.front.domain.order.OrderSubData">
+		SELECT
+			<include refid="selectFieldClause"/>
+		FROM
+			ORDERSUB
+		<where>
+			<if test='osSeq != null and osSeq > 0'>
+				AND OS_SEQ = #{osSeq}
+			</if>
+			<if test='osOmNum != null and osOmNum !="" '>
+				AND OS_OMNUM = #{osOmNum}
+			</if>
+			<if test='osSerial != null and osSerial > 0'>
+				AND OS_SERIAL = #{osSerial}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByOrderNumber" resultType="com.kakaofriends.front.domain.order.OrderSubData">
+		SELECT
+			<include refid="selectFieldClause"/>
+		FROM
+			ORDERSUB
+		WHERE
+			OS_OMNUM = #{orderNumber}
+			AND OS_SERIAL = #{serial}
+	</select>
+
+	<!-- start of insert -->
+	<insert id="insert">
+		<selectKey keyProperty="orderSub.osSeq" resultType="long" order="BEFORE">
+			select ordersubseq.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO ordersub (
+			os_seq
+			, os_omnum
+			, os_serial
+			, OS_PGTID
+			, os_prcode
+			, os_scpcode
+			, os_bcpcode
+			, os_bdpcode
+			, os_ownerid
+			, os_ownername
+			, os_accountmoney
+			, os_cardmoney
+			, os_couponmoney
+			, os_pointmoney
+			, OS_ORIGINALMONEY
+			, OS_SALEMONEY
+			, OS_TOTORIGINALMONEY
+			, OS_TOTSALEMONEY
+			, OS_KAKAOMONEY
+			, OS_PAYPALMONEY
+			, OS_EA
+			, OS_OUTEA
+			, OS_INEA
+			, OS_MEMO
+			, OS_DELITYPE
+			, OS_DELIMOENYUSE
+			, OS_DELIMEMO
+			, OS_DELINUM
+			, OS_PCCSEQ
+			, OS_STATUS
+			, OS_ETC3
+			, OS_TYPE
+			, OS_USE
+			, OS_MOID
+			, OS_INID
+			, OS_MODATE
+			, OS_INDATE
+			, OS_ACCESSTYPE
+			, OS_DELIINOUTTYPE
+			, OS_CTSEQ
+			, OS_CANCELREASON
+			, OS_ETC7
+			, OS_EXCHANGERATE
+			, OS_CJFLAG
+		) VALUES (
+			#{orderSub.osSeq}
+			, #{orderSub.osOmNum}
+			, #{orderSub.osSerial}
+			, #{orderSub.osPgtId}
+			, #{orderSub.osPrCode}
+			, #{orderSub.osScpCode}
+			, #{orderSub.osBcpCode}
+			, #{orderSub.osBdpCode}
+			, #{orderSub.osOwnerId}
+			, #{orderSub.osOwnerName}
+			, #{orderSub.osAccountMoney}
+			, #{orderSub.osCardMoney}
+			, #{orderSub.osCouponMoney}
+			, #{orderSub.osPointMoney}
+			, #{orderSub.osOriginalMoney}
+			, #{orderSub.osSaleMoney}
+			, #{orderSub.osTotOriginalMoney}
+			, #{orderSub.osTotSaleMoney}
+			, #{orderSub.osKakaoMoney}
+			, #{orderSub.osPaypalMoney}
+			, #{orderSub.osEa}
+			, #{orderSub.osOutEa}
+			, #{orderSub.osInEa}
+			, #{orderSub.osMemo}
+			, #{orderSub.osDeliType}
+			, #{orderSub.osDeliMoenyUse}
+			, #{orderSub.osDeliMemo}
+			, #{orderSub.osDeliNum}
+			, #{orderSub.osPccSeq}
+			, #{orderSub.osStatus}
+			, #{orderSub.osEtc3}
+			, #{orderSub.osType}
+			, #{orderSub.osUse}
+			, #{orderSub.osMoId}
+			, #{orderSub.osInId}
+			, SYSDATE
+			, SYSDATE
+			, #{orderSub.osAccessType}
+			, #{orderSub.osDeliInOutType}
+			, #{orderSub.osCtSeq}
+			, #{orderSub.osCancelReason}
+			, #{orderSub.osEtc7}
+			, #{orderSub.osExchangeRate}
+			, #{orderSub.osCjFlag}
+		)
+	</insert>
+
+	<sql id="selectFieldClause">
+		OS_SEQ AS osSeq,
+		OS_OMNUM AS osOmNum,
+		OS_SERIAL AS osSerial,
+		OS_PGTID AS osPgtId,
+		OS_PRCODE AS osPrCode,
+		OS_SCPCODE AS osScpCode,
+		OS_BCPCODE AS osBcpCode,
+		OS_BDPCODE AS osBdpCode,
+		OS_OWNERID AS osOwnerId,
+		OS_OWNERNAME AS osOwnerName,
+		OS_ACCOUNTMONEY AS osAccountMoney,
+		OS_CARDMONEY AS osCardMoney,
+		OS_COUPONMONEY AS osCouponMoney,
+		OS_POINTMONEY AS osPointMoney,
+		OS_NEWSAVEMONEY AS osNewSaveMoney,
+		OS_ORIGINALMONEY AS osOriginalMoney,
+		OS_SALEMONEY AS osSaleMoney,
+		OS_TOTORIGINALMONEY AS osTotOriginalMoney,
+		OS_TOTSALEMONEY AS osTotSaleMoney,
+		OS_EA AS osEa,
+		OS_OUTEA AS osOutEa,
+		OS_INEA AS osInEa,
+		OS_MEMO AS osMemo,
+		OS_DELITYPE AS osDeliType,
+		OS_DELIMOENYUSE AS osDeliMoenyUse,
+		OS_DELIMEMO AS osDeliMemo,
+		OS_DELINUM AS osDeliNum,
+		OS_PCCSEQ AS osPccSeq,
+		OS_STATUS AS osStatus,
+		OS_ETC3 AS osEtc3,
+		OS_LEVEL AS osLevel,
+		OS_TYPE AS osType,
+		OS_USE AS osUse,
+		OS_MOID AS osMoId,
+		OS_INID AS osInId,
+		OS_MODATE AS osMoDate,
+		OS_INDATE AS osInDate,
+		OS_ACCESSTYPE AS osAccessType,
+		OS_DELIINOUTTYPE AS osDeliInOutType,
+		OS_CTSEQ AS osCtSeq,
+		OS_CANCELREASON AS osCancelReason,
+		OS_KAKAOMONEY AS osKakaoMoney,
+		OS_ETC7 AS osEtc7,
+		OS_EXCHANGERATE AS osExchangeRate,
+		OS_PAYPALMONEY AS osPaypalMoney,
+		OS_CJFLAG AS osCjFlag
+	</sql>
+
+</mapper>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.giftcard.GiftCardRepository">
+
+	<resultMap id="giftCardExpansionMap" type="com.kakaofriends.front.domain.GiftCardExpansion">
+		<result property="giftcard.gcCode" column="GC_CODE" />
+		<result property="giftcard.gcPrice" column="GC_PRICE" />
+		<result property="giftcard.gcUse" column="GC_USE" />
+		<result property="gcmPrice" column="GC_PRICE" />
+		<result property="gcmCode" column="GCM_CODE" />
+        <result property="gcmLevel" column="GCM_LEVEL" />
+		<result property="gcmName" column="GCM_NAME" />
+        <result property="gcmOptionType" column="GCM_OPTION_TYPE" />
+		<result property="gcmSdate" column="GC_SDATE" />
+		<result property="gcmEdate" column="GC_EDATE" />
+	</resultMap>
+
+    <select id="findOneByGiftCardCode" parameterType="String" resultMap="giftCardExpansionMap">
+		SELECT
+			GC.GC_CODE,
+			GC.GC_PRICE,
+			GC.GC_USE,
+			GC.GC_SDATE,
+			GC.GC_EDATE,
+			GCM.GCM_CODE,
+			GCM.GCM_NAME,
+			GCM.GCM_LEVEL,
+			GCM.GCM_OPTION_TYPE
+		FROM GIFTCARD GC
+		LEFT JOIN GIFTCARDMASTER GCM
+		ON GC.GC_GCMCODE = GCM.GCM_CODE
+		WHERE
+			GC.GC_CODE = #{gcCode}
+	</select>
+
+	<select id="findOneByGiftPointCardCode" parameterType="String" resultMap="giftCardExpansionMap">
+		SELECT
+		GC_CODE,
+		GC_PRICE,
+		GC_USE,
+		TO_DATE(TO_CHAR(GC_SDATE, 'YYYY.MM.DD'), 'YYYY.MM.DD') AS GC_SDATE,
+        TO_DATE(TO_CHAR(GC_EDATE, 'YYYY.MM.DD'), 'YYYY.MM.DD') AS GC_EDATE
+		FROM GIFTCARD
+		WHERE GC_CODE = #{gcCode}
+	</select>
+
+	<select id="findOneByOnlineCouponCode" parameterType="String" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory" statementType="CALLABLE">
+        SELECT
+        GC.GC_GCMCODE as CPH_GCMCODE,
+        GC.GC_CODE as CPH_CODE,
+        GC.GC_PRICE as CPH_PRICE,
+		TO_DATE(TO_CHAR(GC.GC_SDATE, 'YYYY.MM.DD HH24:MI:SS'), 'YYYY.MM.DD HH24:MI:SS') AS CPH_SDATE,
+		TO_DATE(TO_CHAR(GC.GC_EDATE, 'YYYY.MM.DD HH24:MI:SS'), 'YYYY.MM.DD HH24:MI:SS') AS CPH_EDATE,
+        GC.GC_USE as CPH_USE,
+		TO_DATE(TO_CHAR(GC.GC_USEDATE, 'YYYY.MM.DD HH24:MI:SS'), 'YYYY.MM.DD HH24:MI:SS') AS CPH_USEDATE,
+		TO_DATE(TO_CHAR(GC.GC_INDATE, 'YYYY.MM.DD HH24:MI:SS'), 'YYYY.MM.DD HH24:MI:SS') AS REG_DTTM,
+		TO_DATE(TO_CHAR(GC.GC_MODATE, 'YYYY.MM.DD HH24:MI:SS'), 'YYYY.MM.DD HH24:MI:SS') AS UPD_DTTM,
+        GC.GC_INID as REG_USER,
+        GC.GC_MOID as UPD_USER,
+        GCM.GCM_GOAL as CPH_NAME,
+        GCM.GCM_EGOAL as CPH_ENAME,
+        GCM.GCM_TYPE as CPH_TYPE,
+        GCM.GCM_LEVEL as CPH_LEVEL,
+        GCM.GCM_OPTION_TYPE as CPH_OPTION_TYPE,
+        GCM.GCM_OPTION_VALUE as CPH_OPTION_VALUE,
+        GCM.GCM_OPTION_CATEGORY as CPH_OPTION_CATEGORY,
+        GCM.GCM_DUPLICATION as CPH_DUPLICATION
+        FROM GIFTCARD GC
+
+        LEFT JOIN GIFTCARDMASTER GCM ON GCM.GCM_CODE = GC.GC_GCMCODE
+
+		WHERE GC_CODE = #{gcCode}
+	</select>
+
+	<select id="findCouonListByOmnum" parameterType="String" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+		SELECT
+			CPH_GCMCODE,
+			CPH_CODE
+		FROM TB_KFO_MBS_COUPON_HISTORY
+		WHERE cph_omnum = #{gcOmnum}
+	</select>
+
+	<!-- start of select -->
+	<select id="select" resultType="com.kakaofriends.front.domain.giftcard.GiftCardData">
+		SELECT
+			GC_GCMCODE AS gcGcmCode,
+			GC_CODE AS gcCode,
+			GC_PRICE AS gcPrice,
+			GC_SDATE AS gcSDate,
+			GC_EDATE AS gcEDate,
+			GC_PHONE AS gcPhone,
+			GC_USE AS gcUse,
+			GC_EXTCNT AS gcExtCnt,
+			GC_NAME AS gcName,
+			GC_EMAIL AS gcEmail,
+			GC_USEDATE AS gcUseDate,
+			GC_INDATE AS gcInDate,
+			GC_MODATE AS gcMoDate,
+			GC_INID AS gcInId,
+			GC_MOID AS gcMoId,
+			GC_OMNUM AS gcOmNum,
+			GC_CAL AS gcCal,
+			GC_REASON AS gcReason,
+			GC_RESETCNT AS gcResetCnt,
+			GC_EXTDATE AS gcExtDate,
+			GC_STOPDATE AS gcStopDate,
+			GC_USERID AS gcUserId
+		FROM
+			GIFTCARD
+		WHERE
+			GC_CODE = #{giftCardCode}
+	</select>
+
+	<!-- start of update -->
+	<update id="update">
+		UPDATE
+			GIFTCARD
+		SET
+			GC_MODATE = SYSDATE
+			,GC_MOID = #{giftCard.gcMoId}
+		<if test='giftCard.gcUse != null and giftCard.gcUse != "" '>
+			,GC_USE = #{giftCard.gcUse}
+		</if>
+		<if test='giftCard.gcExtCnt > 0'>
+			,GC_EXTCNT = #{giftCard.gcExtCnt}
+		</if>
+		<if test='giftCard.gcName != null and giftCard.gcName != "" '>
+			,GC_NAME = #{giftCard.gcName}
+		</if>
+		<if test='giftCard.gcEmail != null and giftCard.gcEmail != "" '>
+			,GC_EMAIL = #{giftCard.gcEmail}
+		</if>
+		<if test='giftCard.gcPhone != null and giftCard.gcPhone != "" '>
+			,GC_PHONE = #{giftCard.gcPhone}
+		</if>
+		<if test='giftCard.gcUseDate != null'>
+			,GC_USEDATE = #{giftCard.gcUseDate}
+		</if>
+		<if test='giftCard.gcOmNum != null and giftCard.gcOmNum != "" '>
+			,GC_OMNUM = #{giftCard.gcOmNum}
+		</if>
+		<if test='giftCard.gcCal != null and giftCard.gcCal != "" '>
+			,GC_CAL = #{giftCard.gcCal}
+		</if>
+		<if test='giftCard.gcReason != null and giftCard.gcReason != "" '>
+			,GC_REASON = #{giftCard.gcReason}
+		</if>
+		<if test='giftCard.gcResetCnt > 0'>
+			,GC_RESETCNT = #{giftCard.gcResetCnt}
+		</if>
+		<if test='giftCard.gcExtDate != null'>
+			,GC_EXTDATE = #{giftCard.gcExtDate}
+		</if>
+		<if test='giftCard.gcStopDate != null'>
+			,GC_STOPDATE = #{giftCard.gcStopDate}
+		</if>
+		<if test='giftCard.gcUserId != null and giftCard.gcUserId != "" '>
+			,GC_USERID = #{giftCard.gcUserId}
+		</if>
+		WHERE
+			GC_CODE = #{giftCard.gcCode}
+	</update>
+</mapper>

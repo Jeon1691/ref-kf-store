@@ -1,0 +1,673 @@
+/* 메인 공통 */
+.section_goods{
+    border-top: 0
+} /*20181121*/
+
+#mArticle {
+    padding-bottom: 0;
+}
+
+/* footer */
+#kakaoFoot {
+    background-color: #2e2e2e;
+}
+.inner_footer .txt_copy {
+    color: rgba(255, 255, 255, 0.7);
+}
+.inner_footer .link_mailto {
+    color: rgba(255, 255, 255, 0.7);
+}
+.inner_footer .link_service {
+    color: rgba(255, 255, 255, 0.7);
+}
+.inner_footer .txt_corp {
+    color: rgba(255, 255, 255, 0.7);
+}
+.inner_footer .link_service2:before {
+    display: none;
+}
+
+
+/* 공통 상품 리스트 */
+.tit_main a {color: #000}
+.section_goods .link_more {
+    display: block;
+    width: 20%;
+    height: 50px;
+    margin: 10px auto 60px;
+    line-height: 50px;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    text-align: center;
+} /*20181120*/
+
+.section_goods .link_more .ico_more_product {
+    display: inline-block;
+    width: 6px;
+    height: 10px;
+    background: url("http://t1.kakaocdn.net/friends/new_store/ico_more_product.png") no-repeat center;
+    background-size: 6px auto;
+}
+.cont_main .section_goods {padding-bottom: 0;}
+.list_goods_full .link_cart,
+.list_goods .link_cart {
+    display: block;
+    width: 15px;
+    height: 20px;
+    background: url("http://t1.kakaocdn.net/friends/new_store/ico_cart.png") no-repeat center;
+    background-size: 15px auto;
+}
+.list_goods_full .link_cart.on,
+.list_goods .link_cart.on {
+    width: 15px;
+    height: 20px;
+    background: url("http://t1.kakaocdn.net/friends/new_store/ico_cart_fill.png") no-repeat center;
+    background-size: 15px auto;
+}
+.list_goods .item_state {
+    overflow: visible;
+    margin-bottom: 0;
+}
+.list_goods li:nth-child(odd) .item_state,
+.list_goods li:nth-child(even) .item_state {
+    padding-top: 11px;
+    padding-bottom: 10px;
+}
+.txt_price span {
+    font-family: "SFProText", SFProText;
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.txt_price .prev_price {font-size: 15px;}
+
+.txt_price .currency {
+    font-family: "SFProText", SFProText;
+    font-size: 15px;
+    letter-spacing: -0.2px;
+}
+.list_goods .txt_price {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+
+/*뉴스*/
+.link_news {
+    margin-top: 20px;
+}
+.link_news .ico_news {
+    margin-top: 2px;
+}
+
+
+/*카테고리 리스트*/
+.section_nav {
+    display: none;
+}
+.section_nav .tit_main {
+    height: 70px;
+    padding-top: 100px;
+    background: url("http://t1.kakaocdn.net/friends/new_store/img_emoticon_181121.png") no-repeat 90% 0;
+    background-size: auto 250px;
+}
+.section_nav .list_category {
+    display: flex;
+    border-top: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5
+}
+.section_nav .list_category li {
+    width: calc(50% - 1px);
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+}
+.section_nav .list_category li a {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.section_nav .list_category li a .niniz {
+    margin-top: 19px;
+    display: inline-block;
+    width: 41px;
+    height: 11px;
+    background-position: -125px -65px;
+
+}
+
+/*소셜 네트워크 공유 리스트*/
+.section_kakaotalk{
+    display: none;
+    position: relative;
+    padding: 50px 0 87px;
+    text-align: center;
+}
+.section_kakaotalk strong {
+    font-size: 22px;
+    line-height: 1.2
+}
+.section_kakaotalk p {
+    margin: 10px 0 30px;
+    font-size: 13px;
+    color: rgb(111, 111, 111)
+}
+.section_kakaotalk .btn_kakaotalk {
+    width: 270px;
+    height: 60px;
+    padding-left: 40px;
+    background: url("http://t1.kakaocdn.net/friends/new_store/ico_kakaotalk.png") no-repeat 20px center #FFDD29;
+    background-size: 40px auto;
+    border-radius: 54px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #381e1f
+}
+.section_kakaotalk .friends {
+    position: absolute;
+    bottom: 25px;
+    right: 50px;
+    width: 85px;
+    height: 84px;
+    background: url("http://t1.kakaocdn.net/friends/new_store/bg_talk.png") no-repeat;
+    background-size: 100% auto;
+}
+
+/*배너 리스트*/
+.section_bnr .tit_main {
+    padding: 0 10px;
+}
+.list_bnr .link_bnr {
+    position: relative;
+}
+.list_bnr li .title {
+    z-index: 1;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: normal;
+    -webkit-text-stroke: 1px rgba(0,0,0,.1);
+    text-stroke: 1px rgba(0,0,0,.1);
+}
+
+.link_theme {
+    display: block;
+    position: relative;
+    padding: 10px 0 0;
+    color: #fff;
+}
+.link_theme .frame_thumb {
+    width: 100%;
+    height: 280px;
+}
+.link_theme .tit_main {
+    z-index: 1;
+    position: absolute;
+    top: 60px;
+    left: 40px;
+}
+.link_theme .txt_info {
+    z-index: 1;
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    font-size: 16px;
+}
+.section_bnr .tit_main {
+    display: none;
+}
+
+.section_notice {
+    margin-bottom: 10px;
+}
+
+
+/*메인 탭메뉴*/
+.header_sub_tab {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 1080px;
+    margin: 0 auto;
+    background: #fff;
+    border-bottom: 1px solid rgb(237, 237, 237)
+}
+
+.header_sub_tab li {
+    position: relative;
+    width: 25%;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+
+}
+
+.header_sub_tab li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #000;
+}
+
+.header_sub_tab li hr{
+    display: none;
+}
+.header_sub_tab li hr.on {
+    display: block;
+    height: 3px;
+    width: 55px;
+    margin-top: -2px;
+    text-align: center;
+    border: 0;
+    border-top: 3px solid #303030;
+}
+
+.header_sub_tab .new_badge {
+    position: absolute;
+    top: 5px;
+    left: 70%;
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgb(255, 97, 40);
+    text-indent: -999em;
+    font-size: 1px;
+}
+
+/*신규 탭*/
+.section_new {
+    position: relative;
+}
+.section_new .tit_sub,
+.section_new .tit_main {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding: 0;
+}
+.section_new .tit_main a {
+    position: absolute;
+    top: 35px;
+    left: 20px;
+    height: auto;
+    color: #fff
+}
+.section_new .tit_sub img,
+.section_new .tit_main img {
+    width: 100%;
+}
+.section_new .list_goods {
+    padding-top: calc(100vw / 0.77)
+}
+
+/*인기 탭*/
+.section_best .tit_main {
+    padding: 35px 20px 16px;
+    margin: 0;
+    background: url("http://t1.kakaocdn.net/friends/new_store/bg_ryan.png") bottom 0px right 30px no-repeat;
+    background-size: 74px;
+}
+.section_best .list_goods_full li {
+    position: relative;
+}
+.section_best .list_goods_full .frame_thumb {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.section_best .list_goods_full .frame_thumb img {
+    display: block;
+    width: 100%
+}
+.section_best .list_goods_full .frame_thumb:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.15)
+}
+.section_best .best_info {
+    position: absolute;
+    top: 36px;
+    left: 20px;
+}
+.section_best .label_tag {
+    display: block;
+    width: 67px;
+    height: 25px;
+    margin-bottom: 15px;
+    line-height: 25px;
+    background: #1E1E1E;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: "SFProText", SFProText;
+}
+.section_best strong {
+    margin-bottom: 7px;
+    color: #fff;
+    font-size: 28px;
+    line-height: 1.2;
+}
+.section_best p {
+    font-size: 15px;
+    color: #fff
+}
+.section_best .list_goods .label_tag {
+    z-index: 1;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 25px;
+}
+
+/*세일 탭*/
+.section_sale {padding-top: 20px;}
+.section_sale .list_goods_full li {
+    position: relative;
+    overflow: hidden;
+    width: calc(100% - 40px);
+    margin: 0 auto 18px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+.section_sale .list_goods_full .frame_thumb {
+    display: flex;
+    align-items: center;
+    width: calc(100vw - 40px);
+    height: calc(100vw - 40px);
+}
+.section_sale .list_goods_full .frame_thumb img {
+    width: 100%;
+    height: auto;
+    margin: -20px 0 20px;
+}
+.section_sale .list_goods_full .label_sale {
+    z-index: 1;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 15vw;
+    height: 15vw;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: rgb(254, 76, 76);
+    text-align: center;
+    line-height: 16vw;
+    font-size: 4vw;
+    font-weight: bold;
+    color: #fff;
+}
+.section_sale .list_goods_full a {color: #000}
+.section_sale .list_goods_full .sale_info {
+    position: absolute;
+    left: 20px;
+    bottom: 17px;
+    width: calc(100% - 40px);
+}
+.section_sale .list_goods_full strong {
+    display: block;
+    margin-bottom: -5px;
+    font-size: 16px;
+    font-weight: normal;
+}
+.section_sale .list_goods_full .txt_price {
+    font-size: 22px;
+    font-family: "SFProText", SFProText;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+}
+.section_sale .list_goods_full .prev_price {
+    color: rgb(153, 153, 153);
+    font-size: 15px;
+    font-family: "SFProText", SFProText;
+    letter-spacing: -0.3px;
+}
+.section_sale .list_goods_full .frame_thumb:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.03)
+}
+.section_sale .tit_main {
+    margin: 50px 0 20px;
+}
+.section_sale .list_goods_full .item_state {
+    position: absolute;
+    right: 0;
+    bottom: 6px;
+    margin-bottom: 0;
+}
+
+.list_goods .label_out,
+.list_goods .label_sale {
+    z-index: 1;
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 40px;
+    height: 40px;
+    padding-top: 1px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: rgb(254, 76, 76);
+    text-align: center;
+    line-height: 39px;
+    font-size: 12px;
+    font-weight: 200;
+    color: #fff;
+}
+.list_goods .label_out {background: rgba(0, 0, 0, .5);}
+
+.brand_list .list_brand li {height: 434px;} /*20181218 추가 alice*/
+
+/* mobile */
+@media all and (max-width:768px) {
+    .list_goods .label_out,
+    .list_goods .label_sale  {
+        width: 10vw;
+        height: 10vw;
+        line-height: 10.5vw;
+        font-size: 3.4vw;
+        font-weight: bold;
+    }
+
+    /* 공통 */
+    .inner_footer {padding: 0 20px 20px}
+    .inner_footer .txt_corp {padding-top: 70px}
+    .inner_footer .info_service {padding: 28px 0 20px}
+    #mArticle {padding-bottom: 0}
+
+
+    /*메인 상단 슬라이드*/
+    .cont_main .intro_main {margin-bottom: 50px}
+    .cont_main .section_bnr {padding-bottom: 60px}
+
+    /* 추천 테마 */
+    .section_goods .link_theme{
+        padding: 0 20px
+    } /*20181120*/
+
+    /* 배너 리스트 */
+    .section_bnr .tit_main {
+        padding: 0 0 0 20px;
+        display: block;
+    }
+    .link_more{
+        color: #303030;
+    }
+    .link_main {
+        color: #303030;
+    }
+    .list_bnr li{
+        float:inherit;
+        width:calc(100% - 40px);
+        margin:16px 20px 0;
+        padding:0;
+        border-radius:7px;
+        overflow:hidden;
+        position: relative;
+    } /*20181120*/
+
+    .list_goods li:nth-child(odd) .label_tag {
+        margin-left: 20px
+    }
+    .list_goods li:nth-child(even) .label_tag {
+        margin-left: 6.5px
+    }
+    .list_goods .frame_thumb:after {
+        border-radius: 7px;
+    }
+    .link_theme .frame_thumb {
+        height: auto;
+        background: none;
+    }
+    .link_theme .tit_main{
+        position: static;
+        padding-left: 0;
+        color: #000;
+        line-height: 31px;
+        font-size: 24px;
+    }
+    .link_theme .txt_info {
+        position: static;
+        padding: 13px 15px 0 0;
+        color: #000;
+        line-height: 21px;
+        font-size: 16px;
+    }
+
+    .section_goods .tit_main{
+        line-height: 31px;
+    }
+
+    .section_goods .link_more {
+        width: calc(100% - 40px);
+        font-size:16px;
+    }
+
+    .list_bnr li .title {
+        bottom: 10px;
+        left: 10px;
+        font-size: 5.3vw;
+    }
+
+
+    /* 소셜네트워크 공유 리스트 */
+    .section_notice {
+        padding: 10px 0 0;
+        background-color: #f5f5f5;
+        margin-bottom: 0;
+    }
+    .section_kakaotalk {display: block;}
+    .section_kakaotalk .btn_kakaotalk {
+        width: 180px;
+        height: 54px;
+        background-size: 33px auto;
+    }
+
+    /* 뉴스 */
+    .link_news {
+        display: flex;
+        height: 52px;
+        padding: 0 20px;
+        margin-top: 0;
+        line-height: 52px;
+        font-size: 14px;
+        background-color: #fff
+    }
+
+    .link_news em {width: 30px}
+    .link_news.en em {width: 45px;}
+    .link_news.en .txt_news {width: calc(100% - 45px)}
+    .link_news .txt_news {
+        width: calc(100% - 30px);
+        max-width: none;
+        font-size: 14px;
+        line-height: 52px;
+        color: #6f6f6f;
+    }
+    .link_news .ico_more_notice {
+        display: block;
+        float: right;
+        width: 6px;
+        height: 100%;
+        background: url("http://t1.kakaocdn.net/friends/new_store/ico_more_notice.png") no-repeat center;
+        background-size: 6px auto;
+    }
+    .link_news .ico_news {display: none}
+
+    /*카테고리 리스트*/
+    .section_nav {
+        display: block;
+        padding-top: 20px;
+    }
+    .section_nav .tit_main {
+        height: 50px;
+        padding-top: 10px;
+        background-size: auto 75px;
+    }
+    .section_nav .list_category {
+        display: flex;
+        flex-wrap: wrap;
+        border-right: 0;
+    }
+    .section_nav .list_category li {
+        width: calc(50% - 1px);
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .section_nav .list_category li:nth-child(2n) {
+        border-right: 0;
+    }
+    .section_nav .list_category li a {
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        font-size: 15px;
+        text-align: center;
+        color: #303030;
+    }
+
+
+    /*메인 탭메뉴*/
+    #kakaoContent.cont_main {margin-top: 60px}
+    .header_sub_tab {
+        display: flex;
+        width: auto;
+        padding: 0 15px;
+    }
+
+    .section_goods .list_goods {padding-top: 16px;}
+
+    .brand_list .list_brand {margin-bottom: 10px;}
+    .brand_list .list_brand li {height: auto;} /*20181218 추가 alice*/
+
+}

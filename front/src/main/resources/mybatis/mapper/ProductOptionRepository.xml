@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.ProductOptionRepository">
+
+	<resultMap id="ProductOptionMap" type="com.kakaofriends.core.domain.ProductOption">
+		<id column="PRO_SEQ" jdbcType="DECIMAL" property="proSeq"/>
+		<result column="PRO_PRCODE" jdbcType="VARCHAR" property="proPrcode"/>
+		<result column="PRO_PRCODEARR" jdbcType="VARCHAR" property="proPrcodearr"/>
+		<result column="PRO_NAME" jdbcType="VARCHAR" property="proName"/>
+		<result column="PRO_VALUE" jdbcType="VARCHAR" property="proValue"/>
+		<result column="PRO_ETC1" jdbcType="VARCHAR" property="proEtc1"/>
+		<result column="PRO_ETC2" jdbcType="VARCHAR" property="proEtc2"/>
+		<result column="PRO_ETC3" jdbcType="VARCHAR" property="proEtc3"/>
+		<result column="PRO_ETC4" jdbcType="VARCHAR" property="proEtc4"/>
+		<result column="PRO_ETC5" jdbcType="VARCHAR" property="proEtc5"/>
+		<result column="PRO_ETC6" jdbcType="VARCHAR" property="proEtc6"/>
+		<result column="PRO_LEVEL" jdbcType="VARCHAR" property="proLevel"/>
+		<result column="PRO_TYPE" jdbcType="VARCHAR" property="proType"/>
+		<result column="PRO_USE" jdbcType="CHAR" property="proUse"/>
+		<result column="PRO_MOID" jdbcType="VARCHAR" property="proMoid"/>
+		<result column="PRO_INID" jdbcType="VARCHAR" property="proInid"/>
+		<result column="PRO_MODATE" jdbcType="TIMESTAMP" property="proModate"/>
+		<result column="PRO_INDATE" jdbcType="TIMESTAMP" property="proIndate"/>
+	</resultMap>
+
+	<!-- 제대로 사용하기 위해서는 재고 테이블 STOCK -> TB_KFO_STOCK 바라보도록 수정해야 함 -->
+	<select id="productOptionFrontList" parameterType="com.kakaofriends.front.domain.product.ProductOptionDto$ProductOptionRequest" resultMap="ProductOptionMap">
+		SELECT
+			PR.*,
+			PRLP.*,
+			(SELECT /*+ INDEX(ST STOCK_INDEX1) */ NVL( SUM(ST_EA), 0 ) ST_EA FROM STOCK ST WHERE ST_PRCODE = pr.PR_CODE) ST_EA,
+			(SELECT /*+ INDEX(OS ORDERSUB_INDEX2) */ NVL( SUM(OS_EA), 0 ) OS_EA FROM ORDERSUB OS WHERE OS_PRCODE = pr.PR_CODE AND OS_STATUS = 3 AND OS_DELIINOUTTYPE = '1') OS_STATUS3,
+			(SELECT /*+ INDEX(OS ORDERSUB_INDEX2) */ NVL( SUM(OS_EA), 0 ) OS_EA FROM ORDERSUB OS WHERE OS_PRCODE = pr.PR_CODE AND OS_STATUS = 4 AND OS_DELIINOUTTYPE = '1') OS_STATUS4,
+			(SELECT /*+ INDEX(OS ORDERSUB_INDEX2) */ NVL( SUM(OS_EA), 0 ) OS_EA FROM ORDERSUB OS WHERE OS_PRCODE = pr.PR_CODE AND OS_STATUS = 5 AND OS_DELIINOUTTYPE = '1') OS_STATUS5
+		FROM
+			PRODUCT PR
+			LEFT OUTER JOIN PRODUCTLEVELPRICE PRLP ON PR.PR_CODE = PRLP.PRLP_PRCODE
+			WHERE PR_CODE IN
+			(
+				SELECT PROP_PRCODEARR
+				FROM PRODUCTOPTIONPRODUCT PROP
+				LEFT OUTER JOIN PRODUCTCATEGORY PRC ON prop.PROP_PRCODEARR = prc.PRC_PRCODE
+				LEFT OUTER JOIN CATEGORY ct on PRC.PRC_CTSEQ = ct.CT_SEQ
+				<where>
+					ct.CT_GROUPNUM1 IN( SELECT CTA_CTSEQ FROM CATEGORYAUTHORITY WHERE cta_ownerid = #{cpCode} )
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(propPrCode)">AND PROP_PRCODE = #{ propPrCode }</if>
+					<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(propProType)">AND PROP_PROTYPE = #{ propProType }</if>
+				</where>
+				GROUP BY PROP_PRCODEARR
+			)
+		<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(prStatus)">AND PR_STATUS = #{ prStatus }</if>
+		<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(pruse)">AND PR_USE = #{ prUse }</if>
+		<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(prkrview)">AND PR_KRVIEW = #{ prkrView }</if>
+		<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(orderBy)">ORDER BY ${orderBy}</if>
+	</select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.payment.PaymentHistoryRepository">
+
+    <insert id="insert" parameterType="com.kakaofriends.front.domain.payment.PaymentHistoryData">
+        INSERT INTO KFO_PAYMENT_HISTORY (
+            ID,
+            MEMBER_ID,
+            ORDER_ID,
+            TYPE,
+            ACTION,
+            PAYMENT_METHOD,
+            CURRENCY,
+            PAYMENT_AMOUNT,
+            SHIPPING_AMOUNT
+        ) VALUES (
+            SEQ_PAYMENT_HISTORY.NEXTVAL,
+            #{data.memberId},
+            #{data.orderId},
+            #{data.type},
+            #{data.action},
+            #{data.paymentMethod},
+            #{data.currency},
+            #{data.paymentAmount},
+            #{data.shippingAmount}
+        )
+    </insert>
+</mapper>

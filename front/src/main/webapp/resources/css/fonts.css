@@ -1,0 +1,94 @@
+/* NotoSans JP */
+@font-face {
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/resources/fonts/NotoSansJP-Regular.woff2) format('woff2'),
+    url(/resources/fonts/NotoSansJP-Regular.woff) format('woff'),
+    url(/resources/fonts/NotoSansJP-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans JP';
+    font-style: bold;
+    font-weight: 700;
+    src: url(/resources/fonts/NotoSansJP-Bold.woff2) format('woff2'),
+    url(/resources/fonts/NotoSansJP-Bold.woff) format('woff'),
+    url(/resources/fonts/NotoSansJP-Bold.otf) format('opentype');
+}
+
+/* NotoSans TC */
+@font-face {
+    font-family: 'Noto Sans TC';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/resources/fonts/NotoSansTC-Regular.woff2) format('woff2'),
+    url(/resources/fonts/NotoSansTC-Regular.woff) format('woff'),
+    url(/resources/fonts/NotoSansTC-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans TC';
+    font-style: bold;
+    font-weight: 700;
+    src: url(/resources/fonts/NotoSansTC-Bold.woff2) format('woff2'),
+    url(/resources/fonts/NotoSansTC-Bold.woff) format('woff'),
+    url(/resources/fonts/NotoSansTC-Bold.otf) format('opentype');
+}
+
+/* NotoSans SC */
+@font-face {
+    font-family: 'Noto Sans SC';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/resources/fonts/NotoSansSC-Regular.woff2) format('woff2'),
+    url(/resources/fonts/NotoSansSC-Regular.woff) format('woff'),
+    url(/resources/fonts/NotoSansSC-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Noto Sans SC';
+    font-style: bold;
+    font-weight: 700;
+    src: url(/resources/fonts/NotoSansSC-Bold.woff2) format('woff2'),
+    url(/resources/fonts/NotoSansSC-Bold.woff) format('woff'),
+    url(/resources/fonts/NotoSansSC-Bold.otf) format('opentype');
+}
+
+/* SFProText */
+@font-face {
+    font-family: 'SFProText';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/resources/fonts/SFProText-Regular.woff2) format('woff2'),
+    url(/resources/fonts/SFProText-Regular.woff) format('woff'),
+    url(/resources/fonts/SFProText-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'SFProText';
+    font-style: bold;
+    font-weight: 700;
+    src: url(/resources/fonts/SFProText-Semibold.woff2) format('woff2'),
+    url(/resources/fonts/SFProText-Semibold.woff) format('woff'),
+    url(/resources/fonts/SFProText-Semibold.otf) format('opentype');
+}
+
+/* SFProDisplay*/
+@font-face {
+    font-family: 'SFProDisplay';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/resources/fonts/SF-Pro-Display-regular.woff2) format('woff2'),
+    url(/resources/fonts/SF-Pro-Display-regular.woff) format('woff'),
+    url(/resources/fonts/SF-Pro-Display-regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'SFProDisplay';
+    font-style: bold;
+    font-weight: 700;
+    src: url(/resources/fonts/SF-Pro-Display-Bold.woff2) format('woff2'),
+    url(/resources/fonts/SF-Pro-Display-Bold.woff) format('woff'),
+    url(/resources/fonts/SF-Pro-Display-Bold.otf) format('opentype');
+}

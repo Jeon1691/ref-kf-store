@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.MyCouponRepository">
+
+    <select id="myAvailableCouponList" parameterType="map" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        SELECT * FROM
+          (SELECT
+                GCM.GCM_CODE AS CPH_GCMCODE,
+                GC.GC_CODE AS CPH_CODE,
+                GCM.GCM_PRICE AS CPH_PRICE,
+                GCM.GCM_NAME AS CPH_NAME,
+                GCM.GCM_NAME AS CPH_ENAME,
+                GCM.GCM_SDATE AS CPH_SDATE,
+                GCM.GCM_EDATE AS CPH_EDATE,
+                GC.GC_USE AS CPH_USE,
+                GC.GC_USEDATE AS CPH_USEDATE,
+                GC.GC_INDATE AS REG_DTTM,
+                GC.GC_MODATE AS UPD_DTTM,
+                GCM.GCM_OPTION_VALUE AS CPH_OPTION_VALUE,
+                GCM.GCM_OPTION_CATEGORY AS CPH_OPTION_CATEGORY,
+                CT.CT_NAME AS CT_NAME,
+                CT.CT_ENAME AS CT_ENAME,
+                GCM.GCM_TYPE AS CPH_TYPE,
+                GCM.GCM_OPTION_TYPE AS CPH_OPTION_TYPE,
+                GCM.GCM_DUPLICATION AS CPH_DUPLICATION
+            FROM GIFTCARDMASTER GCM
+
+            LEFT JOIN GIFTCARD GC ON GCM.GCM_CODE = GC.GC_GCMCODE
+            LEFT JOIN CATEGORY CT ON GCM.GCM_OPTION_CATEGORY = CT.CT_CODE
+
+            WHERE GC.GC_USERID = #{userId}
+              AND GC.GC_USE IN (1,4) AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') <![CDATA[<=]]> GC.GC_EDATE
+        )ORDER BY CPH_EDATE ASC
+    </select>
+
+    <select id="myCouponHistory" parameterType="map" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        SELECT * FROM (
+        SELECT
+        ROW_NUMBER() OVER (ORDER BY CPH.CPH_SEQ DESC) RNUM,
+        CPH.CPH_CODE,
+        CPH.CPH_PRICE,
+        CPH.CPH_NAME,
+        CPH.CPH_ENAME,
+        CPH.CPH_SDATE,
+        CPH.CPH_EDATE,
+        CPH.CPH_USE,
+        CPH.CPH_USEDATE,
+        CPH.REG_DTTM,
+        CPH.UPD_DTTM,
+        CPH.CPH_OMNUM,
+        CPH.CPH_OPTION_VALUE,
+        CPH.CPH_OPTION_CATEGORY,
+        CT.CT_NAME AS CT_NAME,
+        CT.CT_ENAME AS CT_ENAME,
+        CPH.CPH_TYPE,
+        CPH.CPH_OPTION_TYPE,
+        CPH.CPH_DUPLICATION
+        FROM TB_KFO_MBS_COUPON_HISTORY CPH
+
+    	LEFT JOIN CATEGORY CT ON CPH.CPH_OPTION_CATEGORY = CT.CT_CODE
+
+        WHERE CPH.CPH_USERID = #{userId}
+        ORDER BY CPH.CPH_SEQ DESC
+        )
+        WHERE RNUM BETWEEN  #{pagination.firstRecordIndex} + 1 AND #{pagination.recordCountPerPage} * #{pagination.currentPageNo}
+    </select>
+
+    <select id="myCouponHistoryOrderTitle" parameterType="String" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        SELECT CPH_TITLE, CPH_ETITLE, OMCOUNT FROM (
+            SELECT
+            PR_NAME AS CPH_TITLE,
+            PR_NAME1 AS CPH_ETITLE,
+            OS.OS_SERIAL,
+            (COUNT(DISTINCT OS_PRCODE) OVER (PARTITION BY OS_OMNUM)) AS OMCOUNT
+            FROM ORDERSUB OS
+              INNER JOIN PRODUCT PR ON OS.OS_PRCODE = PR.PR_CODE
+            WHERE OS_OMNUM = #{omNum}
+                AND OS.OS_PRCODE IS NOT NULL
+            )A
+        WHERE A.OS_SERIAL = 1
+    </select>
+
+    <insert id="myCouponInsert" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        INSERT INTO TB_KFO_MBS_COUPON_HISTORY (
+        CPH_SEQ,
+        CPH_USERID,
+        CPH_GCMCODE,
+        CPH_CODE,
+        CPH_NAME,
+        CPH_ENAME,
+        CPH_SDATE,
+        CPH_EDATE,
+        CPH_USE,
+        CPH_REGISTDATE,
+        REG_DTTM,
+        UPD_DTTM,
+        CPH_PRICE,
+        CPH_OPTION_TYPE,
+        CPH_OPTION_VALUE,
+        CPH_OPTION_CATEGORY,
+        CPH_TYPE,
+        CPH_LEVEL,
+        CPH_DUPLICATION
+        )
+        VALUES (
+        SEQ_COUPON_HISTORY_ID.NEXTVAL,
+        #{ CPH_USERID, jdbcType=VARCHAR },
+        #{ CPH_GCMCODE, jdbcType=VARCHAR },
+        #{ CPH_CODE, jdbcType=VARCHAR },
+        #{ CPH_NAME, jdbcType=VARCHAR },
+        #{ CPH_ENAME, jdbcType=VARCHAR },
+        #{ CPH_SDATE, jdbcType=DATE },
+        #{ CPH_EDATE, jdbcType=DATE },
+        '4',
+        sysdate,
+        #{ REG_DTTM, jdbcType=DATE },
+        #{ UPD_DTTM, jdbcType=DATE },
+        #{ CPH_PRICE, jdbcType=NUMERIC },
+        #{ CPH_OPTION_TYPE, jdbcType=CHAR },
+        #{ CPH_OPTION_VALUE, jdbcType=VARCHAR },
+        #{ CPH_OPTION_CATEGORY, jdbcType=NUMERIC },
+        #{ CPH_TYPE, jdbcType=VARCHAR },
+        #{ CPH_LEVEL, jdbcType=VARCHAR },
+        #{ CPH_DUPLICATION, jdbcType=VARCHAR }
+        )
+    </insert>
+
+    <select id="myCouponHistoryAllCount" parameterType="String" resultType="int" statementType="CALLABLE">
+        SELECT COUNT(*)
+        FROM TB_KFO_MBS_COUPON_HISTORY
+        WHERE CPH_USERID = #{userId}
+    </select>
+
+    <update id="myAvailableCouponUpdate" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory$Request">
+        UPDATE GIFTCARD
+          SET GC_USE = '6', GC_USEDATE = SYSDATE
+        WHERE GC_CODE = #{gcCode} AND GC_USERID = #{gcUserId}
+    </update>
+
+    <insert id="myAvailableCouponHistoryInsert" parameterType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory$Request">
+      INSERT INTO TB_KFO_MBS_COUPON_HISTORY
+        (CPH_GCMCODE,
+        CPH_CODE,
+        CPH_PRICE,
+        CPH_SDATE,
+        CPH_EDATE,
+        CPH_USE,
+        CPH_USEDATE,
+        CPH_OMNUM,
+        CPH_REGISTDATE,
+        REG_DTTM,
+        REG_USER,
+        CPH_USERID,
+        CPH_TYPE,
+        CPH_LEVEL,
+        CPH_DUPLICATION,
+        CPH_OPTION_TYPE,
+        CPH_OPTION_VALUE,
+        CPH_NAME,
+        CPH_ENAME,
+        CPH_SEQ,
+        CPH_OPTION_CATEGORY)
+      (SELECT
+        CPH_GCMCODE,
+        CPH_CODE,
+        CPH_PRICE,
+        CPH_SDATE,
+        CPH_EDATE,
+        #{gcUse, jdbcType=VARCHAR } CPH_USE,
+        <choose>
+            <when test="gcUse == '1' ">
+                null CPH_USEDATE,
+                null CPH_OMNUM,
+            </when>
+            <otherwise>
+                SYSDATE CPH_USEDATE,
+                #{ gcOmnum, jdbcType=VARCHAR } CPH_OMNUM,
+            </otherwise>
+        </choose>
+        CPH_REGISTDATE,
+        SYSDATE REG_DTTM,
+        REG_USER,
+        CPH_USERID,
+        CPH_TYPE,
+        CPH_LEVEL,
+        CPH_DUPLICATION,
+        CPH_OPTION_TYPE,
+        CPH_OPTION_VALUE,
+        CPH_NAME,
+        CPH_ENAME,
+        SEQ_COUPON_HISTORY_ID.NEXTVAL,
+        CPH_OPTION_CATEGORY
+        FROM TB_KFO_MBS_COUPON_HISTORY
+        WHERE CPH_CODE = #{gcCode, jdbcType=VARCHAR }
+        AND CPH_USERID = #{gcUserId, jdbcType=VARCHAR }
+        AND ROWNUM = 1
+      )
+    </insert>
+
+    <insert id="usrCouponExpirationListInsert">
+        INSERT INTO TB_KFO_MBS_COUPON_HISTORY (
+        CPH_SEQ,
+        CPH_GCMCODE,
+        CPH_CODE,
+        CPH_PRICE,
+        CPH_SDATE,
+        CPH_EDATE,
+        CPH_USE,
+        REG_DTTM,
+        REG_USER,
+        CPH_USERID,
+        CPH_TYPE,
+        CPH_LEVEL,
+        CPH_DUPLICATION,
+        CPH_OPTION_TYPE,
+        CPH_OPTION_VALUE,
+        CPH_NAME,
+        CPH_ENAME,
+        CPH_OPTION_CATEGORY,
+        CPH_USEDATE,
+        CPH_REGISTDATE
+        ) ( SELECT
+            SEQ_COUPON_HISTORY_ID.NEXTVAL,
+            GC.GC_GCMCODE,
+            GC.GC_CODE,
+            GC.GC_PRICE,
+            GC.GC_SDATE,
+            GC.GC_EDATE,
+            '5',
+            GC.GC_INDATE,
+            GC.GC_INID,
+            GC.GC_USERID,
+            GCM.GCM_TYPE,
+            GCM.GCM_LEVEL,
+            GCM.GCM_DUPLICATION,
+            GCM.GCM_OPTION_TYPE,
+            GCM.GCM_OPTION_VALUE,
+            GCM.GCM_GOAL,
+            GCM.GCM_EGOAL,
+            GCM.GCM_OPTION_CATEGORY,
+            GC.GC_USEDATE,
+            GC.GC_REGISTDATE
+
+            FROM GIFTCARDMASTER GCM
+
+    	    LEFT JOIN GIFTCARD GC ON GCM.GCM_CODE = GC.GC_GCMCODE
+
+            WHERE GC.GC_USE IN (1,4)
+                AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') -1 <![CDATA[<=]]> GC.GC_EDATE
+                AND GC.GC_EDATE <![CDATA[<]]> TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+          )
+    </insert>
+
+    <select id="usrCouponExpirationList" resultType="com.kakaofriends.front.domain.mypage.TbKfoMbsCouponHistory">
+        SELECT
+            GC.GC_GCMCODE,
+            GC.GC_CODE,
+            GC.GC_PRICE,
+            GC.GC_SDATE,
+            GC.GC_EDATE,
+            GC.GC_USE,
+            GC.GC_INDATE,
+            GC.GC_INID,
+            GC.GC_USERID,
+            GCM.GCM_TYPE,
+            GCM.GCM_LEVEL,
+            GCM.GCM_DUPLICATION,
+            GCM.GCM_OPTION_TYPE,
+            GCM.GCM_OPTION_VALUE,
+            GCM.GCM_GOAL,
+            GCM.GCM_EGOAL,
+            GCM.GCM_OPTION_CATEGORY,
+            GC.GC_USEDATE,
+            GC.GC_REGISTDATE
+
+            FROM GIFTCARDMASTER GCM
+
+    	    LEFT JOIN GIFTCARD GC ON GCM.GCM_CODE = GC.GC_GCMCODE
+
+            WHERE GC.GC_USE IN (1,4)
+                AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD') -1 <![CDATA[<=]]> GC.GC_EDATE
+                AND GC.GC_EDATE <![CDATA[<]]> TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+    </select>
+
+    <select id="getMyAvailableCouponCategoryListByPrct" parameterType="map" resultType="String">
+        SELECT PRC_PRCODE
+        FROM (
+            SELECT CT_SUB.CT_CODE
+            FROM CATEGORY CT_SUB
+            START WITH CT_SUB.CT_CODE = #{categoryNum}
+            CONNECT BY PRIOR CT_SUB.CT_CODE = CT_SUB.CT_PCODE
+        )
+        INNER JOIN ( SELECT PRC_CTSEQ, PRC_PRCODE
+        FROM PRODUCTCATEGORY  where PRC_PRCODE in
+        <foreach collection="bsPrCodes" item="code" separator="," open="(" close=")">
+            #{code}
+        </foreach>) PRODUCTCATEGORY ON CT_CODE = PRC_CTSEQ
+    </select>
+</mapper>

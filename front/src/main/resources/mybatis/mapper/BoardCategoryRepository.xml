@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.BoardCategoryRepository">
+  <resultMap id="BaseResultMap" type="com.kakaofriends.core.domain.BoardCategory">
+    <result column="BDC_SEQ" jdbcType="INTEGER" property="bdcSeq" />
+    <result column="BDC_BDSEQ" jdbcType="INTEGER" property="bdcBdseq" />
+    <result column="BDC_NAME" jdbcType="VARCHAR" property="bdcName" />
+    <result column="BDC_ENAME" jdbcType="VARCHAR" property="bdcEname" />
+    <result column="BDC_CNAME" jdbcType="VARCHAR" property="bdcCname" />
+    <result column="BDC_ETC3" jdbcType="VARCHAR" property="bdcEtc3" />
+    <result column="BDC_ETC4" jdbcType="VARCHAR" property="bdcEtc4" />
+    <result column="BDC_ETC5" jdbcType="VARCHAR" property="bdcEtc5" />
+    <result column="BDC_ETC6" jdbcType="VARCHAR" property="bdcEtc6" />
+    <result column="BDC_LEVEL" jdbcType="VARCHAR" property="bdcLevel" />
+    <result column="BDC_TYPE" jdbcType="VARCHAR" property="bdcType" />
+    <result column="BDC_USE" jdbcType="CHAR" property="bdcUse" />
+    <result column="BDC_MOID" jdbcType="VARCHAR" property="bdcMoid" />
+    <result column="BDC_INID" jdbcType="VARCHAR" property="bdcInid" />
+    <result column="BDC_MODATE" jdbcType="TIMESTAMP" property="bdcModate" />
+    <result column="BDC_INDATE" jdbcType="TIMESTAMP" property="bdcIndate" />
+  </resultMap>
+
+  <select id="getBoardCategoriesAll" resultMap="BaseResultMap" statementType="CALLABLE">
+    SELECT * FROM BOARDCATEGORY WHERE BDC_USE = 'Y' ORDER BY BDC_SEQ
+  </select>
+</mapper>

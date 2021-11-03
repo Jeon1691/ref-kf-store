@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.product.stock.StockRepository">
+    <select id="get" resultType="com.kakaofriends.front.domain.product.StockData">
+        SELECT
+            product_id as productId
+            , domestic as domestic
+            , available_stock as availableStock
+            , order_stock as orderStock
+            , bad_Stock as badStock
+        FROM tb_kfo_stock
+        WHERE product_id = #{productId}
+          AND domestic = #{domestic}
+    </select>
+
+    <update id="update" parameterType="com.kakaofriends.front.domain.product.StockData">
+        UPDATE tb_kfo_stock
+        <set>
+          <if test="availableStock != null and availableStock != 0">
+              available_stock = available_stock + #{availableStock},
+          </if>
+          <if test="orderStock != null and orderStock != 0">
+              order_stock = order_stock + #{orderStock},
+          </if>
+          <if test="badStock != null and badStock != 0">
+              bad_Stock = bad_Stock + #{badStock},
+          </if>
+        </set>
+        WHERE product_id = #{productId}
+        AND domestic = #{domestic}
+    </update>
+
+    <select id="getAlertStock" resultType="com.kakaofriends.front.domain.product.StockData">
+        SELECT
+          ST.AVAILABLE_STOCK AS availableStock,
+          ST.ALERT AS alert,
+          ST.ALERT_STOCK AS alertStock,
+          PR.PR_NAME AS productName
+        FROM TB_KFO_STOCK ST
+        INNER JOIN PRODUCT PR ON ST.PRODUCT_ID = PR.PR_CODE
+        WHERE ST.PRODUCT_ID = #{productId}
+          AND ST.DOMESTIC = #{domestic}
+    </select>
+</mapper>

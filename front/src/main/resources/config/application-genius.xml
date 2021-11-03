@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+	<entry key="active">genius</entry>
+
+	<entry key="jdbc.driver">oracle.jdbc.driver.OracleDriver</entry>
+	<entry key="jdbc.url">jdbc:oracle:thin:@192.168.0.3:1521:DKFSTORE</entry>
+	<entry key="jdbc.user">store</entry>
+	<entry key="jdbc.password">storedb</entry>
+	<entry key="jdbc.connectionTestQuery">SELECT 1 FROM DUAL</entry>
+
+	<!--<entry key="kakao.app.rest.key">1737d9990c3a695cd5e7a3252b3c7003</entry>
+	<entry key="kakao.app.javascript.key">b4c237d92cb112dcdfc88271082dd0b0</entry>
+
+	<entry key="kakao.app.oauth.token">https://kauth.kakao.com/oauth/token</entry>
+	<entry key="kakao.app.oauth.authorize">https://kauth.kakao.com/oauth/authorize</entry>
+	<entry key="kakao.app.oauth.redirect.url">http://genius.front-store.kakaofriends.com/kr/auth/kakaoSignIn</entry>
+	<entry key="kakao.app.oauth.redirect.path">/kr/auth/kakaoSignIn</entry>
+	<entry key="kakao.app.oauth.grant_type">authorization_code</entry>
+
+	<entry key="kakao.member.default.password">1234</entry>-->
+
+	<entry key="spring.social.kakao.app.id">1737d9990c3a695cd5e7a3252b3c7003</entry>
+
+	<entry key="mail.smtp.url">lc.mail.daum.net</entry>
+	<entry key="mail.smtp.sender.addr">store@kakaofriends.com</entry>
+	<entry key="mail.smtp.sender.name">카카오프렌즈 온라인 스토어[개발]</entry>
+	<entry key="mail.smtp.cc.add">dane@kakaofriends.com</entry>
+
+	<entry key="kakaoFriends.online.store.url">https://store.kakaofriends.com</entry>
+	<entry key="kakaoFriends.info.url">http://info.kakaofriends.com</entry>
+	<entry key="kakaoFriends.max.session">1</entry>
+	<entry key="kakaofriends.cdn.product">https://t1.daumcdn.net/friends/test/product</entry>
+	<entry key="kakaofriends.cdn.banner">https://t1.daumcdn.net/friends/test/banner</entry>
+	<entry key="kakaofriends.cdn.category">https://t1.daumcdn.net/friends/test/category</entry>
+	<entry key="kakaofriends.cdn.store">https://t1.daumcdn.net/friends/test/store</entry>
+	<entry key="kakaofriends.cdn.theme">https://t1.daumcdn.net/friends/test/theme</entry>
+
+	<entry key="kakaofriends.tenth.url">https://t1.daumcdn.net/friends</entry>
+
+	<entry key="kakaofriends.official.instagram.url">https://api.instagram.com/v1/users/self/media/recent</entry>
+	<entry key="kakaofriends.official.instagram.access_token">1962604751.adaa276.a5dd8207c44142af9fa427c2e42c5bf3</entry>
+	<entry key="kakaofriends.official.instagram.count">1</entry>
+
+	<entry key="kakaofriends.lab.instagram.url">https://api.instagram.com/v1/users/self/media/recent</entry>
+	<entry key="kakaofriends.lab.instagram.access_token">1962604751.adaa276.a5dd8207c44142af9fa427c2e42c5bf3</entry>
+	<entry key="kakaofriends.lab.instagram.count">1</entry>
+
+	<entry key="kims.domain">http://kims-api.dev.9rum.cc</entry>
+	<entry key="kims.callerNumber">15776263</entry>
+	<entry key="kims.appName">kakaofriends</entry>
+	<entry key="kims.sms.path">/api/send_sms</entry>
+	<entry key="kims.mms.path">/api/send_mms</entry>
+	<entry key="kims.ars.path">/api/send_ars</entry>
+    <entry key="kims.msg.path">/api/send_msg</entry>
+
+	<entry key="erpia.pid">kakaofriends</entry>
+	<entry key="kerpia.pwd">friends123</entry>
+	<entry key="erpia.admincode">kfriends</entry>
+
+	<entry key="ftp.ip">10.52.2.83</entry>
+	<entry key="ftp.hostname">kf-store01-file1</entry>
+	<entry key="ftp.path">friends/test</entry>
+	<entry key="ftp.port">21</entry>
+	<entry key="ftp.username">kfuser</entry>
+	<entry key="ftp.password">kfpassword</entry>
+
+	<entry key="pgIniPay50.inipayhome"></entry>
+	<entry key="pgIniPay50.mid">kfrientest</entry>
+	<entry key="pgIniPay50.admin">1111</entry>
+	<entry key="pgIniPay50.P_NEXT_URL">http://172.28.31.58:8080/kr/order/inimobile/pnexturl</entry>
+	<entry key="pgIniPay50.P_NOTI_URL">http://172.28.31.58:8080/kr/order/inimobile/pnotiurl</entry>
+	<entry key="pgIniPay50.P_RETURN_URL">http://172.28.31.58:8080/kr/order/inimobile/preturnurl</entry>
+	<entry key="pgIniPay50.P_NEXT_URL_ADD">http://172.28.31.58:8080/kr/mypage/inimobile/pnexturladd</entry>
+	<entry key="pgIniPay50.P_NOTI_URL_ADD">http://172.28.31.58:8080/kr/mypage/inimobile/pnotiurladd</entry>
+	<entry key="pgIniPay50.P_RETURN_URL_ADD">http://172.28.31.58:8080/kr/mypage/inimobile/preturnurladd</entry>
+
+	<entry key="pgKakaopay.cnsPayHome"></entry>
+	<entry key="pgKakaopay.logHome"></entry>
+	<entry key="pgKakaopay.EncodeKey">33F49GnCMS1mFYlGXisbUDzVf2ATWCl9k3R++d5hDd3Frmuos/XLx8XhXpe+LDYAbpGKZYSwtlyyLOtS/8aD7A==</entry>
+	<entry key="pgKakaopay.merchantId">cnstest25m</entry>
+	<entry key="pgKakaopay.merchantEncKey">10a3189211e1dfc6</entry>
+	<entry key="pgKakaopay.merchantHashKey">10a3189211e1dfc6</entry>
+	<entry key="pgKakaopay.CancelPwd">123456</entry>
+	<entry key="pgKakaopay.merchantUrl">https://pg.cnspay.co.kr:443</entry>
+	<entry key="pgKakaopay.webPath">https://kmpay.lgcns.com:8443/</entry>
+	<entry key="pgKakaopay.msgName">merchant/requestDealApprove.dev</entry>
+	<entry key="pgKakaopay.requestDealApproveUrl">https://kmpay.lgcns.com:8443/merchant/requestDealApprove.dev</entry>
+
+</properties>

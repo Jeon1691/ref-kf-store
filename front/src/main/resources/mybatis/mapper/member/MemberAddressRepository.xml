@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.member.MemberAddressRepository">
+	<!-- start of select -->
+	<select id="select" resultType="com.kakaofriends.front.domain.member.MemberAddressData">
+		SELECT
+			ID,
+			USERID,
+			NAME,
+			ADDR1,
+			ADDR2,
+			ADDR3,
+			ZONECODE,
+			PHONE,
+			EMAIL,
+			UPD_USER,
+			REG_USER,
+			UPD_DTTM,
+			REG_DTTM,
+			COUNTRYCODE
+		FROM
+			KFO_MEMBER_ADDRESS
+		WHERE
+			USERID = #{memberId}
+	</select>
+
+	<!-- start of insert -->
+	<insert id="insert">
+		INSERT INTO KFO_MEMBER_ADDRESS (
+			ID,
+			USERID,
+			NAME,
+			ADDR1,
+			ADDR2,
+			ADDR3,
+			ZONECODE,
+			PHONE,
+			EMAIL,
+			UPD_USER,
+			REG_USER,
+			UPD_DTTM,
+			REG_DTTM,
+			COUNTRYCODE
+		) VALUES (
+			SEQ_MEMBERADDRESS_ID.nextval,
+			#{address.userId},
+			#{address.name},
+			#{address.addr1},
+			#{address.addr2},
+			#{address.addr3},
+			#{address.zoneCode},
+			#{address.phone},
+			#{address.email},
+			#{address.updUser},
+			#{address.regUser},
+			SYSDATE,
+			SYSDATE,
+			#{address.countryCode}
+		)
+	</insert>
+
+	<!-- start of update -->
+	<update id="update">
+		UPDATE
+			KFO_MEMBER_ADDRESS
+		SET
+			NAME = #{address.name},
+			ADDR1 = #{address.addr1},
+			ADDR2 = #{address.addr2},
+			ADDR3 = #{address.addr3},
+			ZONECODE = #{address.zoneCode},
+			PHONE = #{address.phone},
+			EMAIL = #{address.email},
+			COUNTRYCODE = #{address.countryCode},
+			UPD_USER = #{address.updUser},
+			UPD_DTTM = SYSDATE
+		WHERE
+			ID = #{address.id}
+	</update>
+
+</mapper>

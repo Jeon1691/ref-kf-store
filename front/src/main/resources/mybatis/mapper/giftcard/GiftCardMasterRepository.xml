@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.giftcard.GiftCardMasterRepository">
+
+	<select id="select" resultType="com.kakaofriends.front.domain.giftcard.GiftCardMasterData">
+		SELECT
+			GCM_CODE AS gcmCode,
+			GCM_NAME AS gcmName,
+			GCM_GOAL AS gcmGoal,
+			GCM_EA AS gcmEa,
+			GCM_MSG AS gcmMsg,
+			GCM_SDATE AS gcmSDate,
+			GCM_EDATE AS gcmEDate,
+			GCM_PRICE AS gcmPrice,
+			GCM_TYPE AS gcmType,
+			GCM_INDATE AS gcmInDate,
+			GCM_MODATE AS gcmMoDate,
+			GCM_INID AS gcmInId,
+			GCM_MOID AS gcmMoId,
+			GCM_TIME AS gcmTime,
+			GCM_MEMO AS gcmMemo,
+			GCM_LEVEL AS gcmLevel,
+			GCM_OPTION_TYPE AS gcmOptionType,
+			GCM_OPTION_VALUE AS gcmOptionValue,
+			GCM_OPTION_CATEGORY AS gcmOptionCategory,
+			GCM_EGOAL AS gcmEGoal,
+			GCM_DUPLICATION AS gcmDuplication
+		FROM
+			GIFTCARDMASTER
+		WHERE
+			GCM_CODE = #{giftCardMasterCode}
+	</select>
+</mapper>

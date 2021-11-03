@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kakaofriends.front.repository.BoxRepository">
+
+    <resultMap id="boxItem" type="com.kakaofriends.front.domain.BoxItem">
+        <result property="boxPk" column="BI_BOXPK" javaType="string" jdbcType="VARCHAR"/>
+        <result property="productCode" column="BI_PRODUCTCODE" javaType="string" jdbcType="VARCHAR"/>
+        <result property="amount" column="BI_AMT" javaType="double" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <insert id="orderBoxInsert">
+        INSERT INTO ORDERBOX (
+          BOX_PK,
+          BOX_OMNUM,
+          BOX_SEQ,
+          BOX_CREATEDATE,
+          BOX_SIZE,
+          BOX_AMT,
+          BOX_STATUS,
+          BOX_ITEM_NAME
+        ) VALUES (
+          #{box.orderPk}||'-'||#{box.seq},
+          #{box.orderPk},
+          #{box.seq},
+          SYSDATE,
+          #{box.boxName},
+          #{box.amount},
+          4,
+          #{box.itemName}
+        )
+    </insert>
+
+    <insert id="orderItemInsert">
+        INSERT INTO ORDERBOXITEM (
+          BI_BOXPK,
+          BI_PRODUCTCODE,
+          BI_ORDERSUBPK,
+          BI_EA,
+          BI_SEQ,
+          BI_AMT
+        ) VALUES (
+          #{item.boxPk},
+          #{item.productCode},
+          #{item.orderPk},
+          #{item.ea},
+          #{item.seq},
+          #{item.amount}
+        )
+    </insert>
+
+    <delete id="orderBoxItemDeleteByOrderNum">
+      DELETE
+      FROM ORDERBOXITEM
+      WHERE BI_BOXPK IN (
+          SELECT BOX_OMNUM || '-' || BOX_SEQ
+          FROM ORDERBOX WHERE BOX_OMNUM = #{omNum}
+      )
+    </delete>
+
+    <delete id="orderBoxDeleteByOrderNum">
+        DELETE
+        FROM ORDERBOX
+        WHERE BOX_OMNUM = #{omNum}
+    </delete>
+
+    <select id="getBoxItems" resultMap="boxItem">
+        SELECT
+        BI_BOXPK
+        , BI_PRODUCTCODE
+        , BI_AMT
+        FROM ORDERBOXITEM
+        WHERE BI_BOXPK = #{boxPk}
+    </select>
+
+    <update id="updateBoxItemAmount">
+        UPDATE ORDERBOXITEM
+        SET
+        BI_AMT = #{amount}
+        WHERE
+        BI_BOXPK = #{boxPk} AND BI_PRODUCTCODE = #{productCode}
+    </update>
+</mapper>

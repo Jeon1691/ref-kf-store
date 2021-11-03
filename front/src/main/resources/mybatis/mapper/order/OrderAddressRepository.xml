@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.order.OrderAddressRepository">
+	<!-- start of select -->
+	<select id="select" resultType="com.kakaofriends.front.domain.order.OrderAddressData">
+		SELECT
+			OA_SEQ AS oaSeq,
+			OA_OMNUM AS oaOmNum,
+			OA_NAME AS oaName,
+			OA_ADDR1 AS oaAddr1,
+			OA_ADDR2 AS oaAddr2,
+			OA_ADDR3 AS oaAddr3,
+			OA_COUNTRYCODE AS oaCountryCode,
+			OA_COUNTRYNAME AS oaCountryName,
+			OA_PHONE AS oaPhone,
+			OA_EMAIL AS oaEmail,
+			OA_TYPE AS oaType,
+			OA_ZONECODE AS oaZoneCode,
+			OA_ZIPCODE AS oaZipCode,
+			OA_DELIMEMO AS oaDeliMemo,
+			OA_USE AS oaUse,
+			OA_MOID AS oaMoId,
+			OA_INID AS oaInId,
+			OA_MODATE AS oaMoDate,
+			OA_INDATE AS oaInDate,
+			OA_ORDERERTEL AS oaOrdererTel,
+			OA_ORDEREREMAIL AS oaOrdererEmail,
+			OA_ADDRESSTYPE AS oaAddressType,
+			OA_BUYERNAME AS oaBuyerName,
+			OA_BUYERPHONE AS oaBuyerPhone,
+			OA_BUYEREMAIL AS oaBuyerEmail,
+			OA_BUYERCOUNTRYCODE AS oaBuyerCountryCode,
+			OA_BUYERCOUNTRYNAME AS oaBuyerCountryName
+		FROM
+			ORDERADDRESS
+		WHERE
+			OA_USE = 'Y'
+			AND OA_OMNUM = #{orderNumber}
+	</select>
+	<!-- start of insert -->
+	<insert id="insert">
+		INSERT INTO ORDERADDRESS (
+			OA_SEQ
+			, OA_OMNUM
+			, OA_NAME
+			, OA_ADDR1
+			, OA_ADDR2
+			, OA_ADDR3
+			, OA_COUNTRYCODE
+			, OA_COUNTRYNAME
+			, OA_PHONE
+			, OA_EMAIL
+			, OA_TYPE
+			, OA_ZONECODE
+			, OA_ZIPCODE
+			, OA_DELIMEMO
+			, OA_USE
+			, OA_MOID
+			, OA_INID
+			, OA_MODATE
+			, OA_INDATE
+			, OA_ORDERERTEL
+			, OA_ORDEREREMAIL
+			, OA_ADDRESSTYPE
+			, OA_BUYERNAME
+			, OA_BUYERPHONE
+			, OA_BUYEREMAIL
+			, OA_BUYERCOUNTRYCODE
+			, OA_BUYERCOUNTRYNAME
+		) VALUES (
+			orderaddress_seq.nextval
+			, #{address.oaOmNum}
+			, #{address.oaName}
+			, #{address.oaAddr1}
+			, #{address.oaAddr2}
+			, #{address.oaAddr3}
+			, #{address.oaCountryCode}
+			, #{address.oaCountryName}
+			, #{address.oaPhone}
+			, #{address.oaEmail}
+			, #{address.oaType}
+			, #{address.oaZoneCode}
+			, #{address.oaZipCode}
+			, #{address.oaDeliMemo}
+			, #{address.oaUse}
+			, #{address.oaMoId}
+			, #{address.oaInId}
+			, SYSDATE
+			, SYSDATE
+			, #{address.oaOrdererTel}
+			, #{address.oaOrdererEmail}
+			, #{address.oaAddressType}
+			, #{address.oaBuyerName}
+			, #{address.oaBuyerPhone}
+			, #{address.oaBuyerEmail}
+			, #{address.oaBuyerCountryCode}
+			, #{address.oaBuyerCountryName}
+		)
+	</insert>
+</mapper>

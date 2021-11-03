@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kakaofriends.front.repository.member.point.PointRepository">
+
+	<!-- start of insert -->
+	<insert id="insert">
+		INSERT INTO TB_KFO_MBS_POINT (
+			MP_SEQ,
+			MP_USERID,
+			MP_CODE,
+			MP_OMNUM,
+			MP_TITLE,
+			MP_ETITLE,
+			MP_SDATE,
+			MP_EDATE,
+			MP_TYPE,
+			MP_AMOUNT,
+			MP_REST,
+			MP_LINK_SEQ
+		) VALUES (
+			SEQ_POINT_ID.NEXTVAL,
+			#{point.mpUserId},
+			#{point.mpCode},
+			#{point.mpOmnum},
+			#{point.mpTitle},
+			#{point.mpETitle},
+			#{point.mpSDate},
+			#{point.mpEDate},
+			#{point.mpType},
+			#{point.mpAmount},
+			#{point.mpRest},
+			#{point.mpLinkSeq}
+		)
+	</insert>
+</mapper>
